@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "345894528627",
+    "firebase_url": "https://grow-99d0d.firebaseio.com",
+    "project_id": "grow-99d0d",
+    "storage_bucket": "grow-99d0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345894528627:android:c6d2d5242d846e1ae6ec06",
+        "android_client_info": {
+          "package_name": "com.phoenix.grow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345894528627-fv2dc2q0f8ib4aoggab4a6bbe5jqrvks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdwfQvlkQ8O-7XgLVCu1woabs9dn_C-q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "345894528627-fv2dc2q0f8ib4aoggab4a6bbe5jqrvks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

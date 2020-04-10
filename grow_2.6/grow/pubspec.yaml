@@ -1,0 +1,28 @@
+name: grow
+description: Grow.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+
+  firebase_auth: ^0.14.0+5
+  firebase_database: ^3.0.7
+  cloud_firestore: ^0.11.0+2
+
+  shared_preferences: ^0.5.4+8
+  intro_slider: ^2.2.8
+  flutter_swiper: ^1.1.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,61 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
+
+//METHOD DECLARATION: AUTHENTICATION PROCESSES
+abstract class BaseAuth {
+  Future<String> signIn(String email, String password);
+
+  Future<String> signUp(String email, String password);
+
+  Future<FirebaseUser> getCurrentUser();
+
+  Future<void> sendEmailVerification();
+
+  Future<void> signOut();
+
+  Future<bool> isEmailVerified();
+}
+
+class Auth implements BaseAuth {
+  //VARIABLE INITIALIZATION: FIREBASE AUTHENTICATION
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  //MECHANICS: SIGNS IN USER WITH GIVEN EMAIL AND PASSWORD
+  Future<String> signIn(String email, String password) async {
+    AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+    FirebaseUser user = result.user;
+    return user.uid;
+  }
+
+  //MECHANICS: SIGNS UP USER WITH GIVEN EMAIL AND PASSWORD
+  Future<String> signUp(String email, String password) async {
+    AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    FirebaseUser user = result.user;
+    return user.uid;
+  }
+  
+  //MECHANICS: RETURNS CURRENT USER ID
+  Future<FirebaseUser> getCurrentUser() async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    return user;
+  }
+
+  //MECHANICS: SIGNOUT
+  Future<void> signOut() async {
+    return _firebaseAuth.signOut();
+  }
+
+  //MECHANICS: SENDS EMAIL TO VERIFY USER
+  Future<void> sendEmailVerification() async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    user.sendEmailVerification();
+  }
+
+  //MECHANICS: RETURNS IF EMAIL IS VERIFIED
+  Future<bool> isEmailVerified() async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    return user.isEmailVerified;
+  }
+}
