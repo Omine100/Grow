@@ -29,8 +29,8 @@ class DataLists {
 //MECHANICS: ICON DATA INITIALIZATION
 List<Icon> _iconListData(List<Icon> _iconList) {
   _iconList = new List<Icon>();
-  _iconList.add(Icon(Icons.add, size: 25.0,));
-  _iconList.add(Icon(Icons.delete, size: 25.0,));
+  _iconList.add(Icon(Icons.add, size: 25.0, color: Colors.white,));
+  _iconList.add(Icon(Icons.delete, size: 25.0, color: Colors.white,));
 
   return _iconList;
 }

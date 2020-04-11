@@ -148,8 +148,35 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               child: showColors(),
             ),
           ), //showColors()
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.8,
+            left: MediaQuery.of(context).size.width * 0.3,
+            child: GestureDetector(
+              onTap: () {
+                cloudFirestore.createData(_titleTextEditingController.text.toString(), iconPosition, colorPosition);
+              },
+              child: showFinishButton(),
+            ),
+          ), //showFinishButton()
         ],
       ),
     );
   }
+}
+
+//USER INTERFACE: SHOW FINISH BUTTON
+Widget showFinishButton() {
+  return new NeumorphicContainer(
+    radius: 360,
+    clickable: true,
+    height: 55,
+    width: 55,
+    padding: 1.0,
+
+    child: Icon(
+      Icons.check,
+      color: Colors.black,
+      size: 35.0,
+    ),
+  );
 }

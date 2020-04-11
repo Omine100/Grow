@@ -29,6 +29,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   //VARIABLE DECLARATION
   CloudFirestore cloudFirestore = new CloudFirestore();
+  DataLists dataLists = new DataLists();
   final db = Firestore.instance;
   int currentIndex;
 
@@ -47,9 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   //USER INTERFACE: GOAL CARD
-  Widget buildGoalCard(DocumentSnapshot document, CloudFirestore cloudFirestore) {
-    String title = document['title'];
-
+  Widget buildGoalCard(DocumentSnapshot document) {
     return new Padding(
       padding: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 20.0),
       child: GestureDetector(
@@ -71,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width * 0.32,
           child: Card(
-            color: Colors.blueGrey.shade300,
+            color: dataLists.getColorData(document['color']),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(62.0),
@@ -86,14 +85,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 Positioned(
                   top: MediaQuery.of(context).size.height * 0.1,
                   left: MediaQuery.of(context).size.width * 0.1,
-
                   child: Text(
-                    title,
+                    document['title'],
                     style: TextStyle(
                       color: Colors.white,
                     ),
                   ),
-                ),
+                ), //Title
+                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.12,
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  child: dataLists.getIconData(document['icon']),
+                ), //Icon
               ],
             ),
           ),
@@ -241,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       scrollDirection: Axis.horizontal,
                       children: snapshot.data.documents.map((DocumentSnapshot document) {
-                        return buildGoalCard(document, cloudFirestore);
+                        return buildGoalCard(document);
                       }).toList(),
                     );
                   },
