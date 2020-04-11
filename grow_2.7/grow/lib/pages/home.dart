@@ -11,6 +11,7 @@ import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/widgets/neumorphicContainer.dart';
 import 'package:grow/models/dataLists.dart';
+import 'package:grow/pages/profile.dart';
 import 'package:grow/pages/userGoal.dart';
 import 'package:grow/pages/addGoal.dart';
 
@@ -123,8 +124,14 @@ class _HomeScreenState extends State<HomeScreen> {
               left: MediaQuery.of(context).size.width * 0.775,
               child: GestureDetector(
                 onTap: () {
-                  widget.auth.signOut();
-                  widget.logoutCallback();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfileScreen(
+                      auth: widget.auth,
+                      logoutCallback: widget.logoutCallback,
+                      userId: widget.userId,
+                    ))
+                  );
                 },
                 child: showUserButton(context),
               ),
