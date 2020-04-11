@@ -29,7 +29,7 @@ class _UserGoalState extends State<UserGoal> {
     getData();
   }
 
-  //MECHANISM: READ DOCUMENTSNAPSHOT AND INITIALIZE DATA
+  //MECHANICS: READ DOCUMENTSNAPSHOT AND INITIALIZE DATA
   void getData() {
     title = getDocumentSnapshot(widget.documentSnapshot)['title'];
     date = "Date.";

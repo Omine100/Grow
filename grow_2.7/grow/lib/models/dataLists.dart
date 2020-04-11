@@ -1,31 +1,57 @@
 import 'package:flutter/material.dart';
 
 class DataLists {
-  //MECHANISM: GET ICON DATA
-  void getIconData(int position) {
-    _iconData(position);
+  //VARIABLE DECLARATION
+  List<Icon> _iconList;
+  List<Color> _colorList;
+
+  //MECHANICS: GET ICON DATA
+  Icon getIconData(int position) {
+    return _iconData(_iconList, position);
   }
 
-  //MECHANISM: GET COLOR DATA
-  void getColorData(int position) {
-    _colorData(position);
+  //MECHANICS: GET ICON LIST
+  List<Icon> getIconList() {
+    return _iconListData(_iconListData(_iconList));
+  }
+
+  //MECHANICS: GET COLOR DATA
+  Color getColorData(int position) {
+    return _colorData(_colorList, position);
+  }
+
+  //MECHANICS: GET COLOR LIST
+  List<Color> getColorList() {
+    return _colorListData(_colorListData(_colorList));
   }
 }
 
-//MECHANISM: ICON DATA INITIALIZATION AND RETURN
-IconData _iconData(int position) {
-  List<IconData> _iconList = new List<IconData>();
-  _iconList.add(Icons.add);
-  _iconList.add(Icons.delete);
+//MECHANICS: ICON DATA INITIALIZATION
+List<Icon> _iconListData(List<Icon> _iconList) {
+  _iconList = new List<Icon>();
+  _iconList.add(Icon(Icons.add, size: 25.0,));
+  _iconList.add(Icon(Icons.delete, size: 25.0,));
 
+  return _iconList;
+}
+
+//MECHANICS: ICON DATA RETURN
+Icon _iconData(List<Icon> _iconList, int position) {
+  _iconList = _iconListData(_iconList);
   return _iconList[position];
 }
 
-//MECHANISM: GET COLOR DATA INITIALIZATION AND RETURN
-Color _colorData(int position) {
-  List<Color> _colorList = new List<Color>();
+//MECHANICS: COLOR DATA INITIALIZATION
+List<Color> _colorListData(List<Color> _colorList) {
+  _colorList = new List<Color>();
   _colorList.add(Colors.blue);
   _colorList.add(Colors.black);
 
+  return _colorList;
+}
+
+//MECHANICS: GET COLOR DATA RETURN
+Color _colorData(List<Color> _colorList, int position) {
+  _colorList = _colorListData(_colorList);
   return _colorList[position];
 }

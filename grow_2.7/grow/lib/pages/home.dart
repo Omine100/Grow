@@ -5,13 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:grow/pages/addGoal.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/widgets/neumorphicContainer.dart';
-import 'package:grow/models/goal.dart';
 import 'package:grow/models/dataLists.dart';
 import 'package:grow/pages/userGoal.dart';
+import 'package:grow/pages/addGoal.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key, this.auth, this.logoutCallback, this.userId});
@@ -27,10 +28,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   //VARIABLE DECLARATION
-  int currentIndex;
   CloudFirestore cloudFirestore = new CloudFirestore();
-  DataLists _dataList = new DataLists();
   final db = Firestore.instance;
+  int currentIndex;
 
   //VARIABLE INITIALIZATION: BOTTOM NAVIGATION BAR
   @override
@@ -39,16 +39,11 @@ class _HomeScreenState extends State<HomeScreen> {
     currentIndex = 0;
   }
 
-  //MECHANISM: BOTTOM NAVIGATION BAR CHANGE PAGE
+  //MECHANICS: BOTTOM NAVIGATION BAR CHANGE PAGE
   void changePage(int index) {
     setState(() {
       currentIndex = index;
     });
-  }
-
-  //MECHANISM: GET SPECIFIC ICON DATA
-  void _getIconData(int position) {
-    _dataList.getIconData(position);
   }
 
   //USER INTERFACE: GOAL CARD
@@ -61,14 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: () {
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>
-                  UserGoal(
-                    auth: widget.auth,
-                    logoutCallback: widget.logoutCallback,
-                    userId: widget.userId,
-                    documentSnapshot: document,
-                  )
-              )
+              MaterialPageRoute(builder: (context) => UserGoal(
+                auth: widget.auth,
+                logoutCallback: widget.logoutCallback,
+                userId: widget.userId,
+                documentSnapshot: document,
+              ))
           );
         },
         onLongPress: () {
@@ -315,7 +308,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          cloudFirestore.createData("title");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddGoalScreen(
+              auth: widget.auth,
+              logoutCallback: widget.logoutCallback,
+              userId: widget.userId,
+            ))
+          );
         },
         child: Icon(
           Icons.add,

@@ -14,15 +14,19 @@ class CloudFirestore {
     String uid = user.uid;
 
     DocumentSnapshot snapshot = await db.collection(uid).document(id).get();
-    print(snapshot.data["name"]);
+    print("Read: " + snapshot.data["name"]);
   }
 
-  Future<String> createData(String title) async {
+  Future<String> createData(String title, int iconPosition, int colorPosition) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
     String uid = user.uid;
 
-    DocumentReference ref = await db.collection(uid).add({"title": title});
-    print(ref.documentID);
+    DocumentReference ref = await db.collection(uid).add({
+      "title": title,
+      "icon": iconPosition,
+      "color": colorPosition,
+    });
+    print("Created: " + ref.documentID);
     return ref.documentID;
   }
 
@@ -31,6 +35,7 @@ class CloudFirestore {
     String uid = user.uid;
 
     await db.collection(uid).document(doc.documentID).updateData({"todo": "Test"});
+    print("Updated: " + doc.documentID);
   }
 
   void deleteData(DocumentSnapshot doc) async {
@@ -38,6 +43,7 @@ class CloudFirestore {
     String uid = user.uid;
 
     await db.collection(uid).document(doc.documentID).delete();
+    print("Deleted: " + doc.documentID);
   }
 }
 
