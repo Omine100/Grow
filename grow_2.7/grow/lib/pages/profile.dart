@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grow/pages/login.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/pages/root.dart';
@@ -41,7 +42,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Theme.of(context).accentColor,
               onPressed: () {
                 widget.auth.signOut();
-                widget.logoutCallback();
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/RootScreen', (Route<dynamic> route) => false);
               },
               child: Text(
                 "Sign Out",
