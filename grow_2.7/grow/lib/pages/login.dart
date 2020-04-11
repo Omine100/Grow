@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
           print("Signed in: $userId");
         } else {
-          userId = await widget.auth.signUp(_email, _password);
+          userId = await widget.auth.signUp(_email, _password, "Matthew");
           setState(() {
             _isLoading = false;
           });

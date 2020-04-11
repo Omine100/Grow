@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:grow/pages/home.dart';
 
 class DataLists {
   //VARIABLE DECLARATION
   List<Icon> _iconList;
   List<Color> _colorList;
+  HomeScreen homeScreen = new HomeScreen();
+  bool checkDarkTheme = homeScreen.checkDarkTheme();
 
   //MECHANICS: GET ICON DATA
   Icon getIconData(int position) {

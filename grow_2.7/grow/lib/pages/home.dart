@@ -48,6 +48,43 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  //MECHANICS: CHECK DARK THEME
+  bool checkDarkTheme() {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    if (brightness == Brightness.dark) {
+      return true;
+    }
+    return false;
+  }
+
+  //USER INTERFACE: SHOW TITLE
+  Widget showTitle() {
+    return new Container(
+      height: MediaQuery.of(context).size.height * 0.09,
+      width: MediaQuery.of(context).size.width * 0.7,
+
+      child: Card(
+        color: Theme.of(context).accentColor,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.0)
+        ),
+        elevation: 10.0,
+
+        child: Padding(
+          padding: EdgeInsets.only(left: 52.0, top: 10.0),
+          child: Text(
+            "Hi, " + "Matthew",
+            style: TextStyle(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              fontSize: 40.0,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   //USER INTERFACE: GOAL CARD
   Widget buildGoalCard(DocumentSnapshot document) {
     return new Padding(
@@ -118,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Positioned(
               top: MediaQuery.of(context).size.height * 0.075,
               right: MediaQuery.of(context).size.width * 0.4,
-              child: showTitle(context),
+              child: showTitle(),
             ), //showTitle()
             Positioned(
               top: MediaQuery.of(context).size.height * 0.0525,
@@ -340,34 +377,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-//USER INTERFACE: SHOW TITLE
-Widget showTitle(BuildContext context) {
-  return new Container(
-    height: MediaQuery.of(context).size.height * 0.1,
-    width: MediaQuery.of(context).size.width * 0.7,
-
-    child: Card(
-      color: Theme.of(context).accentColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50.0)
-      ),
-      elevation: 10.0,
-
-      child: Padding(
-        padding: EdgeInsets.only(left: 60.0),
-        child: Text(
-          "GROW",
-          style: TextStyle(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            fontSize: 65.0,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
 //USER INTERFACE: SHOW USER BUTTON
 Widget showUserButton(BuildContext context) {
   return new Container(
@@ -383,7 +392,7 @@ Widget showUserButton(BuildContext context) {
       elevation: 15.0,
       child: Icon(
         Icons.person,
-        size: 55.0,
+        size: 50.0,
         color: Colors.white,
       ),
     ),
