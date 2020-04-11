@@ -23,6 +23,15 @@ class Grow extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         dialogBackgroundColor: Color.fromARGB(255, 242, 243, 248),
         accentColor: Colors.blue.shade300,
+        textSelectionColor: Colors.grey.shade700,
+        textSelectionHandleColor: Colors.grey.shade600,
+        cardColor: Colors.grey.shade300,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        accentColor: Colors.blue.shade400,
+        textSelectionColor: Colors.grey.shade400,
+        textSelectionHandleColor: Colors.grey.shade300,
       ),
     );
   }

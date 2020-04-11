@@ -66,7 +66,7 @@ class _NeumorphicContainerState extends State<NeumorphicContainer> {
                 _isPressed ? color : color.mix(Colors.black, .0725),
                 _isPressed ? color.mix(Colors.black, .05) : color,
                 _isPressed ? color.mix(Colors.black, .05) : color,
-                color.mix(Colors.white, _isPressed ? .2 : .5),
+                color.mix(Colors.white, _isPressed ? .2 : .025),
               ],
               stops: [
                 0.0,
@@ -84,7 +84,7 @@ class _NeumorphicContainerState extends State<NeumorphicContainer> {
             BoxShadow(
               blurRadius: widget.bevel,
               offset: widget.blurOffset * 1.1,
-              color: color.mix(Colors.black, .175),
+              color: color.mix(Colors.black, .25),
             )
           ],
         ),

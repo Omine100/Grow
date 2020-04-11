@@ -89,13 +89,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     document['title'],
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).textSelectionHandleColor,
+                      fontSize: 20.0,
                     ),
                   ),
                 ), //Title
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.12,
-                  left: MediaQuery.of(context).size.width * 0.1,
+                  top: MediaQuery.of(context).size.height * 0.13,
+                  left: MediaQuery.of(context).size.width * 0.12,
                   child: dataLists.getIconData(document['icon']),
                 ), //Icon
               ],
@@ -146,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     "Progress",
                     style: TextStyle(
-                        color: Colors.grey.shade700,
+                        color: Theme.of(context).textSelectionColor,
                         fontSize: 22.5,
                         fontWeight: FontWeight.w500
                     ),
@@ -157,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     "Details",
                     style: TextStyle(
-                        color: Colors.blueGrey.shade600,
+                        color: Theme.of(context).textSelectionHandleColor,
                         fontSize: 17.5,
                         fontWeight: FontWeight.w400
                     ),
@@ -207,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     "Goals",
                     style: TextStyle(
-                      color: Colors.grey.shade700,
+                      color: Theme.of(context).textSelectionColor,
                       fontSize: 22.5,
                       fontWeight: FontWeight.w500
                     ),
@@ -218,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     "Customize",
                     style: TextStyle(
-                      color: Colors.blueGrey.shade600,
+                      color: Theme.of(context).textSelectionHandleColor,
                       fontSize: 17.5,
                       fontWeight: FontWeight.w400
                     ),
@@ -269,6 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
         hasNotch: true,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         elevation: 8.0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         items: <BubbleBottomBarItem>[
           BubbleBottomBarItem(
               backgroundColor: Colors.blueAccent,
