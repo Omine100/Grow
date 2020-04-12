@@ -72,6 +72,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               child: RaisedButton(
                 onPressed: () {
                   widget.auth.sendPasswordReset("matthewrhb12321@gmail.com");
+                  Navigator.pop(context);
                 },
                 child: Text(
                   "Reset Password",
