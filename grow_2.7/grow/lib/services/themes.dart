@@ -21,7 +21,6 @@ class Themes {
   ThemeData darkTheme() {
     return ThemeData(
       brightness: Brightness.dark,
-      backgroundColor: Colors.blue.shade400,
       splashColor: Colors.grey.shade100,
       accentColor: Colors.blue.shade400,
       textSelectionColor: Colors.grey.shade300,

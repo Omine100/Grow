@@ -92,29 +92,29 @@ class _LoginScreenState extends State<LoginScreen> {
     return new TextFormField(
       keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
       style: TextStyle(
-        color: Theme.of(context).dialogBackgroundColor,
+        color: Theme.of(context).secondaryHeaderColor,
         fontSize: 22.0,
       ),
       decoration: InputDecoration(
         prefixIcon: Icon(
           isEmail ? Icons.email : Icons.lock,
-          color: Theme.of(context).dialogBackgroundColor,
+          color: Theme.of(context).secondaryHeaderColor,
         ),
         hintText: isEmail ? "Email" : "Password",
         hintStyle: TextStyle(
-          color: Theme.of(context).dialogBackgroundColor,
+          color: Theme.of(context).secondaryHeaderColor,
         ),
         labelStyle: TextStyle(
-          color: Theme.of(context).dialogBackgroundColor,
+          color: Theme.of(context).secondaryHeaderColor,
         ),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Theme.of(context).dialogBackgroundColor,
+            color: Theme.of(context).secondaryHeaderColor,
           ),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Theme.of(context).dialogBackgroundColor,
+            color: Theme.of(context).secondaryHeaderColor,
           ),
         ),
       ),
@@ -181,7 +181,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ForgotPasswordScreen())
+                            MaterialPageRoute(builder: (context) => ForgotPasswordScreen(
+                              auth: widget.auth,
+                              loginCallback: widget.loginCallback,
+                              signUpCallback: widget.signUpCallback,
+                            ))
                         );
                       },
                       child: showForgotPasswordButton(context)
@@ -207,7 +211,7 @@ Widget showTitle(BuildContext context) {
   return new Text(
     "Grow",
     style: TextStyle(
-      color: Theme.of(context).scaffoldBackgroundColor,
+      color: Theme.of(context).secondaryHeaderColor,
       fontSize: 65.0,
       fontWeight: FontWeight.w600,
     ),
@@ -225,7 +229,7 @@ Widget showSignInSignUpButton(BuildContext context, bool isSignIn) {
       child: Text(
         isSignIn ? "Login" : "Signup",
         style: TextStyle(
-          color: Theme.of(context).scaffoldBackgroundColor,
+          color: Theme.of(context).secondaryHeaderColor,
           fontWeight: FontWeight.w500,
           fontSize: 20.0,
         ),
@@ -239,7 +243,7 @@ Widget showForgotPasswordButton(BuildContext context) {
   return new Text(
     "Forgot Password",
     style: TextStyle(
-        color: Theme.of(context).dialogBackgroundColor,
+        color: Theme.of(context).secondaryHeaderColor,
         fontWeight: FontWeight.w400,
         fontSize: 15.0
     ),
