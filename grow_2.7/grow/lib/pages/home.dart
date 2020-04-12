@@ -5,10 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
-import 'package:grow/pages/addGoal.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
+import 'package:grow/services/themes.dart';
 import 'package:grow/widgets/neumorphicContainer.dart';
 import 'package:grow/models/dataLists.dart';
 import 'package:grow/pages/profile.dart';
@@ -30,6 +30,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   //VARIABLE DECLARATION
   CloudFirestore cloudFirestore = new CloudFirestore();
+  Themes themes = new Themes();
   DataLists dataLists = new DataLists();
   final db = Firestore.instance;
   int currentIndex;
@@ -46,15 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       currentIndex = index;
     });
-  }
-
-  //MECHANICS: CHECK DARK THEME
-  bool checkDarkTheme() {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    if (brightness == Brightness.dark) {
-      return true;
-    }
-    return false;
   }
 
   //USER INTERFACE: SHOW TITLE
@@ -108,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width * 0.32,
           child: Card(
-            color: dataLists.getColorData(document['color']),
+            color: dataLists.getColorData(document['color'], themes.checkDarkTheme(context)),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(62.0),

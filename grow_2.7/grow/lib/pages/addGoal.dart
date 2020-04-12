@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
+import 'package:grow/services/themes.dart';
 import 'package:grow/models/dataLists.dart';
 import 'package:grow/widgets/neumorphicContainer.dart';
+import 'package:grow/pages/home.dart';
 
 class AddGoalScreen extends StatefulWidget {
   AddGoalScreen({Key key, this.auth, this.logoutCallback, this.userId});
@@ -20,6 +22,7 @@ class AddGoalScreen extends StatefulWidget {
 class _AddGoalScreenState extends State<AddGoalScreen> {
   //VARIABLE DECLARATION
   CloudFirestore cloudFirestore = new CloudFirestore();
+  Themes themes = new Themes();
   DataLists dataLists = new DataLists();
   final _titleTextEditingController = TextEditingController();
   String iconPositionController, colorPositionController;
@@ -91,7 +94,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   //USER INTERFACE: SHOW COLORS FOR COLOR
   Widget showColors() {
     return new ListView.builder(
-      itemCount: dataLists.getColorList().length,
+      itemCount: dataLists.getColorList(themes.checkDarkTheme(context)).length,
       itemBuilder: (context, index) {
         return Padding(
           padding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 15.0, right: 15.0),
@@ -104,7 +107,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               width: 50.0,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: dataLists.getColorData(index),
+                color: dataLists.getColorData(index, themes.checkDarkTheme(context)),
               ),
               child: null,
             ),

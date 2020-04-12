@@ -6,7 +6,6 @@ class DataLists {
   List<Icon> _iconList;
   List<Color> _colorList;
   HomeScreen homeScreen = new HomeScreen();
-  bool checkDarkTheme = homeScreen.checkDarkTheme();
 
   //MECHANICS: GET ICON DATA
   Icon getIconData(int position) {
@@ -19,13 +18,13 @@ class DataLists {
   }
 
   //MECHANICS: GET COLOR DATA
-  Color getColorData(int position) {
-    return _colorData(_colorList, position);
+  Color getColorData(int position, bool darkTheme) {
+    return _colorData(_colorList, position, darkTheme);
   }
 
   //MECHANICS: GET COLOR LIST
-  List<Color> getColorList() {
-    return _colorListData(_colorListData(_colorList));
+  List<Color> getColorList(bool darkTheme) {
+    return _colorListData(_colorList, darkTheme);
   }
 }
 
@@ -45,16 +44,16 @@ Icon _iconData(List<Icon> _iconList, int position) {
 }
 
 //MECHANICS: COLOR DATA INITIALIZATION
-List<Color> _colorListData(List<Color> _colorList) {
+List<Color> _colorListData(List<Color> _colorList, bool darkTheme) {
   _colorList = new List<Color>();
-  _colorList.add(Colors.blue);
-  _colorList.add(Colors.black);
+  _colorList.add(!darkTheme ? Colors.blue.shade400 : Colors.blue.shade600);
+  _colorList.add(!darkTheme ? Colors.black : Colors.grey.shade700);
 
   return _colorList;
 }
 
 //MECHANICS: GET COLOR DATA RETURN
-Color _colorData(List<Color> _colorList, int position) {
-  _colorList = _colorListData(_colorList);
+Color _colorData(List<Color> _colorList, int position, bool darkTheme) {
+  _colorList = _colorListData(_colorList, darkTheme);
   return _colorList[position];
 }
