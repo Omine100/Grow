@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:grow/services/authentication.dart';
+import 'package:grow/pages/forgotPassword.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({this.auth, this.loginCallback, this.signUpCallback});
@@ -129,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Theme.of(context).accentColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
         child: SafeArea(
           child: SingleChildScrollView(
@@ -178,10 +179,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.35, top: MediaQuery.of(context).size.height * 0.90, bottom: 20),
                   child: GestureDetector(
                       onTap: () {
-//                        Navigator.push(
-//                            context,
-//                            MaterialPageRoute(builder: (context) => ForgotPasswordScreen())
-//                        );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ForgotPasswordScreen())
+                        );
                       },
                       child: showForgotPasswordButton(context)
                   ),
