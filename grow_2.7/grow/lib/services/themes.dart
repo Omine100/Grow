@@ -7,6 +7,7 @@ class Themes {
       primarySwatch: Colors.blue,
       backgroundColor: Colors.blue.shade200,
       scaffoldBackgroundColor: Colors.white,
+      splashColor: Colors.white,
       dialogBackgroundColor: Color.fromARGB(255, 242, 243, 248),
       accentColor: Colors.blue.shade300,
       textSelectionColor: Colors.grey.shade700,
@@ -20,9 +21,11 @@ class Themes {
   ThemeData darkTheme() {
     return ThemeData(
       brightness: Brightness.dark,
+      splashColor: Colors.grey.shade100,
       accentColor: Colors.blue.shade400,
-      textSelectionColor: Colors.grey.shade400,
-      textSelectionHandleColor: Colors.grey.shade300,
+      textSelectionColor: Colors.grey.shade300,
+      textSelectionHandleColor: Colors.grey.shade200,
+      secondaryHeaderColor: Colors.grey.shade100
     );
   }
 

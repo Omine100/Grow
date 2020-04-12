@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Text(
             "Hi, " + "Matthew",
             style: TextStyle(
-              color: Theme.of(context).scaffoldBackgroundColor,
+              color: Theme.of(context).splashColor,
               fontSize: 40.0,
               fontWeight: FontWeight.w700,
             ),
@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     document['title'],
                     style: TextStyle(
-                      color: Theme.of(context).textSelectionHandleColor,
+                      color: Theme.of(context).secondaryHeaderColor,
                       fontSize: 20.0,
                     ),
                   ),
