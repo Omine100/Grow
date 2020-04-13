@@ -128,6 +128,10 @@ class _LoginScreenState extends State<LoginScreen> {
   //USER INTERFACE: LOGIN SCREEN
   @override
   Widget build(BuildContext context) {
+    final Shader linearGradient = LinearGradient(
+      colors: <Color>[Theme.of(context).highlightColor, Theme.of(context).backgroundColor],
+    ).createShader(Rect.fromLTWH(100.0, 100.0, 200.0, 70.0));
+
     return new Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -172,13 +176,17 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ), //showInput() - Form
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.65,
-              left: MediaQuery.of(context).size.width * 0.245,
-              child: GestureDetector(
-                onTap: () {
-                  validateAndSubmit(true);
-                },
-                child: showSignInSignUpButton(context, true),
+              top: MediaQuery.of(context).size.height * 0.675,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      validateAndSubmit(true);
+                    },
+                    child: showSignInSignUpButton(context, true, linearGradient),
+                  ),
+                ),
               ),
             ), //showSignInSignUpButton() - SignIn
             Positioned(
@@ -221,21 +229,22 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 
 //USER INTERFACE: SHOW SIGN IN OR SIGN UP BUTTON
-Widget showSignInSignUpButton(BuildContext context, bool isSignIn) {
+Widget showSignInSignUpButton(BuildContext context, bool isSignIn, Shader linearGradient) {
   return new Container(
     height: 55,
-    width: MediaQuery.of(context).size.width * 0.5,
+    width: MediaQuery.of(context).size.width * 0.40,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(
         30.0
       ),
-
+      color: Colors.white,
     ),
     child: Center(
       child: Text(
         isSignIn ? "LOGIN" : "SIGN UP",
         style: TextStyle(
-          color: Theme.of(context).secondaryHeaderColor,
+          foreground: Paint()
+            ..shader = linearGradient,
           fontWeight: FontWeight.w600,
           fontSize: 25.0,
         ),
