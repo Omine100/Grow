@@ -18,14 +18,16 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   //VARIABLE DECLARATION: AUTHENTICATION AND LOADING
   final formKey = GlobalKey<FormState>();
-  String _email, _password, _errorMessage;
+  String _name, _email, _password, _errorMessage;
   bool _isLoading;
+  bool _isSignIn;
 
   //VARIABLE INITIALIZATION: ERROR MESSAGE AND LOADING VALUES
   @override
   void initState() {
     _errorMessage = "";
     _isLoading = false;
+    _isSignIn = true;
     super.initState();
   }
 
@@ -88,19 +90,22 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   //USER INTERFACE: SHOW SIGN IN OR SIGN UP INPUT FIELDS
-  Widget showInput(BuildContext context, bool isEmail) {
+  Widget showInput(BuildContext context, String text) {
     return new TextFormField(
-      keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
+      keyboardType: text == "Email" ? TextInputType.emailAddress : TextInputType.text,
       style: TextStyle(
         color: Theme.of(context).secondaryHeaderColor,
         fontSize: 22.0,
       ),
       decoration: InputDecoration(
         prefixIcon: Icon(
-          isEmail ? Icons.email : Icons.lock,
+          text != "Email" ? text == "Password" ?
+            Icons.lock :
+            Icons.person :
+            Icons.email,
           color: Theme.of(context).secondaryHeaderColor,
         ),
-        hintText: isEmail ? "Email" : "Password",
+        hintText: text,
         hintStyle: TextStyle(
           color: Theme.of(context).secondaryHeaderColor,
         ),
@@ -118,9 +123,12 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-      validator: (value) => value.isEmpty ? isEmail ? "Email can\'t be empty" : "Passowrd can\'t be empty" : null,
-      onSaved: (value) => isEmail ? _email = value.trim() : _password = value.trim(),
-      obscureText: isEmail ? false : true,
+      validator: (value) => value.isEmpty ? "$text can\'t be empty" : null,
+      onSaved: (value) => text != "Email" ? text == "Password" ?
+        _password = value.trim() :
+        _name = value.trim() :
+        _email = value.trim(),
+      obscureText: text == "Password" ? true : false,
       maxLines: 1,
     );
   }
@@ -130,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final Shader linearGradient = LinearGradient(
       colors: <Color>[Theme.of(context).highlightColor, Theme.of(context).backgroundColor],
-    ).createShader(Rect.fromLTWH(100.0, 100.0, 200.0, 70.0));
+    ).createShader(Rect.fromLTWH(110.0, 100.0, 200.0, 70.0));
 
     return new Scaffold(
       body: Container(
@@ -148,66 +156,95 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: Stack(
           children: <Widget>[
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.2875,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: Text(
-                    "Grow",
-                    style: TextStyle(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      fontSize: 65.0,
-                      fontWeight: FontWeight.w600,
+            SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: <Widget>[
+                    Padding (
+                      padding: EdgeInsets.only(
+                        top: _isSignIn ? MediaQuery.of(context).size.height * 0.2875 : MediaQuery.of(context).size.height * 0.265,
+                      ),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Center(
+                          child: Text(
+                            _isSignIn ? "Grow" : "Create Account",
+                            style: TextStyle(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              fontSize: _isSignIn ? 65.0 : 40.0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ), //showTitle()
+                    _isSignIn ?
+                      Container(
+                        height: 0.0,
+                        child: null,
+                      )
+                        :
+                      Padding(
+                        padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 33.0),
+                        child: showInput(context, "Name"),
+                      ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 50.0, right: 50.0, top: _isSignIn ? 26.0 : 20.0),
+                      child: showInput(context, "Email"),
                     ),
-                  ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 20.0),
+                      child: showInput(context, "Password"),
+                    ),
+                    _isSignIn ?
+                      Padding(
+                        padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.48, top: 30.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ForgotPasswordScreen(
+                                  auth: widget.auth,
+                                  loginCallback: widget.loginCallback,
+                                  signUpCallback: widget.signUpCallback,
+                                ))
+                            );
+                          },
+                          child: showForgotPasswordButton(context)
+                        ),
+                      ) //showForgotPasswordButton(),
+                        :
+                      Container(
+                        height: 0.0,
+                        child: null,
+                      ), //Show nothing
+                    Padding(
+                      padding: EdgeInsets.only(top: _isSignIn ? 30.0 : 48.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              validateAndSubmit(true);
+                            },
+                            child: showSignInSignUpButton(context, _isSignIn, linearGradient),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ), //showTitle()
-            Form(
-              key: formKey,
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 340.0),
-                    child: showInput(context, true),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 20.0),
-                    child: showInput(context, false),
-                  ),
-                ],
               ),
             ), //showInput() - Form
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.61,
-              left: MediaQuery.of(context).size.width * 0.59,
-              child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ForgotPasswordScreen(
-                          auth: widget.auth,
-                          loginCallback: widget.loginCallback,
-                          signUpCallback: widget.signUpCallback,
-                        ))
-                    );
-                  },
-                  child: showForgotPasswordButton(context)
-              ),
-            ), //showForgotPasswordButton()
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.675,
+              top: _isSignIn ?
+                MediaQuery.of(context).size.height * 0.675
+                  :
+                MediaQuery.of(context).size.height * 0.675,
               child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      validateAndSubmit(true);
-                    },
-                    child: showSignInSignUpButton(context, true, linearGradient),
-                  ),
-                ),
+                height: 0.0,
+                child: Text(""),
               ),
             ), //showSignInSignUpButton()
             Positioned(
@@ -217,9 +254,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Center(
                   child: GestureDetector(
                     onTap: () {
-                      print("Hehehe");
+                      setState(() {
+                        _errorMessage = "";
+                        _isLoading = false;
+                        _isSignIn = !_isSignIn;
+                      });
                     },
-                    child: showSignInSignUpAlternateText(context, true),
+                    child: showSignInSignUpAlternateText(context, _isSignIn),
                   ),
                 ),
               ),
@@ -239,8 +280,8 @@ class _LoginScreenState extends State<LoginScreen> {
 //USER INTERFACE: SHOW SIGN IN OR SIGN UP BUTTON
 Widget showSignInSignUpButton(BuildContext context, bool isSignIn, Shader linearGradient) {
   return new Container(
-    height: 55,
-    width: MediaQuery.of(context).size.width * 0.40,
+    height: 50,
+    width: MediaQuery.of(context).size.width * 0.375,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(
         30.0
@@ -254,7 +295,7 @@ Widget showSignInSignUpButton(BuildContext context, bool isSignIn, Shader linear
           foreground: Paint()
             ..shader = linearGradient,
           fontWeight: FontWeight.w600,
-          fontSize: 25.0,
+          fontSize: 22.5,
         ),
       ),
     ),
