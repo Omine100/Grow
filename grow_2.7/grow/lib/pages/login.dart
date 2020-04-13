@@ -122,7 +122,6 @@ class _LoginScreenState extends State<LoginScreen> {
       onSaved: (value) => isEmail ? _email = value.trim() : _password = value.trim(),
       obscureText: isEmail ? false : true,
       maxLines: 1,
-      maxLength: isEmail ? null : 15,
     );
   }
 
@@ -143,74 +142,71 @@ class _LoginScreenState extends State<LoginScreen> {
             ]
           ),
         ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Stack(
-              children: <Widget>[
-                Form(
-                  key: formKey,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 340.0),
-                        child: showInput(context, true),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 20.0),
-                        child: showInput(context, false),
-                      ),
-                    ],
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.2875,
+              left: MediaQuery.of(context).size.width * 0.325,
+              child: showTitle(context),
+            ), //showTitle()
+            Form(
+              key: formKey,
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 340.0),
+                    child: showInput(context, true),
                   ),
-                ), //showInput() - Form
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
-                    child: showTitle(context),
+                  Padding(
+                    padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 20.0),
+                    child: showInput(context, false),
                   ),
-                ), //showTitle()
-                Padding(
-                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.275, top: 540, bottom: 20),
-                  child: GestureDetector(
-                    onTap: () {
-                      validateAndSubmit(true);
-                    },
-                    child: showSignInSignUpButton(context, true),
-                  ),
-                ), //showSignInSignUpButton() - SignIn
-                Padding(
-                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.525, top: 540, bottom: 20),
-                  child: GestureDetector(
-                    onTap: () {
-                      validateAndSubmit(false);
-                    },
-                    child: showSignInSignUpButton(context, false),
-                  ),
-                ), //showSignInSignUpButton() - SignUp
-                Padding(
-                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.35, top: MediaQuery.of(context).size.height * 0.90, bottom: 20),
-                  child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ForgotPasswordScreen(
-                              auth: widget.auth,
-                              loginCallback: widget.loginCallback,
-                              signUpCallback: widget.signUpCallback,
-                            ))
-                        );
-                      },
-                      child: showForgotPasswordButton(context)
-                  ),
-                ), //showForgotPasswordButton()
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.8,
-                  left: MediaQuery.of(context).size.width * 0.445,
-
-                  child: showProgress(_isLoading),
-                ), //showProgress()
-              ],
-            ),
-          ),
+                ],
+              ),
+            ), //showInput() - Form
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.65,
+              left: MediaQuery.of(context).size.width * 0.245,
+              child: GestureDetector(
+                onTap: () {
+                  validateAndSubmit(true);
+                },
+                child: showSignInSignUpButton(context, true),
+              ),
+            ), //showSignInSignUpButton() - SignIn
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.61,
+              left: MediaQuery.of(context).size.width * 0.59,
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ForgotPasswordScreen(
+                          auth: widget.auth,
+                          loginCallback: widget.loginCallback,
+                          signUpCallback: widget.signUpCallback,
+                        ))
+                    );
+                  },
+                  child: showForgotPasswordButton(context)
+              ),
+            ), //showForgotPasswordButton()
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.91,
+              left: MediaQuery.of(context).size.width * 0.25,
+              child: GestureDetector(
+                onTap: () {
+                  print("Hehehe");
+                },
+                child: showSignInSignUpAlternateText(context, true),
+              ),
+            ), //showSignInSignUpAlternateText()
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.8,
+              left: MediaQuery.of(context).size.width * 0.445,
+              child: showProgress(_isLoading),
+            ), //showProgress()
+          ],
         ),
       ),
     );
@@ -233,18 +229,45 @@ Widget showTitle(BuildContext context) {
 Widget showSignInSignUpButton(BuildContext context, bool isSignIn) {
   return new Container(
     height: 55,
-    width: isSignIn ? 100 : 110,
+    width: MediaQuery.of(context).size.width * 0.5,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(
+        30.0
+      ),
 
-    child: Padding(
-      padding: const EdgeInsets.only(left: 8.0),
+    ),
+    child: Center(
       child: Text(
-        isSignIn ? "Login" : "Signup",
+        isSignIn ? "LOGIN" : "SIGN UP",
         style: TextStyle(
           color: Theme.of(context).secondaryHeaderColor,
-          fontWeight: FontWeight.w500,
-          fontSize: 20.0,
+          fontWeight: FontWeight.w600,
+          fontSize: 25.0,
         ),
       ),
+    ),
+  );
+}
+
+//USER INTERFACE: SHOW SIGN IN OR SIGN UP ALTERNATE TEXT
+Widget showSignInSignUpAlternateText(BuildContext context, bool isSignIn) {
+  return RichText(
+    text: TextSpan(
+      text: !isSignIn ? "Already have an account? " : "Don't have an account? ",
+      style: TextStyle(
+        color: Theme.of(context).secondaryHeaderColor,
+        fontSize: 15.0,
+      ),
+      children: <TextSpan>[
+        TextSpan(
+          text: !isSignIn ? "Sign In" : "Sign Up",
+          style: TextStyle(
+            color: Colors.blue.shade900,
+            fontWeight: FontWeight.w600,
+            fontSize: 15.0,
+          ),
+        ),
+      ],
     ),
   );
 }
@@ -252,7 +275,7 @@ Widget showSignInSignUpButton(BuildContext context, bool isSignIn) {
 //USER INTERFACE: SHOW FORGOT PASSWORD BUTTON
 Widget showForgotPasswordButton(BuildContext context) {
   return new Text(
-    "Forgot Password",
+    "Forgot Password?",
     style: TextStyle(
         color: Theme.of(context).secondaryHeaderColor,
         fontWeight: FontWeight.w400,
