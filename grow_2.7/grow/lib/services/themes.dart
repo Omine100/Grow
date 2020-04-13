@@ -5,7 +5,6 @@ class Themes {
   ThemeData lightTheme() {
     return ThemeData(
       primarySwatch: Colors.blue,
-      backgroundColor: Colors.blue.shade300,
       scaffoldBackgroundColor: Colors.white,
       splashColor: Colors.white,
       dialogBackgroundColor: Color.fromARGB(255, 242, 243, 248),
@@ -14,6 +13,8 @@ class Themes {
       textSelectionHandleColor: Colors.grey.shade600,
       secondaryHeaderColor: Colors.grey.shade200,
       cardColor: Colors.grey.shade300,
+      backgroundColor: Colors.blue.shade700,
+      highlightColor: Colors.green.shade300,
     );
   }
 

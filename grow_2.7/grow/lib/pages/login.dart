@@ -130,8 +130,19 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            tileMode: TileMode.mirror,
+            colors: [
+              Theme.of(context).highlightColor,
+              Theme.of(context).backgroundColor,
+            ]
+          ),
+        ),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Stack(
