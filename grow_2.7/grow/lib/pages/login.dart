@@ -150,13 +150,17 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             Positioned(
               top: MediaQuery.of(context).size.height * 0.2875,
-              left: MediaQuery.of(context).size.width * 0.325,
-              child: Text(
-                "Grow",
-                style: TextStyle(
-                  color: Theme.of(context).secondaryHeaderColor,
-                  fontSize: 65.0,
-                  fontWeight: FontWeight.w600,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: Text(
+                    "Grow",
+                    style: TextStyle(
+                      color: Theme.of(context).secondaryHeaderColor,
+                      fontSize: 65.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ), //showTitle()
@@ -176,20 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ), //showInput() - Form
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.675,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      validateAndSubmit(true);
-                    },
-                    child: showSignInSignUpButton(context, true, linearGradient),
-                  ),
-                ),
-              ),
-            ), //showSignInSignUpButton() - SignIn
-            Positioned(
               top: MediaQuery.of(context).size.height * 0.61,
               left: MediaQuery.of(context).size.width * 0.59,
               child: GestureDetector(
@@ -207,13 +197,31 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ), //showForgotPasswordButton()
             Positioned(
+              top: MediaQuery.of(context).size.height * 0.675,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      validateAndSubmit(true);
+                    },
+                    child: showSignInSignUpButton(context, true, linearGradient),
+                  ),
+                ),
+              ),
+            ), //showSignInSignUpButton()
+            Positioned(
               top: MediaQuery.of(context).size.height * 0.91,
-              left: MediaQuery.of(context).size.width * 0.25,
-              child: GestureDetector(
-                onTap: () {
-                  print("Hehehe");
-                },
-                child: showSignInSignUpAlternateText(context, true),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      print("Hehehe");
+                    },
+                    child: showSignInSignUpAlternateText(context, true),
+                  ),
+                ),
               ),
             ), //showSignInSignUpAlternateText()
             Positioned(
