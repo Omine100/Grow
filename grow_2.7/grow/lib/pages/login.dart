@@ -4,12 +4,11 @@ import 'package:grow/services/authentication.dart';
 import 'package:grow/pages/forgotPassword.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({this.auth, this.loginCallback, this.signUpCallback});
+  LoginScreen({this.auth, this.loginCallback});
 
   //VARIABLE REFERENCE: NEEDED TO LOAD LOGIN SCREEN
   final BaseAuth auth;
   final VoidCallback loginCallback;
-  final VoidCallback signUpCallback;
 
   @override
   State<StatefulWidget> createState() => _LoginScreenState();
@@ -62,15 +61,17 @@ class _LoginScreenState extends State<LoginScreen> {
           print("Signed in: $userId");
         } else {
           userId = await widget.auth.signUp(_email, _password, "Matthew");
+          print("Signed up: $userId");
           setState(() {
             _isLoading = false;
           });
-          if (userId.length > 0 && userId != null && isSignIn) {
-            widget.signUpCallback();
+          if (userId.length > 0 && userId != null && !isSignIn) {
+            userId = await widget.auth.signIn(_email, _password);
+            widget.loginCallback();
           }
           widget.auth.sendEmailVerification();
           showVerifyEmailSentDialog(context);
-          print("Signed up: $userId");
+          print("Signed in: $userId");
         }
       } catch (e) {
         print("Error: $e");
@@ -191,11 +192,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                         :
                       Padding(
-                        padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 33.0),
+                        padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 42.0),
                         child: showInput(context, "Name"),
                       ),
                     Padding(
-                      padding: EdgeInsets.only(left: 50.0, right: 50.0, top: _isSignIn ? 26.0 : 20.0),
+                      padding: EdgeInsets.only(left: 50.0, right: 50.0, top: _isSignIn ? 35.0 : 20.0),
                       child: showInput(context, "Email"),
                     ),
                     Padding(
@@ -212,7 +213,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 MaterialPageRoute(builder: (context) => ForgotPasswordScreen(
                                   auth: widget.auth,
                                   loginCallback: widget.loginCallback,
-                                  signUpCallback: widget.signUpCallback,
                                 ))
                             );
                           },

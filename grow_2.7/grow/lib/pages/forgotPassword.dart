@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:grow/services/authentication.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  ForgotPasswordScreen({this.auth, this.loginCallback, this.signUpCallback});
+  ForgotPasswordScreen({this.auth, this.loginCallback});
 
   //VARIABLE REFERENCE: NEEDED TO LOAD FORGOT PASSWORD SCREEN
   final BaseAuth auth;
   final VoidCallback loginCallback;
-  final VoidCallback signUpCallback;
 
   @override
   State<StatefulWidget> createState() => new _ForgotPasswordScreenState();

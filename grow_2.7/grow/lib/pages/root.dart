@@ -13,7 +13,6 @@ enum AuthStatus {
   NOT_SEEN,
   NOT_LOGGED_IN,
   LOGGED_IN,
-  SIGNED_UP,
 }
 
 class RootScreen extends StatefulWidget {
@@ -83,18 +82,6 @@ class _RootScreenState extends State<RootScreen> {
     });
   }
 
-  //MECHANICS: SETS STATUS TO SIGNED UP
-  void signUpCallback() {
-    widget.auth.getCurrentUser().then((user) {
-      setState(() {
-        _userId = user.uid.toString();
-      });
-    });
-    setState(() {
-      authStatus = AuthStatus.SIGNED_UP;
-    });
-  }
-
   //USER INTERFACE: BUILDS CIRCULAR PROGRESS INDICATOR WITH ANIMATION
   Widget buildWaitingScreen() {
     return Scaffold(
@@ -119,7 +106,6 @@ class _RootScreenState extends State<RootScreen> {
         return new LoginScreen(
           auth: widget.auth,
           loginCallback: loginCallback,
-          signUpCallback: signUpCallback,
         );
         break;
       case AuthStatus.LOGGED_IN:
@@ -129,12 +115,6 @@ class _RootScreenState extends State<RootScreen> {
             logoutCallback: logoutCallback,
             userId: _userId,
           );
-        } else
-          return buildWaitingScreen();
-        break;
-      case AuthStatus.SIGNED_UP:
-        if (_userId.length > 0 && _userId != null) {
-          return new IntroScreen();
         } else
           return buildWaitingScreen();
         break;
