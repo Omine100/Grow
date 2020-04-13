@@ -147,7 +147,14 @@ class _LoginScreenState extends State<LoginScreen> {
             Positioned(
               top: MediaQuery.of(context).size.height * 0.2875,
               left: MediaQuery.of(context).size.width * 0.325,
-              child: showTitle(context),
+              child: Text(
+                "Grow",
+                style: TextStyle(
+                  color: Theme.of(context).secondaryHeaderColor,
+                  fontSize: 65.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ), //showTitle()
             Form(
               key: formKey,
@@ -211,18 +218,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-}
-
-//USER INTERFACE: SHOW LOGO
-Widget showTitle(BuildContext context) {
-  return new Text(
-    "Grow",
-    style: TextStyle(
-      color: Theme.of(context).secondaryHeaderColor,
-      fontSize: 65.0,
-      fontWeight: FontWeight.w600,
-    ),
-  );
 }
 
 //USER INTERFACE: SHOW SIGN IN OR SIGN UP BUTTON

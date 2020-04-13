@@ -1,5 +1,4 @@
 import 'dart:wasm';
-
 import 'package:flutter/material.dart';
 
 import 'package:grow/services/authentication.dart';
@@ -19,67 +18,107 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   //VARIABLE DECLARATION
   String _email;
+  final formKey = GlobalKey<FormState>();
 
   //USER INTERFACE: SHOW EMAIL INPUT
   Widget showEmailInput() {
-    return Container(
-      height: 100,
-      width: 250,
-      child: TextFormField(
-        maxLines: 1,
-        keyboardType: TextInputType.emailAddress,
-        autofocus: false,
-        decoration: new InputDecoration(
-            hintText: 'Email',
-            icon: new Icon(
-              Icons.mail,
-              color: Colors.grey,
-            )),
-        validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
-        onSaved: (value) => _email = value.trim(),
+    return new TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      style: TextStyle(
+        color: Theme.of(context).secondaryHeaderColor,
+        fontSize: 22.0,
       ),
+      decoration: InputDecoration(
+        prefixIcon: Icon(
+          Icons.email,
+          color: Theme.of(context).secondaryHeaderColor,
+        ),
+        hintText: "Email",
+        hintStyle: TextStyle(
+          color: Theme.of(context).secondaryHeaderColor,
+        ),
+        labelStyle: TextStyle(
+          color: Theme.of(context).secondaryHeaderColor,
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).secondaryHeaderColor,
+          ),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).secondaryHeaderColor,
+          ),
+        ),
+      ),
+      validator: (value) => value.isEmpty ?"Email can\'t be empty" : null,
+      onSaved: (value) => _email = value.trim(),
+      obscureText: false,
+      maxLines: 1,
     );
   }
 
   //USER INTERFACE: FORGOT PASSWORD SCREEN
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).backgroundColor,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.2,
-            left: MediaQuery.of(context).size.width * 0.175,
-            child: Text(
-              "Forgot Password",
-              style: TextStyle(
-                color: Theme.of(context).secondaryHeaderColor,
-                fontSize: 30.0,
-              ),
-            ),
-          ), //Forgot Password text
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.3,
-            left: MediaQuery.of(context).size.width * 0.15,
-            child: Card(
-              child: showEmailInput(),
-            ),
-          ), //showEmailInput()
-          Positioned(
-              top: MediaQuery.of(context).size.height * 0.5,
-              left: MediaQuery.of(context).size.width * 0.3,
-              child: RaisedButton(
-                onPressed: () {
-                  widget.auth.sendPasswordReset("matthewrhb12321@gmail.com");
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  "Reset Password",
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              tileMode: TileMode.mirror,
+              colors: [
+                Theme.of(context).highlightColor,
+                Theme.of(context).backgroundColor,
+              ]
+          ),
+        ),
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.35,
+              left: MediaQuery.of(context).size.width * 0.15,
+              child: Text(
+                "Forgot Password",
+                style: TextStyle(
+                  color: Theme.of(context).secondaryHeaderColor,
+                  fontSize: 37.0,
+                  fontWeight: FontWeight.w600,
                 ),
-              )
-          ), //Reset Password button
-        ],
+              ),
+            ), //Forgot Password text
+            Form(
+              key: formKey,
+              child: Padding(
+                padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 400.0),
+                child: showEmailInput(),
+              ),
+            ), //showEmailInput()
+            Positioned(
+                top: MediaQuery.of(context).size.height * 0.91,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        widget.auth.sendPasswordReset("matthewrhb12321@gmail.com");
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Reset Password",
+                        style: TextStyle(
+                          color: Theme.of(context).secondaryHeaderColor,
+                          fontSize: 15.0
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ), //Reset Password button
+          ],
+        ),
       ),
     );
   }
