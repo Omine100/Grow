@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     Padding (
                       padding: EdgeInsets.only(
-                        top: _isSignIn ? MediaQuery.of(context).size.height * 0.2875 : MediaQuery.of(context).size.height * 0.265,
+                        top: _isSignIn ? MediaQuery.of(context).size.height * 0.2875 : MediaQuery.of(context).size.height * 0.2725,
                       ),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -192,11 +192,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                         :
                       Padding(
-                        padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 42.0),
+                        padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 34.0),
                         child: showInput(context, "Name"),
                       ),
                     Padding(
-                      padding: EdgeInsets.only(left: 50.0, right: 50.0, top: _isSignIn ? 35.0 : 20.0),
+                      padding: EdgeInsets.only(left: 50.0, right: 50.0, top: _isSignIn ? 33.0 : 20.0),
                       child: showInput(context, "Email"),
                     ),
                     Padding(
