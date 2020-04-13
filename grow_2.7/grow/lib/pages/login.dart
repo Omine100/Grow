@@ -80,6 +80,11 @@ class _LoginScreenState extends State<LoginScreen> {
           formKey.currentState.reset();
         });
       }
+    } else {
+      setState(() {
+        _errorMessage = "";
+        _isLoading = false;
+      });
     }
   }
 
@@ -226,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Center(
                           child: GestureDetector(
                             onTap: () {
-                              validateAndSubmit(true);
+                              validateAndSubmit(_isSignIn);
                             },
                             child: showSignInSignUpButton(context, _isSignIn, linearGradient),
                           ),
@@ -237,16 +242,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ), //showInput() - Form
-            Positioned(
-              top: _isSignIn ?
-                MediaQuery.of(context).size.height * 0.675
-                  :
-                MediaQuery.of(context).size.height * 0.675,
-              child: Container(
-                height: 0.0,
-                child: Text(""),
-              ),
-            ), //showSignInSignUpButton()
             Positioned(
               top: MediaQuery.of(context).size.height * 0.91,
               child: Container(
