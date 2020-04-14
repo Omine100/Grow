@@ -23,4 +23,13 @@ class InterfaceStandards {
     return linearGradient;
   }
 
+  //USER INTERFACE: PARENT CENTER
+  Widget parentCenter(BuildContext context, Widget child) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Center(
+        child: child,
+      ),
+    );
+  }
 }

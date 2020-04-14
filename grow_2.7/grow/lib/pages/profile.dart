@@ -45,18 +45,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: <Widget>[
             Positioned(
               top: MediaQuery.of(context).size.height * 0.065,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: Text(
-                    "Settings",
-                    style: TextStyle(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      fontSize: 45.0,
-                    ),
+              child: interfaceStandards.parentCenter(context,
+                Text(
+                  "Settings",
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontSize: 45.0,
                   ),
                 ),
-              ),
+              )
             ), //Profile text
             Positioned(
               top: MediaQuery.of(context).size.height * 0.0775,
@@ -85,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ), //showSettings()
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.8,
+              top: MediaQuery.of(context).size.height * 0.825,
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 child: Center(
