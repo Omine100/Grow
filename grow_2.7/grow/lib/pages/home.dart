@@ -233,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
               left: MediaQuery.of(context).size.width * -0.01,
               right: MediaQuery.of(context).size.width * -0.01,
               child: showGoalCardContainer(),
-            ), //Goal boxes
+            ), //Goals boxes
           ],
         ),
       ),
