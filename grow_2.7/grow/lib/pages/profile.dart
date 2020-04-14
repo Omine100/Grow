@@ -51,8 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: TextStyle(
                     color: Theme.of(context).scaffoldBackgroundColor,
                     fontSize: 45.0,
-                  ),
-                ),
+                  ),),
               )
             ), //Profile text
             Positioned(
@@ -69,24 +68,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                child: Container(),
-              ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.3,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: showSettings(context),
-                ),
+                child: showSettings(context),
               ),
             ), //showSettings()
             Positioned(
               top: MediaQuery.of(context).size.height * 0.825,
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                child: Center(
-                    child: NeumorphicContainer(
+                child: interfaceStandards.parentCenter(context,
+                    NeumorphicContainer(
                       height: MediaQuery.of(context).size.height * 0.06,
                       width: MediaQuery.of(context).size.width * 0.30,
                       radius: 40.0,
@@ -114,28 +104,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                       ),
-                    )
-                ),
+                    ),),
               ),
             ), //signOut
             Positioned(
               top: MediaQuery.of(context).size.height * 0.925,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: (){
-                      String uid = widget.userId;
-                      widget.auth.deleteAccount();
-                      cloudFirestore.deleteAccountData(uid);
-                    },
-                    child: Text(
-                      "DELETE ACCOUNT",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w500,
-                      ),
+              child: interfaceStandards.parentCenter(context,
+                GestureDetector(
+                  onTap: (){
+                    String uid = widget.userId;
+                    widget.auth.deleteAccount();
+                    cloudFirestore.deleteAccountData(uid);
+                  },
+                  child: Text(
+                    "DELETE ACCOUNT",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -150,10 +136,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 //USER INTERFACE: SHOW SETTINGS
 Widget showSettings(BuildContext context) {
-  return Text(
-    "Test",
-    style: TextStyle(
-      color: Theme.of(context).dialogBackgroundColor
-    ),
-  );
 }

@@ -170,19 +170,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: EdgeInsets.only(
                         top: _isSignIn ? MediaQuery.of(context).size.height * 0.2875 : MediaQuery.of(context).size.height * 0.2725,
                       ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Center(
-                          child: Text(
-                            _isSignIn ? "Grow" : "Create Account",
-                            style: TextStyle(
-                              color: Theme.of(context).secondaryHeaderColor,
-                              fontSize: _isSignIn ? 65.0 : 40.0,
-                              fontWeight: FontWeight.w600,
-                            ),
+                      child: interfaceStandards.parentCenter(context,
+                        Text(
+                          _isSignIn ? "Grow" : "Create Account",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: _isSignIn ? 65.0 : 40.0,
+                            fontWeight: FontWeight.w600,
                           ),
-                        ),
-                      ),
+                        ),)
                     ), //showTitle()
                     _isSignIn ?
                       Container(
@@ -225,17 +221,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       ), //Show nothing
                     Padding(
                       padding: EdgeInsets.only(top: _isSignIn ? 30.0 : 48.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              validateAndSubmit(_isSignIn);
-                            },
-                            child: showSignInSignUpButton(context, _isSignIn, interfaceStandards.textLinearGradient(context)),
-                          ),
-                        ),
-                      ),
+                      child: interfaceStandards.parentCenter(context,
+                        GestureDetector(
+                          onTap: () {
+                            validateAndSubmit(_isSignIn);
+                          },
+                          child: showSignInSignUpButton(context, _isSignIn, interfaceStandards.textLinearGradient(context)),
+                        ),)
                     ),
                   ],
                 ),
@@ -243,26 +235,22 @@ class _LoginScreenState extends State<LoginScreen> {
             ), //showInput() - Form
             Positioned(
               top: MediaQuery.of(context).size.height * 0.91,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _errorMessage = "";
-                        _isLoading = false;
-                        _isSignIn = !_isSignIn;
-                      });
-                    },
-                    child: showSignInSignUpAlternateText(context, _isSignIn),
-                  ),
-                ),
-              ),
+              child: interfaceStandards.parentCenter(context,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _errorMessage = "";
+                      _isLoading = false;
+                      _isSignIn = !_isSignIn;
+                    });
+                  },
+                  child: showSignInSignUpAlternateText(context, _isSignIn),
+                ),)
             ), //showSignInSignUpAlternateText()
             Positioned(
               top: MediaQuery.of(context).size.height * 0.8,
-              left: MediaQuery.of(context).size.width * 0.445,
-              child: showProgress(_isLoading),
+              child: interfaceStandards.parentCenter(context,
+                  showProgress(_isLoading)),
             ), //showProgress()
           ],
         ),
@@ -353,10 +341,8 @@ Widget showErrorMessage(String _errorMessage) {
 //USER INTERFACE: SHOW PROGRESS
 Widget showProgress(bool _isLoading) {
   if (_isLoading) {
-    return new Center(
-      child: CircularProgressIndicator(
-        backgroundColor: Colors.grey.shade700,
-      ),
+    return new CircularProgressIndicator(
+      backgroundColor: Colors.grey.shade700,
     );
   }
   return Container(
