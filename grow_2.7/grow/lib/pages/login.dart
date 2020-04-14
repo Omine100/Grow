@@ -18,16 +18,16 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   //VARIABLE DECLARATION: AUTHENTICATION AND LOADING
   final formKey = GlobalKey<FormState>();
-  String _name, _email, _password, _errorMessage;
-  bool _isLoading;
-  bool _isSignIn;
+  String _name, _email, _password, errorMessage;
+  bool isLoading;
+  bool isSignIn;
 
   //VARIABLE INITIALIZATION: ERROR MESSAGE AND LOADING VALUES
   @override
   void initState() {
-    _errorMessage = "";
-    _isLoading = false;
-    _isSignIn = true;
+    errorMessage = "";
+    isLoading = false;
+    isSignIn = true;
     super.initState();
   }
 
@@ -45,8 +45,8 @@ class _LoginScreenState extends State<LoginScreen> {
   //MECHANICS: VALIDATE AND SUBMIT USER INFORMATION
   void validateAndSubmit(bool isSignIn) async {
     setState(() {
-      _errorMessage = "";
-      _isLoading = true;
+      errorMessage = "";
+      isLoading = true;
     });
     if (validateAndSave()) {
       String userId = "";
@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (isSignIn) {
           userId = await widget.auth.signIn(_email, _password);
           setState(() {
-            _isLoading = false;
+            isLoading = false;
           });
           if (userId.length > 0 && userId != null && isSignIn) {
             widget.loginCallback();
@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
           userId = await widget.auth.signUp(_email, _password, "Matthew");
           print("Signed up: $userId");
           setState(() {
-            _isLoading = false;
+            isLoading = false;
           });
           if (userId.length > 0 && userId != null && !isSignIn) {
             userId = await widget.auth.signIn(_email, _password);
@@ -77,15 +77,15 @@ class _LoginScreenState extends State<LoginScreen> {
       } catch (e) {
         print("Error: $e");
         setState(() {
-          _isLoading = false;
-          _errorMessage = e.message;
+          isLoading = false;
+          errorMessage = e.message;
           formKey.currentState.reset();
         });
       }
     } else {
       setState(() {
-        _errorMessage = "";
-        _isLoading = false;
+        errorMessage = "";
+        isLoading = false;
       });
     }
   }
@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //MECHANICS: RESET FORM
   void resetForm() {
     formKey.currentState.reset();
-    _errorMessage = "";
+    errorMessage = "";
   }
 
   //USER INTERFACE: SHOW SIGN IN OR SIGN UP INPUT FIELDS
@@ -168,19 +168,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     Padding (
                       padding: EdgeInsets.only(
-                        top: _isSignIn ? MediaQuery.of(context).size.height * 0.2875 : MediaQuery.of(context).size.height * 0.2725,
+                        top: isSignIn ? MediaQuery.of(context).size.height * 0.2875 : MediaQuery.of(context).size.height * 0.2725,
                       ),
                       child: interfaceStandards.parentCenter(context,
                         Text(
-                          _isSignIn ? "Grow" : "Create Account",
+                          isSignIn ? "Grow" : "Create Account",
                           style: TextStyle(
                             color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: _isSignIn ? 65.0 : 40.0,
+                            fontSize: isSignIn ? 65.0 : 40.0,
                             fontWeight: FontWeight.w600,
                           ),
                         ),)
                     ), //showTitle()
-                    _isSignIn ?
+                    isSignIn ?
                       Container(
                         height: 0.0,
                         child: null,
@@ -191,14 +191,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: showInput(context, "Name"),
                       ),
                     Padding(
-                      padding: EdgeInsets.only(left: 50.0, right: 50.0, top: _isSignIn ? 33.0 : 20.0),
+                      padding: EdgeInsets.only(left: 50.0, right: 50.0, top: isSignIn ? 33.0 : 20.0),
                       child: showInput(context, "Email"),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 50.0, right: 50.0, top: 20.0),
                       child: showInput(context, "Password"),
                     ),
-                    _isSignIn ?
+                    isSignIn ?
                       Padding(
                         padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.48, top: 30.0),
                         child: GestureDetector(
@@ -220,13 +220,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: null,
                       ), //Show nothing
                     Padding(
-                      padding: EdgeInsets.only(top: _isSignIn ? 30.0 : 48.0),
+                      padding: EdgeInsets.only(top: isSignIn ? 30.0 : 48.0),
                       child: interfaceStandards.parentCenter(context,
                         GestureDetector(
                           onTap: () {
-                            validateAndSubmit(_isSignIn);
+                            validateAndSubmit(isSignIn);
                           },
-                          child: showSignInSignUpButton(context, _isSignIn, interfaceStandards.textLinearGradient(context)),
+                          child: showSignInSignUpButton(context, isSignIn, interfaceStandards.textLinearGradient(context)),
                         ),)
                     ),
                   ],
@@ -239,18 +239,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      _errorMessage = "";
-                      _isLoading = false;
-                      _isSignIn = !_isSignIn;
+                      errorMessage = "";
+                      isLoading = false;
+                      isSignIn = !isSignIn;
                     });
                   },
-                  child: showSignInSignUpAlternateText(context, _isSignIn),
+                  child: showSignInSignUpAlternateText(context, isSignIn),
                 ),)
             ), //showSignInSignUpAlternateText()
             Positioned(
               top: MediaQuery.of(context).size.height * 0.8,
               child: interfaceStandards.parentCenter(context,
-                  showProgress(_isLoading)),
+                  showProgress(isLoading)),
             ), //showProgress()
           ],
         ),
@@ -320,10 +320,10 @@ Widget showForgotPasswordButton(BuildContext context) {
 }
 
 //USER INTERFACE: SHOW ERROR MESSAGE
-Widget showErrorMessage(String _errorMessage) {
-  if (_errorMessage.length > 0 && _errorMessage != null) {
+Widget showErrorMessage(String errorMessage) {
+  if (errorMessage.length > 0 && errorMessage != null) {
     return new Text(
-      _errorMessage,
+      errorMessage,
       style: TextStyle(
         fontSize: 13.0,
         color: Colors.red,
@@ -339,8 +339,8 @@ Widget showErrorMessage(String _errorMessage) {
 }
 
 //USER INTERFACE: SHOW PROGRESS
-Widget showProgress(bool _isLoading) {
-  if (_isLoading) {
+Widget showProgress(bool isLoading) {
+  if (isLoading) {
     return new CircularProgressIndicator(
       backgroundColor: Colors.grey.shade700,
     );

@@ -169,39 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Positioned(
               top: MediaQuery.of(context).size.height * 0.2,
               left: MediaQuery.of(context).size.width * 0.05,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Progress",
-                    style: TextStyle(
-                        color: Theme.of(context).textSelectionColor,
-                        fontSize: 22.5,
-                        fontWeight: FontWeight.w500
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.45,
-                  ),
-                  Text(
-                    "Details",
-                    style: TextStyle(
-                        color: Theme.of(context).textSelectionHandleColor,
-                        fontSize: 17.5,
-                        fontWeight: FontWeight.w400
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5.0,
-                  ),
-                  Icon(
-                    Icons.arrow_forward,
-                    size: 22.5,
-                    color: Colors.grey.shade600,
-                  ),
-                ],
-              ),
+              child: showSectionText(context, true),
             ), //Progress text
             Positioned(
               top: MediaQuery.of(context).size.height * 0.2325,
@@ -230,39 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Positioned(
               top: MediaQuery.of(context).size.height * 0.56,
               left: MediaQuery.of(context).size.width * 0.05,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Goals",
-                    style: TextStyle(
-                      color: Theme.of(context).textSelectionColor,
-                      fontSize: 22.5,
-                      fontWeight: FontWeight.w500
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.45,
-                  ),
-                  Text(
-                    "Customize",
-                    style: TextStyle(
-                      color: Theme.of(context).textSelectionHandleColor,
-                      fontSize: 17.5,
-                      fontWeight: FontWeight.w400
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5.0,
-                  ),
-                  Icon(
-                    Icons.arrow_forward,
-                    size: 22.5,
-                    color: Colors.grey.shade600,
-                  ),
-                ],
-              ),
+              child: showSectionText(context, false),
             ), //Goals text
             Positioned(
               top: MediaQuery.of(context).size.height * 0.6075,
@@ -367,6 +303,43 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
+}
+
+//USER INTERFACE: SHOW SECTION TEXT
+Widget showSectionText(BuildContext context, bool isProgress) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.end,
+    children: <Widget>[
+      Text(
+        isProgress ? "Progress" : "Goals",
+        style: TextStyle(
+            color: Theme.of(context).textSelectionColor,
+            fontSize: 22.5,
+            fontWeight: FontWeight.w500
+        ),
+      ),
+      SizedBox(
+        width: MediaQuery.of(context).size.width * 0.45,
+      ),
+      Text(
+        isProgress ? "Details" : "Customize",
+        style: TextStyle(
+            color: Theme.of(context).textSelectionHandleColor,
+            fontSize: 17.5,
+            fontWeight: FontWeight.w400
+        ),
+      ),
+      SizedBox(
+        width: 5.0,
+      ),
+      Icon(
+        Icons.arrow_forward,
+        size: 22.5,
+        color: Colors.grey.shade600,
+      ),
+    ],
+  );
 }
 
 //USER INTERFACE: SHOW USER BUTTON
