@@ -77,6 +77,53 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  //USER INTERFACE: PROGRESS CARD CONTAINER
+  Widget showProgressCardContainer() {
+    return Padding(
+      padding: EdgeInsets.only(
+          top: 15.0,
+          right: 0.0,
+          bottom: 15.0,
+          left: 30.0
+      ),
+      child: NeumorphicContainer(
+        height: MediaQuery.of(context).size.height * 0.29,
+        width: MediaQuery.of(context).size.width * 0.75,
+        radius: 40.0,
+        clickable: false,
+        padding: 25.0,
+        color: Theme.of(context).dialogBackgroundColor,
+
+        child: Text(
+            "Test"
+        ),
+      ),
+    );
+  }
+
+  //USER INTERFACE: GOAL CARD CONTAINER
+  Widget showGoalCardContainer() {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.290,
+      width: MediaQuery.of(context).size.width * 1.0,
+      child: new StreamBuilder(
+        stream: db.collection(widget.userId).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          return new ListView(
+            padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.1,
+              right: MediaQuery.of(context).size.width * 0.1,
+            ),
+            scrollDirection: Axis.horizontal,
+            children: snapshot.data.documents.map((DocumentSnapshot document) {
+              return buildGoalCard(document);
+            }).toList(),
+          );
+        },
+      ),
+    );
+  }
+
   //USER INTERFACE: GOAL CARD
   Widget buildGoalCard(DocumentSnapshot document) {
     return new Padding(
@@ -174,26 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Positioned(
               top: MediaQuery.of(context).size.height * 0.2325,
               left: MediaQuery.of(context).size.width * 0.05,
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: 15.0,
-                    right: 0.0,
-                    bottom: 15.0,
-                    left: 30.0
-                ),
-                child: NeumorphicContainer(
-                  height: MediaQuery.of(context).size.height * 0.29,
-                  width: MediaQuery.of(context).size.width * 0.75,
-                  radius: 40.0,
-                  clickable: false,
-                  padding: 25.0,
-                  color: Theme.of(context).dialogBackgroundColor,
-
-                  child: Text(
-                    "Test"
-                  ),
-                ),
-              ),
+              child: showProgressCardContainer(),
             ), //Progress box
             Positioned(
               top: MediaQuery.of(context).size.height * 0.56,
@@ -204,25 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
               top: MediaQuery.of(context).size.height * 0.6075,
               left: MediaQuery.of(context).size.width * -0.01,
               right: MediaQuery.of(context).size.width * -0.01,
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.290,
-                width: MediaQuery.of(context).size.width * 1.0,
-                child: new StreamBuilder(
-                  stream: db.collection(widget.userId).snapshots(),
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    return new ListView(
-                      padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.1,
-                        right: MediaQuery.of(context).size.width * 0.1,
-                      ),
-                      scrollDirection: Axis.horizontal,
-                      children: snapshot.data.documents.map((DocumentSnapshot document) {
-                        return buildGoalCard(document);
-                      }).toList(),
-                    );
-                  },
-                ),
-              ),
+              child: showGoalCardContainer(),
             ), //Goal boxes
           ],
         ),

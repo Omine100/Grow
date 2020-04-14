@@ -17,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   //VARIABLE DECLARATION: AUTHENTICATION AND LOADING
+  InterfaceStandards interfaceStandards = new InterfaceStandards();
   final formKey = GlobalKey<FormState>();
   String _name, _email, _password, errorMessage;
   bool isLoading;
@@ -143,8 +144,6 @@ class _LoginScreenState extends State<LoginScreen> {
   //USER INTERFACE: LOGIN SCREEN
   @override
   Widget build(BuildContext context) {
-    InterfaceStandards interfaceStandards = new InterfaceStandards();
-
     return new Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,

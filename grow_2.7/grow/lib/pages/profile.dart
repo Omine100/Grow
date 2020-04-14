@@ -23,12 +23,11 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   //VARIABLE DECLARATION
   CloudFirestore cloudFirestore = new CloudFirestore();
+  InterfaceStandards interfaceStandards = new InterfaceStandards();
 
   //USER INTERFACE: PROFILE SCREEN
   @override
   Widget build(BuildContext context) {
-    InterfaceStandards interfaceStandards = new InterfaceStandards();
-
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
