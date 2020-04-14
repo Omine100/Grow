@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:grow/services/authentication.dart';
+import 'package:grow/widgets/interfaceStandards.dart';
 import 'package:grow/pages/forgotPassword.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -142,9 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //USER INTERFACE: LOGIN SCREEN
   @override
   Widget build(BuildContext context) {
-    final Shader linearGradient = LinearGradient(
-      colors: <Color>[Theme.of(context).highlightColor, Theme.of(context).backgroundColor],
-    ).createShader(Rect.fromLTWH(110.0, 100.0, 200.0, 70.0));
+    InterfaceStandards interfaceStandards = new InterfaceStandards();
 
     return new Scaffold(
       body: Container(
@@ -233,7 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onTap: () {
                               validateAndSubmit(_isSignIn);
                             },
-                            child: showSignInSignUpButton(context, _isSignIn, linearGradient),
+                            child: showSignInSignUpButton(context, _isSignIn, interfaceStandards.textLinearGradient(context)),
                           ),
                         ),
                       ),

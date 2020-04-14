@@ -2,6 +2,7 @@ import 'dart:wasm';
 import 'package:flutter/material.dart';
 
 import 'package:grow/services/authentication.dart';
+import 'package:grow/widgets/interfaceStandards.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   ForgotPasswordScreen({this.auth, this.loginCallback});
@@ -60,6 +61,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   //USER INTERFACE: FORGOT PASSWORD SCREEN
   @override
   Widget build(BuildContext context) {
+    InterfaceStandards interfaceStandards = new InterfaceStandards();
+
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -76,6 +79,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         ),
         child: Stack(
           children: <Widget>[
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.06,
+              left: MediaQuery.of(context).size.width * 0.06,
+              child: interfaceStandards.backButton(context),
+            ),
             Positioned(
               top: MediaQuery.of(context).size.height * 0.35,
               left: MediaQuery.of(context).size.width * 0.15,
