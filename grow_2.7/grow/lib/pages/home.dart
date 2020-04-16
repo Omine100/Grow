@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //USER INTERFACE: GOAL CARD CONTAINER
   Widget showGoalCardContainer() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.295,
+      height: MediaQuery.of(context).size.height * 0.285,
       width: MediaQuery.of(context).size.width * 1.0,
       child: new StreamBuilder(
         stream: db.collection(widget.userId).snapshots(),
@@ -207,12 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ProfileScreen(
-                      auth: widget.auth,
-                      logoutCallback: widget.logoutCallback,
-                      userId: widget.userId,
-                    ))
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfileScreen(
+                        auth: widget.auth,
+                        logoutCallback: widget.logoutCallback,
+                        userId: widget.userId,
+                      ))
                   );
                 },
                 child: showUserButton(context),
