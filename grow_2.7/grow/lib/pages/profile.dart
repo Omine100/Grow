@@ -31,14 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.centerRight,
-              colors: [
-                Theme.of(context).highlightColor,
-                Theme.of(context).backgroundColor,
-              ]
-          ),
+          gradient: interfaceStandards.bodyLinearGradient(context, true, false),
         ),
         child: Stack(
           children: <Widget>[

@@ -9,6 +9,7 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/services/themes.dart';
+import 'package:grow/widgets/interfaceStandards.dart';
 import 'package:grow/widgets/neumorphicContainer.dart';
 import 'package:grow/models/dataLists.dart';
 import 'package:grow/pages/profile.dart';
@@ -30,6 +31,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   //VARIABLE DECLARATION
   CloudFirestore cloudFirestore = new CloudFirestore();
+  InterfaceStandards interfaceStandards = new InterfaceStandards();
   Themes themes = new Themes();
   DataLists dataLists = new DataLists();
   final db = Firestore.instance;
@@ -52,25 +54,26 @@ class _HomeScreenState extends State<HomeScreen> {
   //USER INTERFACE: SHOW TITLE
   Widget showTitle() {
     return new Container(
+      decoration: BoxDecoration(
+        gradient: interfaceStandards.bodyLinearGradient(context, true, true),
+        borderRadius: BorderRadius.circular(50.0),
+        boxShadow: [new BoxShadow(
+          color: Colors.grey.shade400,
+          offset: new Offset(7.5, 7.5),
+          blurRadius: 15.0,
+        ),]
+      ),
       height: MediaQuery.of(context).size.height * 0.09,
       width: MediaQuery.of(context).size.width * 0.7,
 
-      child: Card(
-        color: Theme.of(context).accentColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0)
-        ),
-        elevation: 10.0,
-
-        child: Padding(
-          padding: EdgeInsets.only(left: 52.0, top: 10.0),
-          child: Text(
-            "Hi, " + "Matthew",
-            style: TextStyle(
-              color: Theme.of(context).splashColor,
-              fontSize: 40.0,
-              fontWeight: FontWeight.w700,
-            ),
+      child: Padding(
+        padding: EdgeInsets.only(left: 52.0, top: 12.0),
+        child: Text(
+          "Hi, " + "Matthew",
+          style: TextStyle(
+            color: Theme.of(context).splashColor,
+            fontSize: 40.0,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),

@@ -148,15 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            tileMode: TileMode.mirror,
-            colors: [
-              Theme.of(context).highlightColor,
-              Theme.of(context).backgroundColor,
-            ]
-          ),
+          gradient: interfaceStandards.bodyLinearGradient(context, false, false),
         ),
         child: Stack(
           children: <Widget>[
@@ -296,7 +288,7 @@ Widget showSignInSignUpAlternateText(BuildContext context, bool isSignIn) {
         TextSpan(
           text: !isSignIn ? "Sign In" : "Sign Up",
           style: TextStyle(
-            color: Colors.blue.shade900,
+            color: Colors.blueAccent.shade100,
             fontWeight: FontWeight.w600,
             fontSize: 15.0,
           ),

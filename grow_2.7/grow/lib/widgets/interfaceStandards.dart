@@ -23,6 +23,20 @@ class InterfaceStandards {
     return linearGradient;
   }
 
+  //USER INTERFACE: BODY LINEAR GRADIENT
+  LinearGradient bodyLinearGradient(BuildContext context, bool isSmall, bool isTitle) {
+    final LinearGradient linearGradient = LinearGradient(
+      begin: Alignment.topLeft,
+      end: isSmall ? Alignment.centerRight : Alignment.bottomRight,
+      tileMode: TileMode.mirror,
+      colors: [
+        Theme.of(context).highlightColor,
+        isTitle ? Theme.of(context).dividerColor : Theme.of(context).backgroundColor,
+      ]
+    );
+    return linearGradient;
+  }
+
   //USER INTERFACE: PARENT CENTER
   Widget parentCenter(BuildContext context, Widget child) {
     return Container(
