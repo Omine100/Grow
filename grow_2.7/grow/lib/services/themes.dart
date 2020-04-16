@@ -13,10 +13,10 @@ class Themes {
       textSelectionHandleColor: Colors.grey.shade600,
       secondaryHeaderColor: Colors.grey.shade200,
       cardColor: Colors.grey.shade300,
-      backgroundColor: Colors.blue.shade900,
+      backgroundColor: Colors.red.shade400,
       dividerColor: Colors.blue.shade700,
       buttonColor: Colors.lightBlueAccent.shade400,
-      highlightColor: Colors.blue.shade300,
+      highlightColor: Colors.orange.shade200,
     );
   }
 

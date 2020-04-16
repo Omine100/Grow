@@ -288,7 +288,7 @@ Widget showSignInSignUpAlternateText(BuildContext context, bool isSignIn) {
         TextSpan(
           text: !isSignIn ? "Sign In" : "Sign Up",
           style: TextStyle(
-            color: Colors.blueAccent.shade100,
+            color: Colors.orange.shade200,
             fontWeight: FontWeight.w600,
             fontSize: 15.0,
           ),
