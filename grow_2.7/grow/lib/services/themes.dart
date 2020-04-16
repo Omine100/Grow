@@ -14,7 +14,7 @@ class Themes {
       secondaryHeaderColor: Colors.grey.shade200,
       cardColor: Colors.grey.shade300,
       backgroundColor: Colors.red.shade400,
-      dividerColor: Colors.blue.shade700,
+      dividerColor: Colors.deepOrangeAccent.shade100,
       buttonColor: Colors.lightBlueAccent.shade400,
       highlightColor: Colors.orange.shade200,
     );
