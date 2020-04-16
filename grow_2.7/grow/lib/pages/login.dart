@@ -288,7 +288,7 @@ Widget showSignInSignUpAlternateText(BuildContext context, bool isSignIn) {
         TextSpan(
           text: !isSignIn ? "Sign In" : "Sign Up",
           style: TextStyle(
-            color: Colors.orange.shade200,
+            color: Theme.of(context).highlightColor,
             fontWeight: FontWeight.w600,
             fontSize: 15.0,
           ),
@@ -333,7 +333,7 @@ Widget showErrorMessage(String errorMessage) {
 Widget showProgress(bool isLoading) {
   if (isLoading) {
     return new CircularProgressIndicator(
-      backgroundColor: Colors.grey.shade700,
+      backgroundColor: Colors.white,
     );
   }
   return Container(

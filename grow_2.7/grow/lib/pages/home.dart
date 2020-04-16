@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget showTitle() {
     return new Container(
       decoration: BoxDecoration(
-        gradient: interfaceStandards.bodyLinearGradient(context, true, true),
+        gradient: interfaceStandards.bodyLinearGradient(context, false, true),
         borderRadius: BorderRadius.circular(50.0),
         boxShadow: [new BoxShadow(
           color: Colors.grey.shade400,
