@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         gradient: interfaceStandards.bodyLinearGradient(context, false, true),
         borderRadius: BorderRadius.circular(50.0),
         boxShadow: [new BoxShadow(
-          color: Colors.grey.shade400,
+          color: themes.checkDarkTheme(context) ? Colors.grey.shade900 : Colors.grey.shade400,
           offset: new Offset(7.5, 7.5),
           blurRadius: 15.0,
         ),]
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //USER INTERFACE: GOAL CARD CONTAINER
   Widget showGoalCardContainer() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.290,
+      height: MediaQuery.of(context).size.height * 0.295,
       width: MediaQuery.of(context).size.width * 1.0,
       child: new StreamBuilder(
         stream: db.collection(widget.userId).snapshots(),
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //USER INTERFACE: GOAL CARD
   Widget buildGoalCard(DocumentSnapshot document) {
     return new Padding(
-      padding: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 20.0),
+      padding: EdgeInsets.only(left: 7.5, right: 7.5, top: 5.0, bottom: 25.0),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -149,37 +149,39 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width * 0.32,
-          child: Card(
-            color: dataLists.getColorData(document['color'], themes.checkDarkTheme(context)),
-            shape: RoundedRectangleBorder(
+          decoration: BoxDecoration(
+              gradient: interfaceStandards.bodyLinearGradient(context, false, true),
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(62.0),
                   topLeft: Radius.circular(15.0),
                   bottomRight: Radius.circular(15.0),
                   bottomLeft: Radius.circular(15.0)
               ),
-            ),
-            elevation: 10.0,
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.1,
-                  left: MediaQuery.of(context).size.width * 0.1,
-                  child: Text(
-                    document['title'],
-                    style: TextStyle(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      fontSize: 20.0,
-                    ),
+              boxShadow: [new BoxShadow(
+                color: themes.checkDarkTheme(context) ? Colors.grey.shade900 : Colors.grey.shade400,
+                offset: new Offset(7.5, 7.5),
+                blurRadius: 15.0,
+              ),]
+          ),
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.1,
+                left: MediaQuery.of(context).size.width * 0.1,
+                child: Text(
+                  document['title'],
+                  style: TextStyle(
+                    color: Theme.of(context).secondaryHeaderColor,
+                    fontSize: 20.0,
                   ),
-                ), //Title
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.13,
-                  left: MediaQuery.of(context).size.width * 0.12,
-                  child: dataLists.getIconData(document['icon']),
-                ), //Icon
-              ],
-            ),
+                ),
+              ), //Title
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.13,
+                left: MediaQuery.of(context).size.width * 0.12,
+                child: dataLists.getIconData(document['icon']),
+              ), //Icon
+            ],
           ),
         ),
       ),
@@ -246,52 +248,52 @@ class _HomeScreenState extends State<HomeScreen> {
         fabLocation: BubbleBottomBarFabLocation.end,
         onTap: changePage,
         hasNotch: true,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: BorderRadius.circular(100.0),
         elevation: 8.0,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme.of(context).dividerColor,
         items: <BubbleBottomBarItem>[
           BubbleBottomBarItem(
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: Colors.white,
               icon: Icon(
                 Icons.dashboard,
-                color: Colors.grey.shade600,
+                color: Colors.grey.shade200,
               ),
               activeIcon: Icon(
                 Icons.dashboard,
-                color: Colors.blueAccent,
+                color: Colors.white,
               ),
               title: Text("Home")),
           BubbleBottomBarItem(
-              backgroundColor: Colors.indigo,
+              backgroundColor: Colors.white,
               icon: Icon(
                 Icons.access_time,
-                color: Colors.grey.shade600,
+                color: Colors.grey.shade200,
               ),
               activeIcon: Icon(
                 Icons.access_time,
-                color: Colors.indigo,
+                color: Colors.white,
               ),
               title: Text("Logs")),
           BubbleBottomBarItem(
-              backgroundColor: Colors.deepPurpleAccent,
+              backgroundColor: Colors.white,
               icon: Icon(
                 Icons.folder_open,
-                color: Colors.grey.shade600,
+                color: Colors.grey.shade200,
               ),
               activeIcon: Icon(
                 Icons.folder_open,
-                color: Colors.deepPurpleAccent,
+                color: Colors.white,
               ),
               title: Text("Folders")),
           BubbleBottomBarItem(
-              backgroundColor: Colors.purple,
+              backgroundColor: Colors.white,
               icon: Icon(
                 Icons.menu,
-                color: Colors.grey.shade600,
+                color: Colors.grey.shade200,
               ),
               activeIcon: Icon(
                 Icons.menu,
-                color: Colors.purple,
+                color: Colors.white,
               ),
               title: Text("Menu"))
         ],

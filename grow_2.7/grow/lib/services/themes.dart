@@ -15,9 +15,9 @@ class Themes {
       cardColor: Colors.grey.shade300,
       cursorColor: Colors.white,
       buttonColor: Colors.lightBlueAccent.shade400,
-      backgroundColor: Colors.blue.shade900,
-      dividerColor: Colors.blue.shade600,
-      highlightColor: Colors.blue.shade300,
+      backgroundColor: Colors.deepPurpleAccent.shade700,
+      dividerColor: Colors.blue.shade700,
+      highlightColor: Colors.lightBlueAccent.shade400,
     );
   }
 
