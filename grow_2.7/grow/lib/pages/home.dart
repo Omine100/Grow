@@ -150,14 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width * 0.32,
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    dataLists.getColorData(document['color'], themes.checkDarkTheme(context), true),
-                    dataLists.getColorData(document['color'], themes.checkDarkTheme(context), false),
-                  ]
-              ),
+              gradient: interfaceStandards.cardLinearGradient(context, document),
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(62.0),
                   topLeft: Radius.circular(15.0),

@@ -19,7 +19,7 @@ class DataLists {
 
   //MECHANICS: GET COLOR DATA
   Color getColorData(int position, bool darkTheme, bool first) {
-    return _colorData(getColorList(darkTheme, first), position, darkTheme, first);
+    return _colorData(position, getColorList(darkTheme, first),  darkTheme, first);
   }
 
   //MECHANICS: GET COLOR LIST
@@ -53,7 +53,6 @@ List<Color> _colorListData(List<Color> _colorList, bool darkTheme, bool first) {
 }
 
 //MECHANICS: GET COLOR DATA RETURN
-Color _colorData(List<Color> _colorList, int position, bool darkTheme, bool first) {
-  _colorList = _colorListData(_colorList, darkTheme, first);
+Color _colorData(int position, List<Color> _colorList, bool darkTheme, bool first) {
   return _colorList[position];
 }
