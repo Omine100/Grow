@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Stack(
           children: <Widget>[
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.065,
+              top: MediaQuery.of(context).size.height * 0.085,
               child: interfaceStandards.parentCenter(context,
                 Text(
                   "Settings",
@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               )
             ), //Profile text
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.0775,
+              top: MediaQuery.of(context).size.height * 0.1,
               left: MediaQuery.of(context).size.width * 0.06,
               child: interfaceStandards.backButton(context),
             ), //Back button

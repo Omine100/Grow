@@ -150,7 +150,14 @@ class _HomeScreenState extends State<HomeScreen> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width * 0.32,
           decoration: BoxDecoration(
-              gradient: interfaceStandards.bodyLinearGradient(context, false, true),
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    dataLists.getColorData(document['color'], themes.checkDarkTheme(context), true),
+                    dataLists.getColorData(document['color'], themes.checkDarkTheme(context), false),
+                  ]
+              ),
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(62.0),
                   topLeft: Radius.circular(15.0),
@@ -193,53 +200,55 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Theme.of(context).dialogBackgroundColor,
-      body: Container(
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.075,
-              right: MediaQuery.of(context).size.width * 0.4,
-              child: showTitle(),
-            ), //showTitle()
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.0525,
-              left: MediaQuery.of(context).size.width * 0.775,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ProfileScreen(
-                        auth: widget.auth,
-                        logoutCallback: widget.logoutCallback,
-                        userId: widget.userId,
-                      ))
-                  );
-                },
-                child: showUserButton(context),
-              ),
-            ), //showUserButton()
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.2,
-              left: MediaQuery.of(context).size.width * 0.05,
-              child: showSectionText(context, true),
-            ), //Progress text
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.2325,
-              left: MediaQuery.of(context).size.width * 0.05,
-              child: showProgressCardContainer(),
-            ), //Progress box
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.56,
-              left: MediaQuery.of(context).size.width * 0.05,
-              child: showSectionText(context, false),
-            ), //Goals text
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.6075,
-              left: MediaQuery.of(context).size.width * -0.01,
-              right: MediaQuery.of(context).size.width * -0.01,
-              child: showGoalCardContainer(),
-            ), //Goals boxes
-          ],
+      body: SafeArea(
+        child: Container(
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.04,
+                right: MediaQuery.of(context).size.width * 0.4,
+                child: showTitle(),
+              ), //showTitle()
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.02,
+                left: MediaQuery.of(context).size.width * 0.775,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfileScreen(
+                          auth: widget.auth,
+                          logoutCallback: widget.logoutCallback,
+                          userId: widget.userId,
+                        ))
+                    );
+                  },
+                  child: showUserButton(context),
+                ),
+              ), //showUserButton()
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.155,
+                left: MediaQuery.of(context).size.width * 0.05,
+                child: showSectionText(context, true),
+              ), //Progress text
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.1875,
+                left: MediaQuery.of(context).size.width * 0.05,
+                child: showProgressCardContainer(),
+              ), //Progress box
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.515,
+                left: MediaQuery.of(context).size.width * 0.05,
+                child: showSectionText(context, false),
+              ), //Goals text
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.5625,
+                left: MediaQuery.of(context).size.width * -0.01,
+                right: MediaQuery.of(context).size.width * -0.01,
+                child: showGoalCardContainer(),
+              ), //Goals boxes
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BubbleBottomBar(

@@ -1,6 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'package:grow/services/themes.dart';
+import 'package:grow/models/dataLists.dart';
+
 class InterfaceStandards {
+  DataLists dataLists = new DataLists();
+  Themes themes = new Themes();
+
   //USER INTERFACE: BACK BUTTON
   Widget backButton(BuildContext context) {
     return GestureDetector(
@@ -32,6 +39,19 @@ class InterfaceStandards {
       colors: [
         Theme.of(context).highlightColor,
         isTitle ? Theme.of(context).dividerColor : Theme.of(context).backgroundColor,
+      ]
+    );
+    return linearGradient;
+  }
+
+  //USER INTERFACE: CARD LINEAR GRADIENT
+  LinearGradient cardLinearGradient(BuildContext context, DocumentSnapshot document) {
+    final LinearGradient linearGradient = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        dataLists.getColorData(document['color'], themes.checkDarkTheme(context), true),
+        dataLists.getColorData(document['color'], themes.checkDarkTheme(context), false),
       ]
     );
     return linearGradient;

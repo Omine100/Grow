@@ -94,7 +94,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   //USER INTERFACE: SHOW COLORS FOR COLOR
   Widget showColors() {
     return new ListView.builder(
-      itemCount: dataLists.getColorList(themes.checkDarkTheme(context)).length,
+      itemCount: dataLists.getColorList(themes.checkDarkTheme(context), true).length,
       itemBuilder: (context, index) {
         return Padding(
           padding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 15.0, right: 15.0),
@@ -107,7 +107,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               width: 50.0,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: dataLists.getColorData(index, themes.checkDarkTheme(context)),
+                color: dataLists.getColorData(index, themes.checkDarkTheme(context), true),
               ),
               child: null,
             ),
