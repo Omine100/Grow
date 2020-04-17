@@ -71,21 +71,31 @@ class _UserGoalState extends State<UserGoal> {
                   ),
                 ),
               )),
-            Container(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-                color: Theme.of(context).dialogBackgroundColor,
-              ),
-              child: Stack(
-                children: <Widget>[
-                  Text(
-                    date
-                  ),
-                  Text(
-                    goal
-                  ),
-                ],
+            SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.8137,
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+                  color: Theme.of(context).dialogBackgroundColor,
+                ),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+                      top: MediaQuery.of(context).size.height * 0.0,
+                      child: Text(
+                        date,
+                      ),
+                    ),
+                    Positioned(
+                      top: MediaQuery.of(context).size.height * 0.1,
+                      child: Text(
+                        goal,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
