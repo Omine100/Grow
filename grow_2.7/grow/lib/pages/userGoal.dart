@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:grow/services/authentication.dart';
+import 'package:grow/widgets/interfaceStandards.dart';
 
 class UserGoal extends StatefulWidget {
   UserGoal({Key key, this.auth, this.logoutCallback, this.userId, this.documentSnapshot});
@@ -19,6 +20,7 @@ class UserGoal extends StatefulWidget {
 
 class _UserGoalState extends State<UserGoal> {
   //VARIABLE DECLARATION
+  InterfaceStandards interfaceStandards = new InterfaceStandards();
   String title;
   String date;
   String goal;
@@ -44,32 +46,51 @@ class _UserGoalState extends State<UserGoal> {
   //USER INTERFACE: USER GOAL SCREEN
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24.0,
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: interfaceStandards.bodyLinearGradient(context, true, false),
+        ),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.03,
+                left: MediaQuery.of(context).size.width * 0.02,
+              ),
+              child: interfaceStandards.backButton(context),
             ),
-          ),
-          Text(
-            date,
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 20.0,
+            interfaceStandards.parentCenter(context,
+              Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontSize: 45.0
+                  ),
+                ),
+              )),
+            Container(
+              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+                color: Theme.of(context).dialogBackgroundColor,
+              ),
+              child: Stack(
+                children: <Widget>[
+                  Text(
+                    date
+                  ),
+                  Text(
+                    goal
+                  ),
+                ],
+              ),
             ),
-          ),
-          Text(
-            goal,
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 20.0,
-            ),
-          ),
-        ],
-      )
+          ],
+        ),
+      ),
     );
   }
 }
