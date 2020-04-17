@@ -30,16 +30,21 @@ class InterfaceStandards {
     return linearGradient;
   }
 
+  List<Color> colorsBodyGradient(BuildContext context, bool isTitle) {
+    List<Color> gradientColors = [
+      Theme.of(context).highlightColor,
+      isTitle ? Theme.of(context).dividerColor : Theme.of(context).backgroundColor,
+    ];
+    return gradientColors;
+  }
+
   //USER INTERFACE: BODY LINEAR GRADIENT
   LinearGradient bodyLinearGradient(BuildContext context, bool isSmall, bool isTitle) {
     final LinearGradient linearGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: isSmall ? Alignment.centerRight : Alignment.bottomRight,
       tileMode: TileMode.mirror,
-      colors: [
-        Theme.of(context).highlightColor,
-        isTitle ? Theme.of(context).dividerColor : Theme.of(context).backgroundColor,
-      ]
+      colors: colorsBodyGradient(context, isTitle),
     );
     return linearGradient;
   }

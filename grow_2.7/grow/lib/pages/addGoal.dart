@@ -4,6 +4,7 @@ import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/services/themes.dart';
 import 'package:grow/models/dataLists.dart';
+import 'package:grow/widgets/interfaceStandards.dart';
 import 'package:grow/widgets/neumorphicContainer.dart';
 import 'package:grow/pages/home.dart';
 
@@ -22,6 +23,7 @@ class AddGoalScreen extends StatefulWidget {
 class _AddGoalScreenState extends State<AddGoalScreen> {
   //VARIABLE DECLARATION
   CloudFirestore cloudFirestore = new CloudFirestore();
+  InterfaceStandards interfaceStandards = new InterfaceStandards();
   Themes themes = new Themes();
   DataLists dataLists = new DataLists();
   final _titleTextEditingController = TextEditingController();
@@ -126,39 +128,39 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
         children: <Widget>[
           Positioned(
             top: MediaQuery.of(context).size.height * 0.15,
-            left: MediaQuery.of(context).size.width * 0.25,
-            child: Container(
-              height: 50,
-              width: MediaQuery.of(context).size.width * 0.5,
-              child: showAddGoalTitle(),
-            ),
+            child: interfaceStandards.parentCenter(context,
+              Container(
+                height: 50,
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: showAddGoalTitle(),
+              ),)
           ), //showAddGoalTitle()
           Positioned(
             top: MediaQuery.of(context).size.height * 0.25,
-            left: MediaQuery.of(context).size.width * 0.3,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.3,
-              width: MediaQuery.of(context).size.width * 0.30,
-              child: showIcons(),
-            ),
+            child: interfaceStandards.parentCenter(context,
+              Container(
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.width * 0.30,
+                child: showIcons(),
+              ),)
           ), //showIcons()
           Positioned(
             top: MediaQuery.of(context).size.height * 0.55,
-            left: MediaQuery.of(context).size.width * 0.3,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.3,
-              width: MediaQuery.of(context).size.width * 0.30,
-              child: showColors(),
-            ),
+            child: interfaceStandards.parentCenter(context,
+              Container(
+                height: 200,
+                width: 100,
+                child: showColors(),
+              ))
           ), //showColors()
           Positioned(
             top: MediaQuery.of(context).size.height * 0.8,
-            left: MediaQuery.of(context).size.width * 0.3,
-            child: GestureDetector(
-              onTap: () {
-                cloudFirestore.createData(_titleTextEditingController.text.toString(), iconPosition, colorPosition);
-              },
-              child: showFinishButton(),
+            child: interfaceStandards.parentCenter(context,
+                GestureDetector(
+                  onTap: () {
+                    cloudFirestore.createData(_titleTextEditingController.text.toString(), iconPosition, colorPosition);
+                  },
+                  child: showFinishButton(),)
             ),
           ), //showFinishButton()
         ],
