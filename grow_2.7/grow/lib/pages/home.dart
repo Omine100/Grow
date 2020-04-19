@@ -80,6 +80,35 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  //USER INTERFACE: SHOW TOP
+  Widget showTop() {
+    return Stack(
+      children: <Widget>[
+        Positioned(
+          top: MediaQuery.of(context).size.height * 0.040,
+          left: MediaQuery.of(context).size.width * 0.05,
+          child: Text(
+            "Hi, " + "Matthew",
+            style: TextStyle(
+              color: Theme.of(context).splashColor,
+              fontSize: 40.0,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ), //Title
+        Positioned(
+          top: MediaQuery.of(context).size.height * 0.125,
+          child: interfaceStandards.parentCenter(context, lineChart()),
+        ),
+        Positioned(
+          top: MediaQuery.of(context).size.height * 0.015,
+          left: MediaQuery.of(context).size.width * 0.79,
+          child: showUserButton(context),
+        ),
+      ],
+    );
+  }
+
   //USER INTERFACE: PROGRESS CARD CONTAINER
   Widget showProgressCardContainer() {
     return Padding(
@@ -294,51 +323,40 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Theme.of(context).dialogBackgroundColor,
       body: SafeArea(
         child: Container(
+          decoration: BoxDecoration(
+            gradient: interfaceStandards.bodyLinearGradient(context, false, false),
+          ),
           child: Stack(
             children: <Widget>[
+              showTop(),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.04,
-                right: MediaQuery.of(context).size.width * 0.4,
-                child: showTitle(),
-              ), //showTitle()
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.02,
-                left: MediaQuery.of(context).size.width * 0.775,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ProfileScreen(
-                          auth: widget.auth,
-                          logoutCallback: widget.logoutCallback,
-                          userId: widget.userId,
-                        ))
-                    );
-                  },
-                  child: showUserButton(context),
+                top: MediaQuery.of(context).size.height * 0.05,
+                child:  Container(
+                  height: MediaQuery.of(context).size.height,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dialogBackgroundColor,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(50.0),
+                      topLeft: Radius.circular(50.0),
+                    ),
+                  ),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned(
+                        top: MediaQuery.of(context).size.height * 0.515,
+                        left: MediaQuery.of(context).size.width * 0.05,
+                        child: showSectionText(context, false),
+                      ), //Goals text
+                      Positioned(
+                        top: MediaQuery.of(context).size.height * 0.5625,
+                        left: MediaQuery.of(context).size.width * -0.01,
+                        right: MediaQuery.of(context).size.width * -0.01,
+                        child: showGoalCardContainer(),
+                      ), //Goals boxes
+                    ],
+                  ),
                 ),
-              ), //showUserButton()
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.155,
-                left: MediaQuery.of(context).size.width * 0.05,
-                child: showSectionText(context, true),
-              ), //Progress text
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.1875,
-                left: MediaQuery.of(context).size.width * 0.05,
-                child: showProgressCardContainer(),
-              ), //Progress box
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.515,
-                left: MediaQuery.of(context).size.width * 0.05,
-                child: showSectionText(context, false),
-              ), //Goals text
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.5625,
-                left: MediaQuery.of(context).size.width * -0.01,
-                right: MediaQuery.of(context).size.width * -0.01,
-                child: showGoalCardContainer(),
-              ), //Goals boxes
+              ),
             ],
           ),
         ),
