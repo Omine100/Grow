@@ -123,13 +123,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   //USER INTERFACE: SHOW SECTION TEXT
-  Widget showSectionText(bool isProgress) {
+  Widget showSectionText(bool isFavorite) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text(
-          isProgress ? "Progress" : "Goals",
+          isFavorite ? "Favorites" : "Goals",
           style: TextStyle(
               color: Theme.of(context).textSelectionColor,
               fontSize: 22.5,
@@ -137,10 +137,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.45,
+          width: isFavorite ? MediaQuery.of(context).size.width * 0.45 : MediaQuery.of(context).size.width * 0.53,
         ),
         Text(
-          isProgress ? "Details" : "Customize",
+          "Details",
           style: TextStyle(
               color: Theme.of(context).textSelectionHandleColor,
               fontSize: 17.5,
@@ -161,10 +161,36 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: FAVORITE CARD STREAM BUILDER
   Widget showFavoriteCardStreamBuilder() {
+    return ListView(
+      padding: EdgeInsets.only(
+        left: MediaQuery.of(context).size.width * 0.1,
+        right: MediaQuery.of(context).size.width * 0.1,
+      ),
+      children: <Widget>[
+        buildFavoriteCard(),
+      ],
+    );
   }
 
   //USER INTERFACE: FAVORITE CARD
   Widget buildFavoriteCard() {
+    return new GestureDetector(
+      onTap: () {
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.blue.shade800,
+          borderRadius: BorderRadius.circular(360),
+        ),
+        height: 30,
+        width: 30,
+        child: Icon(
+          Icons.border_color,
+          size: 12.5,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 
   //USER INTERFACE: GOAL CARD STREAM BUILDER
@@ -189,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //USER INTERFACE: GOAL CARD
   Widget buildGoalCard(DocumentSnapshot document) {
     return new Padding(
-      padding: EdgeInsets.only(left: 7.5, right: 7.5, top: 15.0, bottom: 350.0),
+      padding: EdgeInsets.only(left: 7.5, right: 7.5, bottom: 50.0),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -303,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     [
                       interfaceStandards.parentCenter(context,
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.3,
+                          height: MediaQuery.of(context).size.height * 0.295,
                           width: MediaQuery.of(context).size.width,
                           child: lineChart(),
                         ),)
@@ -320,14 +346,36 @@ class _HomeScreenState extends State<HomeScreen> {
                             top: Radius.circular(50)
                         ),
                       ),
-                      height: MediaQuery.of(context).size.height * 0.09,
+                      height: MediaQuery.of(context).size.height * 0.08,
                       child: Column(
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.04,
-                              left: MediaQuery.of(context).size.width * 0.05,
-                              right: MediaQuery.of(context).size.width * 0.05,
+                              top: MediaQuery.of(context).size.height * 0.03,
+                              left: MediaQuery.of(context).size.width * 0.06,
+                              right: MediaQuery.of(context).size.width * 0.06,
+                            ),
+                            child: showSectionText(true),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      width: MediaQuery.of(context).size.width,
+                      color: Theme.of(context).dialogBackgroundColor,
+                      child: showFavoriteCardStreamBuilder(),
+                    ),
+                    Container(
+                      color: Theme.of(context).dialogBackgroundColor,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.01,
+                              left: MediaQuery.of(context).size.width * 0.06,
+                              right: MediaQuery.of(context).size.width * 0.06,
                             ),
                             child: showSectionText(false),
                           ),
@@ -335,7 +383,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.72,
+                      height: MediaQuery.of(context).size.height * 0.33,
                       width: MediaQuery.of(context).size.width,
                       color: Theme.of(context).dialogBackgroundColor,
                       child: showGoalCardStreamBuilder(),
