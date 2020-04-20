@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 
@@ -10,7 +11,6 @@ import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/services/themes.dart';
 import 'package:grow/widgets/interfaceStandards.dart';
-import 'package:grow/widgets/neumorphicContainer.dart';
 import 'package:grow/models/dataLists.dart';
 import 'package:grow/pages/profile.dart';
 import 'package:grow/pages/userGoal.dart';
@@ -47,218 +47,149 @@ class _HomeScreenState extends State<HomeScreen> {
   //MECHANICS: BOTTOM NAVIGATION BAR CHANGE PAGE
   void changePage(int index) {
     setState(() {
-      currentIndex = index;
-    });
+      currentIndex = index;});
   }
 
-  //USER INTERFACE: SHOW TITLE
-  Widget showTitle() {
-    return new Container(
-      decoration: BoxDecoration(
-        gradient: interfaceStandards.bodyLinearGradient(context, false, true),
-        borderRadius: BorderRadius.circular(50.0),
-        boxShadow: [new BoxShadow(
-          color: themes.checkDarkTheme(context) ? Colors.grey.shade900 : Colors.grey.shade400,
-          offset: new Offset(7.5, 7.5),
-          blurRadius: 15.0,
-        ),]
-      ),
-      height: MediaQuery.of(context).size.height * 0.09,
-      width: MediaQuery.of(context).size.width * 0.7,
-
-      child: Padding(
-        padding: EdgeInsets.only(left: 52.0, top: 12.0),
-        child: Text(
-          "Hi, " + "Matthew",
-          style: TextStyle(
-            color: Theme.of(context).splashColor,
-            fontSize: 40.0,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
-    );
-  }
-
-  //USER INTERFACE: SHOW TOP
-  Widget showTop() {
-    return Stack(
-      children: <Widget>[
-        Positioned(
-          top: MediaQuery.of(context).size.height * 0.040,
-          left: MediaQuery.of(context).size.width * 0.05,
-          child: Text(
-            "Hi, " + "Matthew",
-            style: TextStyle(
-              color: Theme.of(context).splashColor,
-              fontSize: 40.0,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ), //Title
-        Positioned(
-          top: MediaQuery.of(context).size.height * 0.125,
-          child: interfaceStandards.parentCenter(context, lineChart()),
-        ),
-        Positioned(
-          top: MediaQuery.of(context).size.height * 0.015,
-          left: MediaQuery.of(context).size.width * 0.79,
-          child: showUserButton(context),
-        ),
-      ],
-    );
-  }
-
-  //USER INTERFACE: PROGRESS CARD CONTAINER
-  Widget showProgressCardContainer() {
-    return Padding(
-      padding: EdgeInsets.only(
-          top: 15.0,
-          right: 0.0,
-          bottom: 15.0,
-          left: 30.0
-      ),
-      child: NeumorphicContainer(
-        height: MediaQuery.of(context).size.height * 0.29,
-        width: MediaQuery.of(context).size.width * 0.75,
-        radius: 40.0,
-        clickable: false,
-        padding: 0.0,
-        color: Theme.of(context).dialogBackgroundColor,
-        child: Padding(
-          padding: EdgeInsets.only(left: 5.0, right: 15.0, top: 15.0, bottom: 5.0),
-          child: lineChart(),
-        ),
-      ),
-    );
-  }
-
-  //USER INTERFACE: PROGRESS CARD - LINE CHART
+  //USER INTERFACE: LINE CHART
   LineChart lineChart() {
-    return LineChart(getLineChartData());
+    return LineChart(
+      LineChartData(
+        gridData: FlGridData(
+          show: false,
+        ),
+        titlesData: FlTitlesData(
+            show: false,
+            bottomTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 22,
+              textStyle:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+              getTitles: (value) {
+                switch (value.toInt()) {
+                  case 2:
+                    return 'MAR';
+                  case 5:
+                    return 'JUN';
+                  case 8:
+                    return 'SEP';
+                }
+                return '';
+              },
+              margin: 8,
+            ),
+            leftTitles: SideTitles(
+              showTitles: false,
+            ),
+            rightTitles: SideTitles(
+              showTitles: false,
+            )
+        ),
+        borderData:
+        FlBorderData(show: false, border: Border.all(color: const Color(0xff37434d), width: 1)),
+        minX: 0,
+        maxX: 11,
+        minY: 0,
+        maxY: 6,
+        lineBarsData: [
+          LineChartBarData(
+            spots: [
+              FlSpot(0, 2),
+              FlSpot(2.6, 1),
+              FlSpot(4.9, 5),
+              FlSpot(6.8, 3.1),
+              FlSpot(8, 4),
+              FlSpot(9.5, 3),
+              FlSpot(11, 4),
+            ],
+            isCurved: true,
+            colors: [
+              Colors.grey.shade300,
+              Colors.white,
+            ],
+            barWidth: 5,
+            isStrokeCapRound: true,
+            dotData: FlDotData(
+              show: false,
+            ),
+            curveSmoothness: 0.25,
+            belowBarData: BarAreaData(
+              show: false,
+              colors: interfaceStandards.colorsBodyGradient(context, false).map((color) => color.withOpacity(0.3)).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
-  //MECHANICS: GET LINE CHART DATA
-  LineChartData getLineChartData() {
-    return LineChartData(
-      gridData: FlGridData(
-        show: true,
-        drawHorizontalLine: true,
-        getDrawingHorizontalLine: (value) {
-          return FlLine(
-            color: Colors.blue,
-            strokeWidth: 1,
-          );
-        },
-        getDrawingVerticalLine: (value) {
-          return FlLine(
-            color: Colors.blue,
-            strokeWidth: 1,
-          );
-        }
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 22,
-          textStyle:
-          const TextStyle(color: Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 2:
-                return 'MAR';
-              case 5:
-                return 'JUN';
-              case 8:
-                return 'SEP';
-            }
-            return '';
-          },
-          margin: 8,
+  //USER INTERFACE: SHOW SECTION TEXT
+  Widget showSectionText(bool isProgress) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        Text(
+          isProgress ? "Progress" : "Goals",
+          style: TextStyle(
+              color: Theme.of(context).textSelectionColor,
+              fontSize: 22.5,
+              fontWeight: FontWeight.w500
+          ),
         ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          textStyle: const TextStyle(
-            color: Color(0xff67727d),
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-          ),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '10k';
-              case 3:
-                return '30k';
-              case 5:
-                return '50k';
-            }
-            return '';
-          },
-          reservedSize: 28,
-          margin: 12,
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.45,
         ),
-      ),
-      borderData:
-      FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
-      minX: 0,
-      maxX: 11,
-      minY: 0,
-      maxY: 6,
-      lineBarsData: [
-        LineChartBarData(
-          spots: [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
-          isCurved: true,
-          colors: interfaceStandards.colorsBodyGradient(context, false),
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
+        Text(
+          isProgress ? "Details" : "Customize",
+          style: TextStyle(
+              color: Theme.of(context).textSelectionHandleColor,
+              fontSize: 17.5,
+              fontWeight: FontWeight.w400
           ),
-          belowBarData: BarAreaData(
-            show: true,
-            colors: interfaceStandards.colorsBodyGradient(context, false).map((color) => color.withOpacity(0.3)).toList(),
-          ),
+        ),
+        SizedBox(
+          width: 5.0,
+        ),
+        Icon(
+          Icons.arrow_forward,
+          size: 22.5,
+          color: Colors.grey.shade600,
         ),
       ],
     );
   }
 
-  //USER INTERFACE: GOAL CARD CONTAINER
-  Widget showGoalCardContainer() {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.285,
-      width: MediaQuery.of(context).size.width * 1.0,
-      child: new StreamBuilder(
-        stream: db.collection(widget.userId).snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          return new ListView(
-            padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.1,
-              right: MediaQuery.of(context).size.width * 0.1,
-            ),
-            scrollDirection: Axis.horizontal,
-            children: snapshot.data.documents.map((DocumentSnapshot document) {
-              return buildGoalCard(document);
-            }).toList(),
-          );
-        },
-      ),
+  //USER INTERFACE: FAVORITE CARD STREAM BUILDER
+  Widget showFavoriteCardStreamBuilder() {
+  }
+
+  //USER INTERFACE: FAVORITE CARD
+  Widget buildFavoriteCard() {
+  }
+
+  //USER INTERFACE: GOAL CARD STREAM BUILDER
+  Widget showGoalCardStreamBuilder() {
+    return StreamBuilder(
+      stream: db.collection(widget.userId).snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        return new ListView(
+          padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.1,
+            right: MediaQuery.of(context).size.width * 0.1,
+          ),
+          scrollDirection: Axis.horizontal,
+          children: snapshot.data.documents.map((DocumentSnapshot document) {
+            return buildGoalCard(document);
+          }).toList(),
+        );
+      },
     );
   }
 
   //USER INTERFACE: GOAL CARD
   Widget buildGoalCard(DocumentSnapshot document) {
     return new Padding(
-      padding: EdgeInsets.only(left: 7.5, right: 7.5, top: 5.0, bottom: 25.0),
+      padding: EdgeInsets.only(left: 7.5, right: 7.5, top: 15.0, bottom: 350.0),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -275,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
           cloudFirestore.deleteData(document);
         },
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height * 0.01,
           width: MediaQuery.of(context).size.width * 0.32,
           decoration: BoxDecoration(
               gradient: interfaceStandards.cardLinearGradient(context, document),
@@ -319,42 +250,97 @@ class _HomeScreenState extends State<HomeScreen> {
   //USER INTERFACE: HOME SCREEN
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: themes.checkDarkTheme(context) ? Colors.grey.shade700 : Colors.blue));
     return new Scaffold(
-      backgroundColor: Theme.of(context).dialogBackgroundColor,
       body: SafeArea(
         child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            gradient: interfaceStandards.bodyLinearGradient(context, false, false),
+              gradient: interfaceStandards.bodyLinearGradient(context, false, false)
           ),
-          child: Stack(
-            children: <Widget>[
-              showTop(),
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.05,
-                child:  Container(
-                  height: MediaQuery.of(context).size.height,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dialogBackgroundColor,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(50.0),
-                      topLeft: Radius.circular(50.0),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                expandedHeight: MediaQuery.of(context).size.height * 0.075,
+                floating: true,
+                pinned: true,
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                flexibleSpace: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.05,
+                          top: MediaQuery.of(context).size.height * 0.025
+                      ),
+                      child: Text(
+                        "Hi, Matthew",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 35.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
-                  ),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        top: MediaQuery.of(context).size.height * 0.515,
-                        left: MediaQuery.of(context).size.width * 0.05,
-                        child: showSectionText(context, false),
-                      ), //Goals text
-                      Positioned(
-                        top: MediaQuery.of(context).size.height * 0.5625,
-                        left: MediaQuery.of(context).size.width * -0.01,
-                        right: MediaQuery.of(context).size.width * -0.01,
-                        child: showGoalCardContainer(),
-                      ), //Goals boxes
-                    ],
-                  ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.013,
+                        left: MediaQuery.of(context).size.width * 0.3,
+                      ),
+                      child: Icon(
+                        Icons.person,
+                        size: 50.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                    [
+                      interfaceStandards.parentCenter(context,
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: MediaQuery.of(context).size.width,
+                          child: lineChart(),
+                        ),)
+                    ]
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).dialogBackgroundColor,
+                        borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(50)
+                        ),
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.09,
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.04,
+                              left: MediaQuery.of(context).size.width * 0.05,
+                              right: MediaQuery.of(context).size.width * 0.05,
+                            ),
+                            child: showSectionText(false),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.72,
+                      width: MediaQuery.of(context).size.width,
+                      color: Theme.of(context).dialogBackgroundColor,
+                      child: showGoalCardStreamBuilder(),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -404,17 +390,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.white,
               ),
               title: Text("Folders")),
-          BubbleBottomBarItem(
-              backgroundColor: Colors.white,
-              icon: Icon(
-                Icons.menu,
-                color: Colors.grey.shade200,
-              ),
-              activeIcon: Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-              title: Text("Menu"))
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -437,63 +412,4 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
-}
-
-//USER INTERFACE: SHOW SECTION TEXT
-Widget showSectionText(BuildContext context, bool isProgress) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    crossAxisAlignment: CrossAxisAlignment.end,
-    children: <Widget>[
-      Text(
-        isProgress ? "Progress" : "Goals",
-        style: TextStyle(
-            color: Theme.of(context).textSelectionColor,
-            fontSize: 22.5,
-            fontWeight: FontWeight.w500
-        ),
-      ),
-      SizedBox(
-        width: MediaQuery.of(context).size.width * 0.45,
-      ),
-      Text(
-        isProgress ? "Details" : "Customize",
-        style: TextStyle(
-            color: Theme.of(context).textSelectionHandleColor,
-            fontSize: 17.5,
-            fontWeight: FontWeight.w400
-        ),
-      ),
-      SizedBox(
-        width: 5.0,
-      ),
-      Icon(
-        Icons.arrow_forward,
-        size: 22.5,
-        color: Colors.grey.shade600,
-      ),
-    ],
-  );
-}
-
-//USER INTERFACE: SHOW USER BUTTON
-Widget showUserButton(BuildContext context) {
-  return new Container(
-    height: 75.0,
-    width: 75.0,
-    color: Colors.transparent,
-
-    child: Card(
-      color: Theme.of(context).accentColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(360),
-      ),
-      elevation: 15.0,
-      child: Icon(
-        Icons.person,
-        size: 50.0,
-        color: Colors.white,
-      ),
-    ),
-  );
 }
