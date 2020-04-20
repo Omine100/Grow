@@ -50,6 +50,46 @@ class _HomeScreenState extends State<HomeScreen> {
       currentIndex = index;});
   }
 
+  //USER INTERFACE: SHOW TITLE
+  Row showTitle() {
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              top: MediaQuery.of(context).size.height * 0.025
+          ),
+          child: Text(
+            "Hi, Matthew",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 35.0,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.013,
+            left: MediaQuery.of(context).size.width * 0.3,
+          ),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(
+                auth: widget.auth, logoutCallback: widget.logoutCallback, userId: widget.userId,
+              )));
+            },
+            child: Icon(
+              Icons.person,
+              size: 50.0,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   //USER INTERFACE: LINE CHART
   LineChart lineChart() {
     return LineChart(
@@ -294,46 +334,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 pinned: true,
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
-                flexibleSpace: Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width * 0.05,
-                          top: MediaQuery.of(context).size.height * 0.025
-                      ),
-                      child: Text(
-                        "Hi, Matthew",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 35.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.013,
-                        left: MediaQuery.of(context).size.width * 0.3,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(
-                            auth: widget.auth, logoutCallback: widget.logoutCallback, userId: widget.userId,
-                          )));
-                        },
-                        child: Icon(
-                          Icons.person,
-                          size: 50.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                flexibleSpace: showTitle(),
               ),
               SliverList(
-                delegate: SliverChildListDelegate(
-                    [
+                delegate: SliverChildListDelegate([
                       interfaceStandards.parentCenter(context,
                         Container(
                           height: MediaQuery.of(context).size.height * 0.295,
@@ -344,8 +348,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SliverList(
-                delegate: SliverChildListDelegate(
-                  [
+                delegate: SliverChildListDelegate([
                     Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).dialogBackgroundColor,
