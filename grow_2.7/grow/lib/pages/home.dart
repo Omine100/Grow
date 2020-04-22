@@ -326,29 +326,28 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: BoxDecoration(
               gradient: interfaceStandards.bodyLinearGradient(context, false, false)
           ),
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                expandedHeight: MediaQuery.of(context).size.height * 0.075,
-                floating: true,
-                pinned: true,
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-                flexibleSpace: showTitle(),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height * 0.075,
+                color: Colors.transparent,
+                child: showTitle(),
               ),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                      interfaceStandards.parentCenter(context,
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.295,
-                          width: MediaQuery.of(context).size.width,
-                          child: lineChart(),
-                        ),)
-                    ]
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.075,
+                child: Container(
+                  child: interfaceStandards.parentCenter(context,
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.295,
+                      width: MediaQuery.of(context).size.width,
+                      child: lineChart(),
+                    ),),
                 ),
               ),
-              SliverList(
-                delegate: SliverChildListDelegate([
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.3697,
+                child: Column(
+                  children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).dialogBackgroundColor,
