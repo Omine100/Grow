@@ -335,69 +335,45 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.075,
-                child: Container(
-                  child: interfaceStandards.parentCenter(context,
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.295,
-                      width: MediaQuery.of(context).size.width,
-                      child: lineChart(),
-                    ),),
-                ),
+                child: interfaceStandards.parentCenter(context,
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.295,
+                    width: MediaQuery.of(context).size.width,
+                    child: lineChart(),
+                  ),),
               ),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.3697,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).dialogBackgroundColor,
-                        borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(50)
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 63,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dialogBackgroundColor,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(50.0),
+                    )
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.03,
+                          left: MediaQuery.of(context).size.width * 0.06,
+                          right: MediaQuery.of(context).size.width * 0.06,
                         ),
+                        child: showSectionText(true),
                       ),
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.03,
-                              left: MediaQuery.of(context).size.width * 0.06,
-                              right: MediaQuery.of(context).size.width * 0.06,
-                            ),
-                            child: showSectionText(true),
-                          ),
-                        ],
+                      showFavoriteCardStreamBuilder(),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.01,
+                          left: MediaQuery.of(context).size.width * 0.06,
+                          right: MediaQuery.of(context).size.width * 0.06,
+                        ),
+                        child: showSectionText(false),
                       ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).dialogBackgroundColor,
-                      child: showFavoriteCardStreamBuilder(),
-                    ),
-                    Container(
-                      color: Theme.of(context).dialogBackgroundColor,
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.01,
-                              left: MediaQuery.of(context).size.width * 0.06,
-                              right: MediaQuery.of(context).size.width * 0.06,
-                            ),
-                            child: showSectionText(false),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.33,
-                      width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).dialogBackgroundColor,
-                      child: showGoalCardStreamBuilder(),
-                    ),
-                  ],
+                      showGoalCardStreamBuilder(),
+                    ],
+                  ),
                 ),
               ),
             ],
