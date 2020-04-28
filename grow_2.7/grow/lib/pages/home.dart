@@ -174,38 +174,44 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: SHOW SECTION TEXT
   Widget showSectionText(bool isFavorite) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        Text(
-          isFavorite ? "Favorites" : "Goals",
-          style: TextStyle(
-              color: Theme.of(context).textSelectionColor,
-              fontSize: 22.5,
-              fontWeight: FontWeight.w500
+    return Padding(
+      padding: EdgeInsets.only(
+        left: MediaQuery.of(context).size.width * 0.01,
+        right: MediaQuery.of(context).size.width * 0.01,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(
+            isFavorite ? "Favorites" : "Goals",
+            style: TextStyle(
+                color: Theme.of(context).textSelectionColor,
+                fontSize: 22.5,
+                fontWeight: FontWeight.w500
+            ),
           ),
-        ),
-        SizedBox(
-          width: isFavorite ? MediaQuery.of(context).size.width * 0.45 : MediaQuery.of(context).size.width * 0.53,
-        ),
-        Text(
-          "Details",
-          style: TextStyle(
-              color: Theme.of(context).textSelectionHandleColor,
-              fontSize: 17.5,
-              fontWeight: FontWeight.w400
+          SizedBox(
+            width: isFavorite ? MediaQuery.of(context).size.width * 0.45 : MediaQuery.of(context).size.width * 0.53,
           ),
-        ),
-        SizedBox(
-          width: 5.0,
-        ),
-        Icon(
-          Icons.arrow_forward,
-          size: 22.5,
-          color: Colors.grey.shade600,
-        ),
-      ],
+          Text(
+            "Details",
+            style: TextStyle(
+                color: Theme.of(context).textSelectionHandleColor,
+                fontSize: 17.5,
+                fontWeight: FontWeight.w400
+            ),
+          ),
+          SizedBox(
+            width: 5.0,
+          ),
+          Icon(
+            Icons.arrow_forward,
+            size: 22.5,
+            color: Colors.grey.shade600,
+          ),
+        ],
+      ),
     );
   }
 
@@ -243,20 +249,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: GOAL CARD STREAM BUILDER
   Widget showGoalCardStreamBuilder() {
-    return StreamBuilder(
-      stream: db.collection(widget.userId).snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        return new ListView(
-          padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.1,
-            right: MediaQuery.of(context).size.width * 0.1,
-          ),
-          scrollDirection: Axis.horizontal,
-          children: snapshot.data.documents.map((DocumentSnapshot document) {
-            return buildGoalCard(document);
-          }).toList(),
-        );
-      },
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.30,
+      width: MediaQuery.of(context).size.width,
+      child: StreamBuilder(
+        stream: db.collection(widget.userId).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          return new ListView(
+            padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.1,
+              right: MediaQuery.of(context).size.width * 0.1,
+            ),
+            scrollDirection: Axis.horizontal,
+            children: snapshot.data.documents.map((DocumentSnapshot document) {
+              return buildGoalCard(document);
+            }).toList(),
+          );
+        },
+      ),
     );
   }
 
@@ -354,20 +364,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size,
-                          right: ,
-                        ),
-                        child: showSectionText(true),
-                      ),
+                      showSectionText(true),
                       showFavoriteCardStreamBuilder(),
                       showSectionText(false),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.30,
-                        width: MediaQuery.of(context).size.width,
-                        child: showGoalCardStreamBuilder(),
-                      ),
+                      showGoalCardStreamBuilder(),
                     ],
                   ),
                 ),
