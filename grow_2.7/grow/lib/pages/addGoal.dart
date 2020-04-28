@@ -32,6 +32,9 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   int iconPosition, colorPosition;
   Icon icon;
 
+  //USER INTERFACE: SHOW ADD TEXT
+  Widget showAddText() {}
+
   //USER INTERFACE: SHOW TEXT FIELD FOR TITLE
   Widget showAddGoalTitle() {
     return new TextFormField(
@@ -123,47 +126,19 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold (
-      backgroundColor: Theme.of(context).dialogBackgroundColor,
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.15,
-            child: interfaceStandards.parentCenter(context,
-              Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width * 0.5,
-                child: showAddGoalTitle(),
-              ),)
-          ), //showAddGoalTitle()
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.25,
-            child: interfaceStandards.parentCenter(context,
-              Container(
-                height: MediaQuery.of(context).size.height * 0.3,
-                width: MediaQuery.of(context).size.width * 0.30,
-                child: showIcons(),
-              ),)
-          ), //showIcons()
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.55,
-            child: interfaceStandards.parentCenter(context,
-              Container(
-                height: 200,
-                width: 100,
-                child: showColors(),
-              ))
-          ), //showColors()
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.8,
-            child: interfaceStandards.parentCenter(context,
-                GestureDetector(
-                  onTap: () {
-                    cloudFirestore.createData(_titleTextEditingController.text.toString(), iconPosition, colorPosition);
-                  },
-                  child: showFinishButton(),)
-            ),
-          ), //showFinishButton()
-        ],
+      body: SafeArea(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            gradient: interfaceStandards.bodyLinearGradient(context, false, true),
+          ),
+          child: Stack(
+            children: <Widget>[
+              showAddText(),
+            ],
+          ),
+        ),
       ),
     );
   }
