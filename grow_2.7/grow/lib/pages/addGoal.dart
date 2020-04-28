@@ -50,8 +50,8 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   }
 
   //USER INTERFACE: SHOW FORM
-  Widget showForm() {
-
+  Widget showForm(int formCase) {
+    
   }
 
   //USER INTERFACE: SHOW BUTTON
