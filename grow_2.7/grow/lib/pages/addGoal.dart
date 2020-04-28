@@ -38,7 +38,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   }
 
   //USER INTERFACE: SHOW ADD TEXT
-  Widget showAddText(String textCase) {
+  Widget showText(String textCase) {
     return Text(
       textCase,
       style: TextStyle(
@@ -51,7 +51,13 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
 
   //USER INTERFACE: SHOW FORM
   Widget showForm(int formCase) {
-    
+    if (formCase == 1) {
+      return showPickTitle();
+    } else if (formCase == 2) {
+      return showPickIcon();
+    } else {
+      return showPickColor()
+    }
   }
 
   //USER INTERFACE: SHOW BUTTON
@@ -72,7 +78,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   }
 
   //USER INTERFACE: SHOW TEXT FIELD FOR TITLE
-  Widget showAddTitle() {
+  Widget showPickTitle() {
     return new TextFormField(
       controller: _titleTextEditingController,
       keyboardType: TextInputType.text,
@@ -171,7 +177,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
           ),
           child: Stack(
             children: <Widget>[
-              showAddText("Name"),
+              showText("Name"),
               showForm(),
               showButton(),
             ],
