@@ -38,7 +38,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
 
     switch (textCase) {
       case "Name": {
-        
+
         break;
       }
       case "Type": {
@@ -61,8 +61,18 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     );
   }
 
+  //USER INTERFACE: SHOW FORM
+  Widget showForm() {
+
+  }
+
+  //USER INTERFACE: SHOW BUTTON
+  Widget showButton() {
+    
+  }
+
   //USER INTERFACE: SHOW TEXT FIELD FOR TITLE
-  Widget showAddGoalTitle() {
+  Widget showAddTitle() {
     return new TextFormField(
       controller: _titleTextEditingController,
       keyboardType: TextInputType.text,
@@ -97,7 +107,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   }
 
   //USER INTERFACE: SHOW ICONS FOR ICON
-  Widget showIcons() {
+  Widget showPickIcon() {
     return new ListView.builder(
       itemCount: dataLists.getIconList().length,
       itemBuilder: (context, index) {
@@ -123,7 +133,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   }
 
   //USER INTERFACE: SHOW COLORS FOR COLOR
-  Widget showColors() {
+  Widget showPickColor() {
     return new ListView.builder(
       itemCount: dataLists.getColorList(themes.checkDarkTheme(context), true).length,
       itemBuilder: (context, index) {
@@ -161,7 +171,9 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
           ),
           child: Stack(
             children: <Widget>[
-              showAddText(),
+              showAddText("Name"),
+              showForm(),
+              showButton(),
             ],
           ),
         ),
