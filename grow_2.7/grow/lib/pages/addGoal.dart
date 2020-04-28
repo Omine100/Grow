@@ -33,13 +33,15 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   Icon icon;
 
   //USER INTERFACE: SHOW ADD TEXT
-  Widget showAddText(int textCase) {
+  Widget showAddText(String textCase) {
+    String title = "";
+
     switch (textCase) {
-      case 1: {
+      case "Name": {
         
         break;
       }
-      case 2: {
+      case "Type": {
 
         break;
       }
@@ -50,7 +52,12 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     }
 
     return Text(
-
+      title,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 25.0,
+        fontWeight: FontWeight.w500,
+      ),
     );
   }
 
