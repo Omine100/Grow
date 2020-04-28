@@ -67,8 +67,19 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   }
 
   //USER INTERFACE: SHOW BUTTON
-  Widget showButton() {
-    
+  Widget showButton(bool isLast) {
+    return Container(
+      height: 50,
+      width: MediaQuery.of(context).size.width * 0.375,
+      decoration: BoxDecoration(
+        color: Theme.of(context).dialogBackgroundColor,
+        borderRadius: BorderRadius.all(Radius.circular(50.0)),
+      ),
+      child: Icon(
+        isLast ? Icons.navigate_next : Icons.check,
+        color: Theme.of(context).accentColor,
+      ),
+    )
   }
 
   //USER INTERFACE: SHOW TEXT FIELD FOR TITLE
