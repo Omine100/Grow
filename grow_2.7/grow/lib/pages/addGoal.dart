@@ -78,8 +78,9 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
       child: Icon(
         isLast ? Icons.navigate_next : Icons.check,
         color: Theme.of(context).accentColor,
+        size: 35.0,
       ),
-    )
+    );
   }
 
   //USER INTERFACE: SHOW TEXT FIELD FOR TITLE
