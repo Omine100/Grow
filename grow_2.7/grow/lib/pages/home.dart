@@ -51,114 +51,124 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   //USER INTERFACE: SHOW TITLE
-  Row showTitle() {
-    return Row(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.05,
-              top: MediaQuery.of(context).size.height * 0.025
-          ),
-          child: Text(
-            "Hi, Matthew",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 35.0,
-              fontWeight: FontWeight.w700,
+  Container showTitle() {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.075,
+      color: Colors.transparent,
+      child: Row(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.05,
+                top: MediaQuery.of(context).size.height * 0.025
+            ),
+            child: Text(
+              "Hi, Matthew",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 35.0,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.013,
-            left: MediaQuery.of(context).size.width * 0.3,
-          ),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(
-                auth: widget.auth, logoutCallback: widget.logoutCallback, userId: widget.userId,
-              )));
-            },
-            child: Icon(
-              Icons.person,
-              size: 50.0,
-              color: Colors.white,
+          Padding(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.013,
+              left: MediaQuery.of(context).size.width * 0.3,
             ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  //USER INTERFACE: LINE CHART
-  LineChart lineChart() {
-    return LineChart(
-      LineChartData(
-        gridData: FlGridData(
-          show: false,
-        ),
-        titlesData: FlTitlesData(
-            show: false,
-            bottomTitles: SideTitles(
-              showTitles: true,
-              reservedSize: 22,
-              textStyle:
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-              getTitles: (value) {
-                switch (value.toInt()) {
-                  case 2:
-                    return 'MAR';
-                  case 5:
-                    return 'JUN';
-                  case 8:
-                    return 'SEP';
-                }
-                return '';
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(
+                  auth: widget.auth, logoutCallback: widget.logoutCallback, userId: widget.userId,
+                )));
               },
-              margin: 8,
-            ),
-            leftTitles: SideTitles(
-              showTitles: false,
-            ),
-            rightTitles: SideTitles(
-              showTitles: false,
-            )
-        ),
-        borderData:
-        FlBorderData(show: false, border: Border.all(color: const Color(0xff37434d), width: 1)),
-        minX: 0,
-        maxX: 11,
-        minY: 0,
-        maxY: 6,
-        lineBarsData: [
-          LineChartBarData(
-            spots: [
-              FlSpot(0, 2),
-              FlSpot(2.6, 1),
-              FlSpot(4.9, 5),
-              FlSpot(6.8, 3.1),
-              FlSpot(8, 4),
-              FlSpot(9.5, 3),
-              FlSpot(11, 4),
-            ],
-            isCurved: true,
-            colors: [
-              Colors.grey.shade300,
-              Colors.white,
-            ],
-            barWidth: 5,
-            isStrokeCapRound: true,
-            dotData: FlDotData(
-              show: false,
-            ),
-            curveSmoothness: 0.25,
-            belowBarData: BarAreaData(
-              show: false,
-              colors: interfaceStandards.colorsBodyGradient(context, false).map((color) => color.withOpacity(0.3)).toList(),
+              child: Icon(
+                Icons.person,
+                size: 50.0,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  //USER INTERFACE: LINE CHART
+  Widget lineChart() {
+    return interfaceStandards.parentCenter(context,
+        Container(
+          height: MediaQuery.of(context).size.height * 0.295,
+          width: MediaQuery.of(context).size.width,
+          child: LineChart(
+            LineChartData(
+              gridData: FlGridData(
+                show: false,
+              ),
+              titlesData: FlTitlesData(
+                  show: false,
+                  bottomTitles: SideTitles(
+                    showTitles: true,
+                    reservedSize: 22,
+                    textStyle:
+                    const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                    getTitles: (value) {
+                      switch (value.toInt()) {
+                        case 2:
+                          return 'MAR';
+                        case 5:
+                          return 'JUN';
+                        case 8:
+                          return 'SEP';
+                      }
+                      return '';
+                    },
+                    margin: 8,
+                  ),
+                  leftTitles: SideTitles(
+                    showTitles: false,
+                  ),
+                  rightTitles: SideTitles(
+                    showTitles: false,
+                  )
+              ),
+              borderData:
+              FlBorderData(show: false, border: Border.all(color: const Color(0xff37434d), width: 1)),
+              minX: 0,
+              maxX: 11,
+              minY: 0,
+              maxY: 6,
+              lineBarsData: [
+                LineChartBarData(
+                  spots: [
+                    FlSpot(0, 2),
+                    FlSpot(2.6, 1),
+                    FlSpot(4.9, 5),
+                    FlSpot(6.8, 3.1),
+                    FlSpot(8, 4),
+                    FlSpot(9.5, 3),
+                    FlSpot(11, 4),
+                  ],
+                  isCurved: true,
+                  colors: [
+                    Colors.grey.shade300,
+                    Colors.white,
+                  ],
+                  barWidth: 5,
+                  isStrokeCapRound: true,
+                  dotData: FlDotData(
+                    show: false,
+                  ),
+                  curveSmoothness: 0.25,
+                  belowBarData: BarAreaData(
+                    show: false,
+                    colors: interfaceStandards.colorsBodyGradient(context, false).map((color) => color.withOpacity(0.3)).toList(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
     );
   }
 
@@ -201,14 +211,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: FAVORITE CARD STREAM BUILDER
   Widget showFavoriteCardStreamBuilder() {
-    return ListView(
+    return Padding(
       padding: EdgeInsets.only(
         left: MediaQuery.of(context).size.width * 0.1,
         right: MediaQuery.of(context).size.width * 0.1,
       ),
-      children: <Widget>[
-        buildFavoriteCard(),
-      ],
+      child: buildFavoriteCard(),
     );
   }
 
@@ -328,50 +336,38 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           child: Stack(
             children: <Widget>[
-              Container(
-                height: MediaQuery.of(context).size.height * 0.075,
-                color: Colors.transparent,
-                child: showTitle(),
-              ),
+              showTitle(),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.075,
-                child: interfaceStandards.parentCenter(context,
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.295,
-                    width: MediaQuery.of(context).size.width,
-                    child: lineChart(),
-                  ),),
+                child: lineChart(),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.3697,
+                top: MediaQuery.of(context).size.height * 0.375,
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 63,
                   decoration: BoxDecoration(
                     color: Theme.of(context).dialogBackgroundColor,
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(50.0),
-                    )
+                    ),
                   ),
+                  height: MediaQuery.of(context).size.height * 0.55,
+                  width: MediaQuery.of(context).size.width,
                   child: Column(
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.03,
-                          left: MediaQuery.of(context).size.width * 0.06,
-                          right: MediaQuery.of(context).size.width * 0.06,
+                          left: MediaQuery.of(context).size,
+                          right: ,
                         ),
                         child: showSectionText(true),
                       ),
                       showFavoriteCardStreamBuilder(),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.01,
-                          left: MediaQuery.of(context).size.width * 0.06,
-                          right: MediaQuery.of(context).size.width * 0.06,
-                        ),
-                        child: showSectionText(false),
+                      showSectionText(false),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.30,
+                        width: MediaQuery.of(context).size.width,
+                        child: showGoalCardStreamBuilder(),
                       ),
-                      showGoalCardStreamBuilder(),
                     ],
                   ),
                 ),
