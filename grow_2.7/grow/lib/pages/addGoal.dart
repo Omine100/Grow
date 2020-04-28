@@ -33,7 +33,26 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   Icon icon;
 
   //USER INTERFACE: SHOW ADD TEXT
-  Widget showAddText() {}
+  Widget showAddText(int textCase) {
+    switch (textCase) {
+      case 1: {
+        
+        break;
+      }
+      case 2: {
+
+        break;
+      }
+      default: {
+
+        break;
+      }
+    }
+
+    return Text(
+
+    );
+  }
 
   //USER INTERFACE: SHOW TEXT FIELD FOR TITLE
   Widget showAddGoalTitle() {
