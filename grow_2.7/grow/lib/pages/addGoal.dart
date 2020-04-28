@@ -32,27 +32,15 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   int iconPosition, colorPosition;
   Icon icon;
 
+  //MECHANICS: PAGE DETECTOR
+  int pageDetector() {
+
+  }
+
   //USER INTERFACE: SHOW ADD TEXT
   Widget showAddText(String textCase) {
-    String title = "";
-
-    switch (textCase) {
-      case "Name": {
-
-        break;
-      }
-      case "Type": {
-
-        break;
-      }
-      default: {
-
-        break;
-      }
-    }
-
     return Text(
-      title,
+      textCase,
       style: TextStyle(
         color: Colors.white,
         fontSize: 25.0,
