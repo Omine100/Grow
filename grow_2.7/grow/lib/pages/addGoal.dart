@@ -56,7 +56,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     } else if (formCase == 2) {
       return showPickIcon();
     } else {
-      return showPickColor()
+      return showPickColor();
     }
   }
 
