@@ -6,7 +6,6 @@ import 'package:grow/services/authentication.dart';
 import 'package:grow/widgets/interfaceStandards.dart';
 import 'package:grow/models/dataLists.dart';
 
-
 class UserGoal extends StatefulWidget {
   UserGoal({Key key, this.auth, this.logoutCallback, this.userId, this.documentSnapshot});
 
@@ -69,7 +68,7 @@ class _UserGoalState extends State<UserGoal> {
             onRangeSelected: (range) => print(range),
             onDateSelected: (date) => handleNewDate(date),
             isExpanded: false,
-            showTodayIcon: true,
+            showTodayIcon: false,
             eventColor: Colors.blue,
             eventDoneColor: Colors.black,
             showArrows: true,

@@ -16,13 +16,16 @@ class CloudFirestore {
     print("Read: " + snapshot.data["name"]);
   }
 
-  Future<String> createData(String title, int iconPosition, int colorPosition) async {
+  Future<String> createData(String title, int iconPosition, int colorPosition, int goalHours, int goalMinutes, int goalSeconds) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
 
     DocumentReference ref = await db.collection(user.uid.toString()).add({
       "title": title,
       "icon": iconPosition,
       "color": colorPosition,
+      "goalHours": goalHours,
+      "goalMinutes": goalMinutes,
+      "goalSeconds": goalSeconds,
     });
     print("Created: " + ref.documentID);
     return ref.documentID;

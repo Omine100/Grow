@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
@@ -34,6 +35,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   String textPosition = "Title";
   int formPosition = 1;
   bool buttonPosition = false;
+  DateTime dateTime = DateTime.now();
 
   Future<void> pageCounter() async {
     setState(() {
@@ -43,6 +45,9 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
         buttonPosition = false;
       } else if (formPosition == 3) {
         textPosition = "Color";
+        buttonPosition = false;
+      } else if (formPosition == 4) {
+        textPosition = "Time";
         buttonPosition = true;
       }
     });
@@ -50,7 +55,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
 
   //USER INTERFACE: SHOW ADD TEXT
   Widget showText(String textPosition) {
-    return InterfaceStandards().parentCenter(context,
+    return interfaceStandards.parentCenter(context,
       Text(
         textPosition.toString(),
         style: TextStyle(
@@ -65,17 +70,13 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   //USER INTERFACE: SHOW FORM
   Widget showForm(int formPosition) {
     if (formPosition == 1) {
-      return InterfaceStandards().parentCenter(context,
-        showPickTitle(),
-      );
+      return interfaceStandards.parentCenter(context, showPickTitle(),);
     } else if (formPosition == 2) {
-      return InterfaceStandards().parentCenter(context,
-        showPickIcon(),
-      );
-    } else {
-      return InterfaceStandards().parentCenter(context,
-        showPickColor(),
-      );
+      return interfaceStandards.parentCenter(context, showPickIcon(),);
+    } else if (formPosition == 3){
+      return interfaceStandards.parentCenter(context, showPickColor(),);
+    } else if (formPosition == 4) {
+      return interfaceStandards.parentCenter(context, showPickTime(),);
     }
   }
 
@@ -85,10 +86,17 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
         GestureDetector(
           onTap: () {
             print(formPosition);
-            if(formPosition != 3) {
+            if(formPosition != 4) {
               pageCounter();
             } else {
-              cloudFirestore.createData(_titleTextEditingController.text.toString(), iconPosition, colorPosition);
+              cloudFirestore.createData(
+                _titleTextEditingController.text.toString(),
+                iconPosition,
+                colorPosition,
+                dateTime.hour,
+                dateTime.minute,
+                dateTime.second,
+              );
               Navigator.pop(context);
             }
           },
@@ -207,6 +215,35 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     );
   }
 
+  //USER INTERFACE: SHOW TIME PICKER FOR TIME
+  Widget showPickTime() {
+    return new Container(
+      height: MediaQuery.of(context).size.height * 0.2,
+      child: TimePickerSpinner(
+        normalTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 25.0
+        ),
+        highlightedTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 35.0
+        ),
+        is24HourMode: true,
+        isForce2Digits: false,
+        isShowSeconds: true,
+        secondsInterval: 1,
+        onTimeChange: (time) {
+          setState(() {
+            dateTime = time;
+            print("Hours: " + dateTime.hour.toString() +
+                "\nMinutes: " + dateTime.minute.toString() +
+                "\nSeconds: " + dateTime.second.toString());
+          });
+        },
+      ),
+    );
+  }
+
   //USER INTERFACE: ADD GOAL SCREEN
   @override
   Widget build(BuildContext context) {
@@ -224,7 +261,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                 top: MediaQuery.of(context).size.height * 0.03,
                 left: MediaQuery.of(context).size.width * 0.06,
                 child: interfaceStandards.backButton(context),
-              ), //Back button
+              ),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.3,
                 child: showText(textPosition),

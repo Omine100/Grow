@@ -20,6 +20,7 @@ dependencies:
   fl_chart: ^0.8.7
   provider_architecture: ^1.0.3
   flutter_clean_calendar: ^1.0.1
+  flutter_time_picker_spinner: ^1.0.6
 
 dev_dependencies:
   flutter_test:

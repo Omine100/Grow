@@ -6,8 +6,12 @@ class Goal {
     @required this.userId,
     @required this.color,
     @required this.icon,
-    @required this.timeDay,
-    @required this.timeTotal,
+    @required this.goalHours,
+    @required this.goalMinutes,
+    @required this.goalSeconds,
+    @required this.currentHours,
+    @required this.currentMinutes,
+    @required this.currentSeconds,
   });
 
   //VARIABLE REFERENCE: NEEDED TO LOAD GOAL MODEL
@@ -15,8 +19,12 @@ class Goal {
   final String userId;
   final String color;
   final String icon;
-  final String timeDay;
-  final String timeTotal;
+  final int goalHours;
+  final int goalMinutes;
+  final int goalSeconds;
+  final int currentHours;
+  final int currentMinutes;
+  final int currentSeconds;
 
   //MECHANICS: GOAL TO MAP
   Map<String, dynamic> toMap() {
@@ -25,8 +33,12 @@ class Goal {
       "userId": userId,
       "color": color,
       "icon": icon,
-      "timeDay": timeDay,
-      "timeTotal": timeTotal,
+      "goalHours": goalHours,
+      "goalMinutes": goalMinutes,
+      "goalSeconds": goalSeconds,
+      "currentHours": currentHours,
+      "currentMinutes": currentMinutes,
+      "currentSeconds": currentSeconds,
     };
   }
 
@@ -39,8 +51,12 @@ class Goal {
       userId: map["userId"],
       color: map["color"],
       icon: map["icon"],
-      timeDay: map["timeDay"],
-      timeTotal: map["timeTotal"],
+      goalHours: map['goalHours'],
+      goalMinutes: map['goalMinutes'],
+      goalSeconds: map['goalSeconds'],
+      currentHours: map['currentHours'],
+      currentMinutes: map['currentMinutes'],
+      currentSeconds: map['currentSeconds'],
     );
   }
 }
