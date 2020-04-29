@@ -221,6 +221,11 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
           child: Stack(
             children: <Widget>[
               Positioned(
+                top: MediaQuery.of(context).size.height * 0.03,
+                left: MediaQuery.of(context).size.width * 0.06,
+                child: interfaceStandards.backButton(context),
+              ), //Back button
+              Positioned(
                 top: MediaQuery.of(context).size.height * 0.3,
                 child: showText(textPosition),
               ),

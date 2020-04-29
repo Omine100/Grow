@@ -28,8 +28,8 @@ class DataLists {
   }
 
   //MECHANICS: GET CLEAN CALENDAR Map
-  Map getCleanCalendarMap() {
-    return _cleanCalendarMapData();
+  Map getCalendarMap() {
+    return _calendarMapData();
   }
 }
 
@@ -60,12 +60,25 @@ Color _colorData(int position, List<Color> _colorList, bool darkTheme, bool firs
   return _colorList[position];
 }
 
-Map _cleanCalendarMapData() {
+Map _calendarMapData() {
   final Map events = {
+    DateTime(2020, 4, 23): [
+      {'name': 'Get calendar working', 'isDone': false},
+    ],
     DateTime(2020, 4, 29): [
       {'name': 'Get calendar working', 'isDone': false},
     ],
     DateTime(2020, 5, 2): [
+      {'name': 'Jimbo\'s birthday', 'isDone': false},
+      {'name': 'Jimbo\'s Graduation', 'isDone': true},
+      {'name': 'Jimbo\'s birthday', 'isDone': false},
+      {'name': 'Jimbo\'s Graduation', 'isDone': true},
+      {'name': 'Jimbo\'s birthday', 'isDone': false},
+      {'name': 'Jimbo\'s Graduation', 'isDone': true},
+      {'name': 'Jimbo\'s birthday', 'isDone': false},
+      {'name': 'Jimbo\'s Graduation', 'isDone': true},
+      {'name': 'Jimbo\'s birthday', 'isDone': false},
+      {'name': 'Jimbo\'s Graduation', 'isDone': true},
       {'name': 'Jimbo\'s birthday', 'isDone': false},
       {'name': 'Jimbo\'s Graduation', 'isDone': true},
     ],

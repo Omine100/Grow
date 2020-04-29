@@ -258,16 +258,20 @@ class _HomeScreenState extends State<HomeScreen> {
         child: StreamBuilder(
           stream: db.collection(widget.userId).snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            return new ListView(
-              padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.1,
-                right: MediaQuery.of(context).size.width * 0.1,
-              ),
-              scrollDirection: Axis.horizontal,
-              children: snapshot.data.documents.map((DocumentSnapshot document) {
-                return buildGoalCard(document);
-              }).toList(),
-            );
+            if (snapshot.data.documents.isEmpty) {
+              return Container();
+            } else {
+              return new ListView(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  right: MediaQuery.of(context).size.width * 0.1,
+                ),
+                scrollDirection: Axis.horizontal,
+                children: snapshot.data.documents.map((DocumentSnapshot document) {
+                  return buildGoalCard(document);
+                }).toList(),
+              );
+            }
           },
         ),
       ),
@@ -358,14 +362,14 @@ class _HomeScreenState extends State<HomeScreen> {
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.375,
                 child: Container(
+                  height: MediaQuery.of(context).size.height * 0.55,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: Theme.of(context).dialogBackgroundColor,
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(50.0),
                     ),
                   ),
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  width: MediaQuery.of(context).size.width,
                   child: Column(
                     children: <Widget>[
                       showSectionText(true),
