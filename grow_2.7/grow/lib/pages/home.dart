@@ -176,8 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget showSectionText(bool isFavorite) {
     return Padding(
       padding: EdgeInsets.only(
-        left: MediaQuery.of(context).size.width * 0.01,
-        right: MediaQuery.of(context).size.width * 0.01,
+        top: isFavorite ? MediaQuery.of(context).size.height * 0.03 : 0,
+        left: MediaQuery.of(context).size.width * 0.05,
+        right: MediaQuery.of(context).size.width * 0.05,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -249,23 +250,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: GOAL CARD STREAM BUILDER
   Widget showGoalCardStreamBuilder() {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.30,
-      width: MediaQuery.of(context).size.width,
-      child: StreamBuilder(
-        stream: db.collection(widget.userId).snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          return new ListView(
-            padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.1,
-              right: MediaQuery.of(context).size.width * 0.1,
-            ),
-            scrollDirection: Axis.horizontal,
-            children: snapshot.data.documents.map((DocumentSnapshot document) {
-              return buildGoalCard(document);
-            }).toList(),
-          );
-        },
+    return Padding(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.30,
+        width: MediaQuery.of(context).size.width,
+        child: StreamBuilder(
+          stream: db.collection(widget.userId).snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            return new ListView(
+              padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.1,
+                right: MediaQuery.of(context).size.width * 0.1,
+              ),
+              scrollDirection: Axis.horizontal,
+              children: snapshot.data.documents.map((DocumentSnapshot document) {
+                return buildGoalCard(document);
+              }).toList(),
+            );
+          },
+        ),
       ),
     );
   }
