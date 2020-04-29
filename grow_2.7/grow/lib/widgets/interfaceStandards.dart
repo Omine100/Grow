@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
 
 import 'package:grow/services/themes.dart';
 import 'package:grow/models/dataLists.dart';
@@ -69,6 +70,19 @@ class InterfaceStandards {
       child: Center(
         child: child,
       ),
+    );
+  }
+
+  //USER INTERFACE: CLEAN CALENDAR
+  Calendar cleanCalendar() {
+    return Calendar(
+      events: dataLists.getCleanCalendarMap(),
+      onRangeSelected: (range) =>
+        print(range),
+      isExpandable: true,
+      showTodayIcon: true,
+      eventDoneColor: Colors.blue,
+      eventColor: Colors.black,
     );
   }
 }

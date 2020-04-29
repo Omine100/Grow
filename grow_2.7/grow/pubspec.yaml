@@ -19,6 +19,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   fl_chart: ^0.8.7
   provider_architecture: ^1.0.3
+  flutter_clean_calendar: ^1.0.1
 
 dev_dependencies:
   flutter_test:

@@ -26,6 +26,11 @@ class DataLists {
   List<Color> getColorList(bool darkTheme, bool first) {
     return _colorListData(_colorList, darkTheme, first);
   }
+
+  //MECHANICS: GET CLEAN CALENDAR Map
+  Map getCleanCalendarMap() {
+    return _cleanCalendarMapData();
+  }
 }
 
 //MECHANICS: ICON DATA INITIALIZATION
@@ -55,4 +60,22 @@ List<Color> _colorListData(List<Color> _colorList, bool darkTheme, bool first) {
 //MECHANICS: GET COLOR DATA RETURN
 Color _colorData(int position, List<Color> _colorList, bool darkTheme, bool first) {
   return _colorList[position];
+}
+
+Map _cleanCalendarMapData() {
+  final Map events = {
+    DateTime(2020, 4, 29): [
+      {'name': 'Get calendar working', 'isDone': false},
+    ],
+    DateTime(2020, 5, 2): [
+      {'name': 'Jimbo\'s birthday', 'isDone': false},
+      {'name': 'Jimbo\'s Graduation', 'isDone': true},
+    ],
+    DateTime(2020, 5, 4): [
+      {'name': 'Start work', 'isDone': false},
+      {'name': 'Testing, testing, 1, 2, 3', 'isDone': true},
+    ],
+  };
+
+  return events;
 }
