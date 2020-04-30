@@ -22,12 +22,14 @@ class UserGoal extends StatefulWidget {
 class _UserGoalState extends State<UserGoal> {
   //VARIABLE DECLARATION
   InterfaceStandards interfaceStandards = new InterfaceStandards();
+  DataLists dataLists = new DataLists();
+  Stopwatch stopwatch = new Stopwatch();
   String title;
   String date;
   String goal;
-  DataLists dataLists = new DataLists();
   List _selectedEvents;
   DateTime _selectedDay;
+  String startButtonText;
 
   //VARIABLE INITIALIZATION: USER GOAL SCREEN
   @override
@@ -35,6 +37,7 @@ class _UserGoalState extends State<UserGoal> {
     super.initState();
     getData();
     _selectedEvents = dataLists.getCalendarMap()[_selectedDay] ?? [];
+    startButtonText = "Start";
   }
 
   //MECHANICS: READ DOCUMENTSNAPSHOT AND INITIALIZE DATA
@@ -99,6 +102,42 @@ class _UserGoalState extends State<UserGoal> {
     );
   }
 
+  //USER INTERFACE: SHOW START BUTTON
+  Widget showStartButton() {
+    return interfaceStandards.parentCenter(context,
+      Container(
+        child: GestureDetector(
+          onTap: () {
+            if (stopwatch.isRunning) {
+              stopwatch.stop();
+              setState(() {
+                startButtonText = "Start";
+              });
+              print("Time stopped: " + (stopwatch.elapsedMilliseconds/1000).toString());
+            } else {
+              stopwatch.start();
+              setState(() {
+                startButtonText = "Stop";
+              });
+              print("Timer started.");
+            }
+          },
+          child: Center(
+            child: Text(
+              startButtonText,
+              style: TextStyle(
+                foreground: Paint()
+                  ..shader = interfaceStandards.textLinearGradient(context),
+                fontWeight: FontWeight.w400,
+                fontSize: 20.0,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   //USER INTERFACE: USER GOAL SCREEN
   @override
   Widget build(BuildContext context) {
@@ -138,6 +177,10 @@ class _UserGoalState extends State<UserGoal> {
                 child: showCalendar(),
               ),
             ), //Calendar
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.9,
+              child: showStartButton(),
+            ), //Start button
           ],
         ),
       ),

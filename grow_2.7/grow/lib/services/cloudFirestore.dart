@@ -26,6 +26,10 @@ class CloudFirestore {
       "goalHours": goalHours,
       "goalMinutes": goalMinutes,
       "goalSeconds": goalSeconds,
+      "currentHours": 0,
+      "currentMinutes": 0,
+      "currentSeconds": 0,
+      "total": 0,
     });
     print("Created: " + ref.documentID);
     return ref.documentID;

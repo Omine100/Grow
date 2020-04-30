@@ -12,6 +12,7 @@ class Goal {
     @required this.currentHours,
     @required this.currentMinutes,
     @required this.currentSeconds,
+    @required this.total,
   });
 
   //VARIABLE REFERENCE: NEEDED TO LOAD GOAL MODEL
@@ -25,6 +26,7 @@ class Goal {
   final int currentHours;
   final int currentMinutes;
   final int currentSeconds;
+  final int total;
 
   //MECHANICS: GOAL TO MAP
   Map<String, dynamic> toMap() {
@@ -39,6 +41,7 @@ class Goal {
       "currentHours": currentHours,
       "currentMinutes": currentMinutes,
       "currentSeconds": currentSeconds,
+      "total": total,
     };
   }
 
@@ -57,6 +60,7 @@ class Goal {
       currentHours: map['currentHours'],
       currentMinutes: map['currentMinutes'],
       currentSeconds: map['currentSeconds'],
+      total: map['total'],
     );
   }
 }

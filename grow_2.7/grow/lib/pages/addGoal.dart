@@ -231,6 +231,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
         is24HourMode: true,
         isForce2Digits: false,
         isShowSeconds: true,
+        time: DateTime.utc(1,1,1,0,0,0,1),
         secondsInterval: 1,
         onTimeChange: (time) {
           setState(() {
