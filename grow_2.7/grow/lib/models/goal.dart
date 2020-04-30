@@ -6,13 +6,10 @@ class Goal {
     @required this.userId,
     @required this.color,
     @required this.icon,
-    @required this.goalHours,
-    @required this.goalMinutes,
-    @required this.goalSeconds,
-    @required this.currentHours,
-    @required this.currentMinutes,
-    @required this.currentSeconds,
+    @required this.goalTotal,
+    @required this.currentTotal,
     @required this.total,
+    @required this.datesCompleted,
   });
 
   //VARIABLE REFERENCE: NEEDED TO LOAD GOAL MODEL
@@ -20,13 +17,10 @@ class Goal {
   final String userId;
   final String color;
   final String icon;
-  final int goalHours;
-  final int goalMinutes;
-  final int goalSeconds;
-  final int currentHours;
-  final int currentMinutes;
-  final int currentSeconds;
+  final int goalTotal;
+  final int currentTotal;
   final int total;
+  final Map datesCompleted;
 
   //MECHANICS: GOAL TO MAP
   Map<String, dynamic> toMap() {
@@ -35,13 +29,10 @@ class Goal {
       "userId": userId,
       "color": color,
       "icon": icon,
-      "goalHours": goalHours,
-      "goalMinutes": goalMinutes,
-      "goalSeconds": goalSeconds,
-      "currentHours": currentHours,
-      "currentMinutes": currentMinutes,
-      "currentSeconds": currentSeconds,
+      "goalTotal": goalTotal,
+      "currentTotal": currentTotal,
       "total": total,
+      "datesCompleted": datesCompleted,
     };
   }
 
@@ -54,13 +45,10 @@ class Goal {
       userId: map["userId"],
       color: map["color"],
       icon: map["icon"],
-      goalHours: map['goalHours'],
-      goalMinutes: map['goalMinutes'],
-      goalSeconds: map['goalSeconds'],
-      currentHours: map['currentHours'],
-      currentMinutes: map['currentMinutes'],
-      currentSeconds: map['currentSeconds'],
+      goalTotal: map['goalTotal'],
+      currentTotal: map['currentTotal'],
       total: map['total'],
+      datesCompleted: map['datesCompleted'],
     );
   }
 }

@@ -82,6 +82,8 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
 
   //USER INTERFACE: SHOW BUTTON
   Widget showButton(int formPosition, bool buttonPosition) {
+    int goalTotal = (dateTime.hour * 3600) + (dateTime.minute * 60) + dateTime.second;
+
     return new InterfaceStandards().parentCenter(context,
         GestureDetector(
           onTap: () {
@@ -93,9 +95,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                 _titleTextEditingController.text.toString(),
                 iconPosition,
                 colorPosition,
-                dateTime.hour,
-                dateTime.minute,
-                dateTime.second,
+                goalTotal,
               );
               Navigator.pop(context);
             }

@@ -106,17 +106,14 @@ class _UserGoalState extends State<UserGoal> {
 
   //USER INTERFACE: SHOW START BUTTON
   Widget showStartButton() {
-    int hours, minutes, seconds;
     return interfaceStandards.parentCenter(context,
       Container(
         child: GestureDetector(
           onTap: () {
             if (stopwatch.isRunning) {
               stopwatch.stop();
-              hours = (stopwatch.elapsedMilliseconds / 360000).toInt();
-              minutes = ((stopwatch.elapsedMilliseconds / 60000)).toInt() - hours * 60;
-              seconds = (stopwatch.elapsedMilliseconds / 1000).toInt() - minutes * 60;
-              cloudFirestore.updateTimeData(widget.documentSnapshot, hours, minutes, seconds);
+              int currentTotal = (stopwatch.elapsedMilliseconds / 1000).toInt();
+              cloudFirestore.updateTimeData(widget.documentSnapshot, currentTotal);
               print("Time stopped: " + (stopwatch.elapsedMilliseconds/1000).toString());
               stopwatch.reset();
               setState(() {

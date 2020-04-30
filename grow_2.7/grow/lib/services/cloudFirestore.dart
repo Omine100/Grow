@@ -16,36 +16,33 @@ class CloudFirestore {
     print("Read: " + snapshot.data["name"]);
   }
 
-  Future<String> createData(String title, int iconPosition, int colorPosition, int goalHours, int goalMinutes, int goalSeconds) async {
+  Future<String> createData(String title, int iconPosition, int colorPosition, int goalTotal) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
 
     DocumentReference ref = await db.collection(user.uid.toString()).add({
       "title": title,
       "icon": iconPosition,
       "color": colorPosition,
-      "goalHours": goalHours,
-      "goalMinutes": goalMinutes,
-      "goalSeconds": goalSeconds,
-      "currentHours": 0,
-      "currentMinutes": 0,
-      "currentSeconds": 0,
+      "goalTotal": goalTotal,
+      "currentTotal": 0,
       "total": 0,
     });
     print("Created: " + ref.documentID);
     return ref.documentID;
   }
 
-  void updateTimeData(DocumentSnapshot doc, int currentHours, int currentMinutes, int currentSeconds) async {
+  void updateTimeData(DocumentSnapshot doc, int currentTotal) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
-    print("Hours: " + currentHours.toString());
-    print("Minutes: " + currentMinutes.toString());
-    print("Seconds: " + currentSeconds.toString());
+    print("Seconds: " + (currentTotal).toString());
 
     await db.collection(user.uid.toString()).document(doc.documentID).updateData({
-      "currentHours": currentHours + doc.data["currentHours"],
-      "currentMinutes": currentMinutes + doc.data["currentMinutes"],
-      "currentSeconds": currentSeconds + doc.data["currentSeconds"],
+      "currentTotal": currentTotal + doc.data["currentTotal"],
     });
+
+    if (doc.data["currentTotal"] >= doc.data["goalTotal"]) {
+      print("Day completed");
+    }
+
     print("Updated: " + doc.documentID);
   }
 
