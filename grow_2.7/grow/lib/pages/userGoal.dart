@@ -3,6 +3,7 @@ import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:grow/services/authentication.dart';
+import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/widgets/interfaceStandards.dart';
 import 'package:grow/models/dataLists.dart';
 
@@ -21,6 +22,7 @@ class UserGoal extends StatefulWidget {
 
 class _UserGoalState extends State<UserGoal> {
   //VARIABLE DECLARATION
+  CloudFirestore cloudFirestore = new CloudFirestore();
   InterfaceStandards interfaceStandards = new InterfaceStandards();
   DataLists dataLists = new DataLists();
   Stopwatch stopwatch = new Stopwatch();
@@ -104,16 +106,22 @@ class _UserGoalState extends State<UserGoal> {
 
   //USER INTERFACE: SHOW START BUTTON
   Widget showStartButton() {
+    int hours, minutes, seconds;
     return interfaceStandards.parentCenter(context,
       Container(
         child: GestureDetector(
           onTap: () {
             if (stopwatch.isRunning) {
               stopwatch.stop();
+              hours = (stopwatch.elapsedMilliseconds / 360000).toInt();
+              minutes = ((stopwatch.elapsedMilliseconds / 60000)).toInt() - hours * 60;
+              seconds = (stopwatch.elapsedMilliseconds / 1000).toInt() - minutes * 60;
+              cloudFirestore.updateTimeData(widget.documentSnapshot, hours, minutes, seconds);
+              print("Time stopped: " + (stopwatch.elapsedMilliseconds/1000).toString());
+              stopwatch.reset();
               setState(() {
                 startButtonText = "Start";
               });
-              print("Time stopped: " + (stopwatch.elapsedMilliseconds/1000).toString());
             } else {
               stopwatch.start();
               setState(() {

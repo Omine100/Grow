@@ -35,10 +35,17 @@ class CloudFirestore {
     return ref.documentID;
   }
 
-  void updateData(DocumentSnapshot doc) async {
+  void updateTimeData(DocumentSnapshot doc, int currentHours, int currentMinutes, int currentSeconds) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
+    print("Hours: " + currentHours.toString());
+    print("Minutes: " + currentMinutes.toString());
+    print("Seconds: " + currentSeconds.toString());
 
-    await db.collection(user.uid.toString()).document(doc.documentID).updateData({"todo": "Test"});
+    await db.collection(user.uid.toString()).document(doc.documentID).updateData({
+      "currentHours": currentHours + doc.data["currentHours"],
+      "currentMinutes": currentMinutes + doc.data["currentMinutes"],
+      "currentSeconds": currentSeconds + doc.data["currentSeconds"],
+    });
     print("Updated: " + doc.documentID);
   }
 
