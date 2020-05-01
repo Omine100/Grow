@@ -19,7 +19,13 @@ class CloudFirestore {
   Future<String> createData(String title, int iconPosition, int colorPosition, int goalTotal) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
 
-    Map<DateTime, int> datesCompleted = {};
+    DateTime now = new DateTime.now();
+    DateTime currentDate = new DateTime(now.year, now.month, now.day);
+    Map datesCompleted = {
+      currentDate.toString(): [
+        {"currentTime": 0},
+      ],
+    };
 
     DocumentReference ref = await db.collection(user.uid.toString()).add({
       "title": title,
@@ -38,14 +44,11 @@ class CloudFirestore {
     FirebaseUser user = await _firebaseAuth.currentUser();
     print("Seconds: " + (currentTotal).toString());
 
-    Map<DateTime, int> datesCompleted = doc.data["datesCompleted"];
-    if (datesCompleted[currentDate] == null) {
-      datesCompleted[currentDate] = currentTotal;
-    } else {
-      datesCompleted[currentDate] = currentTotal + doc.data["currentTotal"];
-    }
+    Map datesCompleted = doc.data["datesCompleted"];
+    datesCompleted[currentDate.toString()] = currentTotal + doc.data["currentTotal"];
 
     await db.collection(user.uid.toString()).document(doc.documentID).updateData({
+      "currentTotal": currentTotal + doc.data["currentTotal"],
       "total": currentTotal + doc.data["total"],
       "datesCompleted": datesCompleted,
     });
