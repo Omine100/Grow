@@ -112,9 +112,14 @@ class _UserGoalState extends State<UserGoal> {
           onTap: () {
             if (stopwatch.isRunning) {
               stopwatch.stop();
+
               int currentTotal = (stopwatch.elapsedMilliseconds / 1000).toInt();
-              cloudFirestore.updateTimeData(widget.documentSnapshot, currentTotal);
-              print("Time stopped: " + (stopwatch.elapsedMilliseconds/1000).toString());
+
+              DateTime now = new DateTime.now();
+              DateTime currentDate = new DateTime(now.year, now.month, now.day);
+
+              cloudFirestore.updateTimeData(widget.documentSnapshot, currentTotal, currentDate);
+
               stopwatch.reset();
               setState(() {
                 startButtonText = "Start";
@@ -124,7 +129,6 @@ class _UserGoalState extends State<UserGoal> {
               setState(() {
                 startButtonText = "Stop";
               });
-              print("Timer started.");
             }
           },
           child: Center(
