@@ -36,8 +36,12 @@ class CloudFirestore {
     FirebaseUser user = await _firebaseAuth.currentUser();
 
     Map datesCompleted = doc.data["datesCompleted"];
-    int previous = datesCompleted[currentDate.toString()];
-    datesCompleted[currentDate.toString()] = currentTotal + previous;
+    if (datesCompleted[currentDate.toString()] != null) {
+      int previous = datesCompleted[currentDate.toString()];
+      datesCompleted[currentDate.toString()] = currentTotal + previous;
+    } else {
+      datesCompleted[currentDate.toString()] = currentTotal;
+    }
 
     await db.collection(user.uid.toString()).document(doc.documentID).updateData({
       "datesCompleted": datesCompleted,
