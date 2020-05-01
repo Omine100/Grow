@@ -87,7 +87,6 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     return new InterfaceStandards().parentCenter(context,
         GestureDetector(
           onTap: () {
-            print(formPosition);
             if(formPosition != 4) {
               pageCounter();
             } else {
@@ -236,9 +235,6 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
         onTimeChange: (time) {
           setState(() {
             dateTime = time;
-            print("Hours: " + dateTime.hour.toString() +
-                "\nMinutes: " + dateTime.minute.toString() +
-                "\nSeconds: " + dateTime.second.toString());
           });
         },
       ),

@@ -114,15 +114,16 @@ class _UserGoalState extends State<UserGoal> {
               stopwatch.stop();
 
               int currentTotal = (stopwatch.elapsedMilliseconds / 1000).toInt();
+              print("Seconds: " + (currentTotal).toString());
 
               DateTime now = new DateTime.now();
               DateTime currentDate = new DateTime(now.year, now.month, now.day);
-
               cloudFirestore.updateTimeData(widget.documentSnapshot, currentTotal, currentDate);
 
               stopwatch.reset();
               setState(() {
                 startButtonText = "Start";
+                Navigator.pop(context);
               });
             } else {
               stopwatch.start();

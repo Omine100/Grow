@@ -7,7 +7,6 @@ class Goal {
     @required this.color,
     @required this.icon,
     @required this.goalTotal,
-    @required this.currentTotal,
     @required this.total,
     @required this.datesCompleted,
   });
@@ -18,7 +17,6 @@ class Goal {
   final String color;
   final String icon;
   final int goalTotal;
-  final int currentTotal;
   final int total;
   final Map datesCompleted;
 
@@ -30,7 +28,6 @@ class Goal {
       "color": color,
       "icon": icon,
       "goalTotal": goalTotal,
-      "currentTotal": currentTotal,
       "total": total,
       "datesCompleted": datesCompleted,
     };
@@ -46,7 +43,6 @@ class Goal {
       color: map["color"],
       icon: map["icon"],
       goalTotal: map['goalTotal'],
-      currentTotal: map['currentTotal'],
       total: map['total'],
       datesCompleted: map['datesCompleted'],
     );
