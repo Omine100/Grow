@@ -67,7 +67,7 @@ class _UserGoalState extends State<UserGoal> {
   Widget showCalendar() {
     return SingleChildScrollView(
       child: Column(
-      children: <Widget>[
+        children: <Widget>[
           Calendar(
             events: dataLists.getCalendarMap(),
             onRangeSelected: (range) => print(range),
