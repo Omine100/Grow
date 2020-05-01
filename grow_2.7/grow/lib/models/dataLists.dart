@@ -66,11 +66,13 @@ Color _colorData(int position, List<Color> _colorList, bool darkTheme, bool firs
   return _colorList[position];
 }
 
+//MECHANICS: GET CALENDAR MAP DATA
 Map _calendarMapData(DocumentSnapshot doc) {
   final Map dates = doc.data["datesCompleted"];
   return dates;
 }
 
+//MECHANICS: GET CALENDAR DONE DATA
 bool _calendarDoneData(DocumentSnapshot doc, Map dates) {
   List keys = dates.keys;
   for(int i = 0; i < keys.length; i++) {
