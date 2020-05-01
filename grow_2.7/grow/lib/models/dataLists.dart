@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:grow/pages/home.dart';
 
@@ -27,9 +28,14 @@ class DataLists {
     return _colorListData(_colorList, darkTheme, first);
   }
 
-  //MECHANICS: GET CLEAN CALENDAR Map
-  Map getCalendarMap() {
-    return _calendarMapData();
+  //MECHANICS: GET CALENDAR MAP DATA
+  Map getCalendarMap(DocumentSnapshot doc) {
+    return _calendarMapData(doc);
+  }
+  
+  //MECHANICS: GET CALENDAR DONE DATA
+  bool calendarDoneData(DocumentSnapshot doc) {
+    return _calendarDoneData(doc, getCalendarMap(doc));
   }
 }
 
@@ -60,32 +66,17 @@ Color _colorData(int position, List<Color> _colorList, bool darkTheme, bool firs
   return _colorList[position];
 }
 
-Map _calendarMapData() {
-  final Map events = {
-    DateTime(2020, 4, 23): [
-      {'name': 'Get calendar working', 'isDone': false},
-    ],
-    DateTime(2020, 4, 29): [
-      {'name': 'Get calendar working', 'isDone': false},
-    ],
-    DateTime(2020, 5, 2): [
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-    ],
-    DateTime(2020, 5, 4): [
-      {'name': 'Start work', 'isDone': false},
-      {'name': 'Testing, testing, 1, 2, 3', 'isDone': true},
-    ],
-  };
-  return events;
+Map _calendarMapData(DocumentSnapshot doc) {
+  final Map dates = doc.data["datesCompleted"];
+  return dates;
+}
+
+bool _calendarDoneData(DocumentSnapshot doc, Map dates) {
+  List keys = dates.keys;
+  for(int i = 0; i < keys.length; i++) {
+    if(keys[i] > doc.data["goalTotal"]) {
+      return true;
+    }
+    return false;
+  }
 }
