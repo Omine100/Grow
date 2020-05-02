@@ -62,12 +62,14 @@ Color _colorData(int position, List<Color> _colorList, bool darkTheme, bool firs
 }
 
 //MECHANICS: CHECK DAY DONE
-bool checkDayDone(DocumentSnapshot doc, DateTime currentDate) {
-//  Map datesCompleted = doc.data["datesCompleted"];
-//  int current = datesCompleted[currentDate];
-//  if (current > doc.data["goalTotal"]) {
-//    return true;
-//  }
+bool checkDayDone(DocumentSnapshot doc, String currentDate) {
+  Map datesCompleted = doc.data["datesCompleted"];
+  int current = datesCompleted[currentDate];
+  if (current >= doc.data["goalTotal"]) {
+    print(currentDate + " True");
+    return true;
+  }
+  print(currentDate + " False");
   return false;
 }
 
@@ -77,37 +79,32 @@ Map _calendarMapData(DocumentSnapshot doc) {
   List keys = datesCompleted.keys.toList();
   Map days;
 
-  for (int i = 0; i < keys.length; i++) {
-    int year, month, day;
-    //Need to break keys[i] down into year, month, day
-    year = 2020; month = 5; day = 1;
+  if (keys.isEmpty) {
+    return days = {};
+  } else {
+    for (int i = 0; i < keys.length; i++) {
+      int year, month, day;
+      year = int.parse(keys[i].toString().substring(0, 4));
+      month = int.parse(keys[i].toString().substring(5, 7));
+      day = int.parse(keys[i].toString().substring(9, 10));
 
-    days = {
-      DateTime(year, month, day): [
-        {
-          "Name": "Test", "isDone": true,
-        }
-      ]
-    };
+      print("Day: " + day.toString());
+
+      //Need to figure out how to add multiple
+      if(days == null) {
+        days = {
+          DateTime(year, month, day): [
+            {"name": "Goal", "isDone": checkDayDone(doc, keys[i]),}
+          ]
+        };
+      } else {
+        days.addAll({
+          DateTime(year, month, day): [
+            {"name": "Goal", "isDone": checkDayDone(doc, keys[i]),}
+          ]
+        });
+      }
+    }
   }
-
-//  for (int i = 0; i < keys.length; i++) {
-//    days = {
-//      DateTime(2020, 5, 2): [
-//        {"Name": doc.data["title"], "isDone": false}
-//      ]
-//    };
-//  }
-//  for (int i = 0; i < keys.length; i++) {
-//    days[i] = {
-//      "currentTime": 0,
-//      "isDone": checkDayDone(doc, keys[i]),
-//    };
-//  }
-//  days = {
-//    DateTime(2020, 4, 29): [
-//      {'name': 'Get calendar working', 'isDone': false},
-//    ],
-//  };
   return days;
 }
