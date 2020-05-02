@@ -62,9 +62,9 @@ Color _colorData(int position, List<Color> _colorList, bool darkTheme, bool firs
 }
 
 //MECHANICS: CHECK DAY DONE
-bool checkDayDone(DocumentSnapshot doc, DateTime currentDate) {
+bool checkDayDone(DocumentSnapshot doc, String currentDate) {
   Map datesCompleted = doc.data["datesCompleted"];
-  int current = datesCompleted[currentDate.toString()];
+  int current = datesCompleted[currentDate];
   if (current > doc.data["goalTotal"]) {
     return true;
   }

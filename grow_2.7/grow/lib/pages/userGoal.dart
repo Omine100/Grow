@@ -29,7 +29,6 @@ class _UserGoalState extends State<UserGoal> {
   String title;
   String date;
   String goal;
-  List _selectedEvents;
   DateTime _selectedDay;
   String startButtonText;
 
@@ -38,7 +37,6 @@ class _UserGoalState extends State<UserGoal> {
   void initState() {
     super.initState();
     getData();
-    _selectedEvents = dataLists.getCalendarMap()[_selectedDay] ?? [];
     startButtonText = "Start";
   }
 
@@ -58,9 +56,7 @@ class _UserGoalState extends State<UserGoal> {
   void handleNewDate(date) {
     setState(() {
       _selectedDay = date;
-      _selectedEvents = dataLists.getCalendarMap()[_selectedDay] ?? [];
     });
-    print(_selectedEvents);
   }
 
   //USER INTERFACE: SHOW CALENDAR
@@ -69,7 +65,7 @@ class _UserGoalState extends State<UserGoal> {
       child: Column(
         children: <Widget>[
           Calendar(
-            events: dataLists.getCalendarMap(),
+            events: dataLists.getCalendarMap(widget.documentSnapshot),
             onRangeSelected: (range) => print(range),
             onDateSelected: (date) => handleNewDate(date),
             isExpanded: false,
@@ -78,26 +74,6 @@ class _UserGoalState extends State<UserGoal> {
             eventDoneColor: Colors.black,
             showArrows: true,
             isExpandable: false,
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.5,
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemBuilder: (BuildContext context, int index) => Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 1.5, color: Colors.black12),
-                  ),
-                ),
-                padding:
-                const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4.0),
-                child: ListTile(
-                  title: Text(_selectedEvents[index]['name'].toString()),
-                  onTap: () {},
-                ),
-              ),
-              itemCount: _selectedEvents.length,
-            ),
           ),
         ],
       ),
