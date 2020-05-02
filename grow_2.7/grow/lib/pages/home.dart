@@ -222,6 +222,8 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.only(
         left: MediaQuery.of(context).size.width * 0.1,
         right: MediaQuery.of(context).size.width * 0.1,
+        top: MediaQuery.of(context).size.height * 0.01,
+        bottom: MediaQuery.of(context).size.height * 0.01
       ),
       child: buildFavoriteCard(),
     );
@@ -235,13 +237,13 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.blue.shade800,
-          borderRadius: BorderRadius.circular(360),
+          borderRadius: BorderRadius.circular(25),
         ),
-        height: 30,
-        width: 30,
+        height: 55,
+        width: 55,
         child: Icon(
           Icons.border_color,
-          size: 12.5,
+          size: 25.0,
           color: Colors.white,
         ),
       ),

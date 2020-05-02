@@ -66,10 +66,8 @@ bool checkDayDone(DocumentSnapshot doc, String currentDate) {
   Map datesCompleted = doc.data["datesCompleted"];
   int current = datesCompleted[currentDate];
   if (current >= doc.data["goalTotal"]) {
-    print(currentDate + " True");
     return true;
   }
-  print(currentDate + " False");
   return false;
 }
 
@@ -88,9 +86,6 @@ Map _calendarMapData(DocumentSnapshot doc) {
       month = int.parse(keys[i].toString().substring(5, 7));
       day = int.parse(keys[i].toString().substring(9, 10));
 
-      print("Day: " + day.toString());
-
-      //Need to figure out how to add multiple
       if(days == null) {
         days = {
           DateTime(year, month, day): [

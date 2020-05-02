@@ -40,6 +40,24 @@ class _UserGoalState extends State<UserGoal> {
     startButtonText = "Start";
   }
 
+  //USER INTERFACE: SHOW FAVORITE BUTTON
+  Widget showFavoriteButton() {
+    bool checked = false;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          checked ? false : true;
+        });
+      },
+      child: Icon(
+        checked ? Icons.star : Icons.star_border,
+        size: 50.0,
+        color: Colors.white,
+      ),
+    );
+  }
+
   //MECHANICS: READ DOCUMENTSNAPSHOT AND INITIALIZE DATA
   void getData() {
     title = getDocumentSnapshot(widget.documentSnapshot)['title'];
@@ -138,6 +156,11 @@ class _UserGoalState extends State<UserGoal> {
               top: MediaQuery.of(context).size.height * 0.085,
               child: interfaceStandards.headerText(context, title),
             ), //Header text
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.085,
+              left: MediaQuery.of(context).size.width * 0.825,
+              child: showFavoriteButton(),
+            ),
             Positioned(
               top: MediaQuery.of(context).size.height * 0.1,
               left: MediaQuery.of(context).size.width * 0.06,
