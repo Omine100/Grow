@@ -28,9 +28,9 @@ class DataLists {
     return _colorListData(_colorList, darkTheme, first);
   }
 
-  //MECHANICS: GET CLEAN CALENDAR MAP
-  Map getCalendarMap() {
-    return _calendarMapData();
+  //MECHANICS: GET CALENDAR MAP DATA
+  Map getCalendarMap(DocumentSnapshot doc) {
+    return _calendarMapData(doc);
   }
 }
 
@@ -61,19 +61,8 @@ Color _colorData(int position, List<Color> _colorList, bool darkTheme, bool firs
   return _colorList[position];
 }
 
-//MECHANICS: GET CALENDAR DONE DATA
-bool _calendarDoneData(DocumentSnapshot doc, Map dates) {
-  List keys = dates.keys;
-  for (int i = 0; i < keys.length; i++) {
-    if (keys[i] > doc.data["goalTotal"]) {
-      return true;
-    }
-    return false;
-  }
-}
-
-//MECHANICS: CHECK DONE
-bool checkDone(DocumentSnapshot doc, DateTime currentDate) {
+//MECHANICS: CHECK DAY DONE
+bool checkDayDone(DocumentSnapshot doc, DateTime currentDate) {
   Map datesCompleted = doc.data["datesCompleted"];
   int current = datesCompleted[currentDate.toString()];
   if (current > doc.data["goalTotal"]) {
@@ -82,7 +71,7 @@ bool checkDone(DocumentSnapshot doc, DateTime currentDate) {
   return false;
 }
 
-//MECHANICS: GET CALENDAR MAP DATA
+//MECHANICS: GET CALENDAR MAP DATA RETURN
 Map _calendarMapData(DocumentSnapshot doc) {
   Map datesCompleted = doc.data["datesCompleted"];
   List keys = datesCompleted.keys.toList();
@@ -90,7 +79,7 @@ Map _calendarMapData(DocumentSnapshot doc) {
   for (int i = 0; i < keys.length; i++) {
     days[i] = {
       "currentTime": 0,
-      "isDone": checkDone(doc, keys[i]),
+      "isDone": checkDayDone(doc, keys[i]),
     };
   }
   return days;
