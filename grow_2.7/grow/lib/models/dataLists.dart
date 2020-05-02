@@ -89,8 +89,8 @@ Map _calendarMapData(DocumentSnapshot doc) {
   Map days;
   for (int i = 0; i < keys.length; i++) {
     days[i] = {
-      "currentTime" = ,
-      "isDone" = checkDone(doc, currentDate);
+      "currentTime": 0,
+      "isDone": checkDone(doc, keys[i]),
     }
   }
 
