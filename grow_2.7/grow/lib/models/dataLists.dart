@@ -63,36 +63,51 @@ Color _colorData(int position, List<Color> _colorList, bool darkTheme, bool firs
 
 //MECHANICS: CHECK DAY DONE
 bool checkDayDone(DocumentSnapshot doc, DateTime currentDate) {
-  Map datesCompleted = doc.data["datesCompleted"];
-  int current = datesCompleted[currentDate.toString()];
-  if (current > doc.data["goalTotal"]) {
-    return true;
-  }
+//  Map datesCompleted = doc.data["datesCompleted"];
+//  int current = datesCompleted[currentDate];
+//  if (current > doc.data["goalTotal"]) {
+//    return true;
+//  }
   return false;
 }
 
 //MECHANICS: GET CALENDAR MAP DATA RETURN
-Map _calendarMapData(DocumentSnapshot doc, DateTime currentDate) {
+Map _calendarMapData(DocumentSnapshot doc) {
   Map datesCompleted = doc.data["datesCompleted"];
   List keys = datesCompleted.keys.toList();
   Map days;
+
   for (int i = 0; i < keys.length; i++) {
-    days[i] = {
-      currentDate: [
-        
+    int year, month, day;
+    //Need to break keys[i] down into year, month, day
+    year = 2020; month = 5; day = 1;
+
+    days = {
+      DateTime(year, month, day): [
+        {
+          "Name": "Test", "isDone": true,
+        }
       ]
     };
   }
+
+//  for (int i = 0; i < keys.length; i++) {
+//    days = {
+//      DateTime(2020, 5, 2): [
+//        {"Name": doc.data["title"], "isDone": false}
+//      ]
+//    };
+//  }
 //  for (int i = 0; i < keys.length; i++) {
 //    days[i] = {
 //      "currentTime": 0,
 //      "isDone": checkDayDone(doc, keys[i]),
 //    };
 //  }
-  days = {
-    DateTime(2020, 4, 29): [
-      {'name': 'Get calendar working', 'isDone': false},
-    ],
-  };
+//  days = {
+//    DateTime(2020, 4, 29): [
+//      {'name': 'Get calendar working', 'isDone': false},
+//    ],
+//  };
   return days;
 }
