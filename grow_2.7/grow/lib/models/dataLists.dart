@@ -76,11 +76,16 @@ Map _calendarMapData(DocumentSnapshot doc) {
   Map datesCompleted = doc.data["datesCompleted"];
   List keys = datesCompleted.keys.toList();
   Map days;
-  for (int i = 0; i < keys.length; i++) {
-    days[i] = {
-      "currentTime": 0,
-      "isDone": checkDayDone(doc, keys[i]),
-    };
-  }
+//  for (int i = 0; i < keys.length; i++) {
+//    days[i] = {
+//      "currentTime": 0,
+//      "isDone": checkDayDone(doc, keys[i]),
+//    };
+//  }
+  days = {
+    DateTime(2020, 4, 29): [
+      {'name': 'Get calendar working', 'isDone': false},
+    ],
+  };
   return days;
 }
