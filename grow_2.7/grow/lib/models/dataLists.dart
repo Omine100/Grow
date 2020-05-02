@@ -91,34 +91,7 @@ Map _calendarMapData(DocumentSnapshot doc) {
     days[i] = {
       "currentTime": 0,
       "isDone": checkDone(doc, keys[i]),
-    }
+    };
   }
-
-  final Map events = {
-    DateTime(2020, 4, 23): [
-      {'name': 'Get calendar working', 'isDone': false},
-    ],
-    DateTime(2020, 4, 29): [
-      {'name': 'Get calendar working', 'isDone': false},
-    ],
-    DateTime(2020, 5, 2): [
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-      {'name': 'Jimbo\'s birthday', 'isDone': false},
-      {'name': 'Jimbo\'s Graduation', 'isDone': true},
-    ],
-    DateTime(2020, 5, 4): [
-      {'name': 'Start work', 'isDone': false},
-      {'name': 'Testing, testing, 1, 2, 3', 'isDone': true},
-    ],
-  };
-  return events;
+  return days;
 }
