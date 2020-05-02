@@ -72,8 +72,28 @@ bool _calendarDoneData(DocumentSnapshot doc, Map dates) {
   }
 }
 
+//MECHANICS: CHECK DONE
+bool checkDone(DocumentSnapshot doc, DateTime currentDate) {
+  Map datesCompleted = doc.data["datesCompleted"];
+  int current = datesCompleted[currentDate.toString()];
+  if (current > doc.data["goalTotal"]) {
+    return true;
+  }
+  return false;
+}
+
 //MECHANICS: GET CALENDAR MAP DATA
-Map _calendarMapData() {
+Map _calendarMapData(DocumentSnapshot doc) {
+  Map datesCompleted = doc.data["datesCompleted"];
+  List keys = datesCompleted.keys.toList();
+  Map days;
+  for (int i = 0; i < keys.length; i++) {
+    days[i] = {
+      "currentTime" = ,
+      "isDone" = checkDone(doc, currentDate);
+    }
+  }
+
   final Map events = {
     DateTime(2020, 4, 23): [
       {'name': 'Get calendar working', 'isDone': false},
