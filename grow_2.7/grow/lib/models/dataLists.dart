@@ -62,9 +62,9 @@ Color _colorData(int position, List<Color> _colorList, bool darkTheme, bool firs
 }
 
 //MECHANICS: CHECK DAY DONE
-bool checkDayDone(DocumentSnapshot doc, String currentDate) {
+bool checkDayDone(DocumentSnapshot doc, DateTime currentDate) {
   Map datesCompleted = doc.data["datesCompleted"];
-  int current = datesCompleted[currentDate];
+  int current = datesCompleted[currentDate.toString()];
   if (current > doc.data["goalTotal"]) {
     return true;
   }
@@ -72,10 +72,17 @@ bool checkDayDone(DocumentSnapshot doc, String currentDate) {
 }
 
 //MECHANICS: GET CALENDAR MAP DATA RETURN
-Map _calendarMapData(DocumentSnapshot doc) {
+Map _calendarMapData(DocumentSnapshot doc, DateTime currentDate) {
   Map datesCompleted = doc.data["datesCompleted"];
   List keys = datesCompleted.keys.toList();
   Map days;
+  for (int i = 0; i < keys.length; i++) {
+    days[i] = {
+      currentDate: [
+        
+      ]
+    };
+  }
 //  for (int i = 0; i < keys.length; i++) {
 //    days[i] = {
 //      "currentTime": 0,
