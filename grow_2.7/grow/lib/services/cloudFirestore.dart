@@ -32,6 +32,12 @@ class CloudFirestore {
     return ref.documentID;
   }
 
+  Future<String> favoriteData() async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+
+    DocumentReference ref = await db.collection(user.uid.toString()).
+  }
+
   void updateTimeData(DocumentSnapshot doc, int currentTotal, DateTime currentDate) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
 

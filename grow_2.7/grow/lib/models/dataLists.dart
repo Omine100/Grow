@@ -32,6 +32,11 @@ class DataLists {
   Map getCalendarMap(DocumentSnapshot doc) {
     return _calendarMapData(doc);
   }
+
+  //MECHANICS: GET FAVORITE LIST
+  void getFavoriteList() {
+    return _favoriteListData();
+  }
 }
 
 //MECHANICS: ICON DATA INITIALIZATION
@@ -102,4 +107,8 @@ Map _calendarMapData(DocumentSnapshot doc) {
     }
   }
   return days;
+}
+
+//MECHANICS: GET FAVORITE LIST DATA RETURN
+void _favoriteListData() {
 }
