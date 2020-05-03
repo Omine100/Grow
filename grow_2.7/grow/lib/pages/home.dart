@@ -218,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: FAVORITE CARD STREAM BUILDER
   Widget showFavoriteCardStreamBuilder() {
-    List<DocumentSnapshot> favorites = dataLists.getFavoriteList();
+    List<String> favorites = dataLists.getFavoriteList(widget.userId);
     for (int i = 0; i < favorites.length; i++) {
       return Padding(
         padding: EdgeInsets.only(
@@ -233,8 +233,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   //USER INTERFACE: FAVORITE CARD
-  Widget buildFavoriteCard(DocumentSnapshot doc) {
-    return new GestureDetector(
+  Widget buildFavoriteCard(String documentId) { //access it by going into the user and getting the document directly
+    return new GestureDetector( //db.collection(widget.userId).document(documentId).changeCurrentTime
       onTap: () {
       },
       child: Container(

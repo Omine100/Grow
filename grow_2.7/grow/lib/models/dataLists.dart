@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:grow/pages/home.dart';
 import 'package:grow/services/cloudFirestore.dart';
 
@@ -9,6 +9,7 @@ class DataLists {
   List<Icon> _iconList;
   List<Color> _colorList;
   HomeScreen homeScreen = new HomeScreen();
+  CloudFirestore cloudFirestore = new CloudFirestore();
 
   //MECHANICS: GET ICON DATA
   Icon getIconData(int position) {
@@ -36,8 +37,8 @@ class DataLists {
   }
 
   //MECHANICS: GET FAVORITE LIST
-  List<DocumentSnapshot> getFavoriteList() {
-    return _favoriteListData();
+  List<String> getFavoriteList(String userId) {
+    return _favoriteListData(cloudFirestore, userId);
   }
 }
 
@@ -112,5 +113,15 @@ Map _calendarMapData(DocumentSnapshot doc) {
 }
 
 //MECHANICS: GET FAVORITE LIST DATA RETURN
-List<DocumentSnapshot> _favoriteListData() {
+List<String> _favoriteListData(CloudFirestore cloudFirestore, String userId) {
+  final db = Firestore.instance;
+  String user = userId;
+  List<String> documentIds;
+  if(db.collection(userId).document("Favorites") == null) {
+    cloudFirestore.createFavoriteData();
+    return documentIds;
+  } else { //For each documentId add to the list
+    db.collection(userId).document("Favorites").snapshots(); //Need to create a builder like with goalCard
+    for (int i = 0; i < )
+  }
 }
