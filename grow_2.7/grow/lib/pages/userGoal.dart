@@ -20,17 +20,19 @@ class UserGoal extends StatefulWidget {
   State<StatefulWidget> createState() => new _UserGoalState();
 }
 
-class _UserGoalState extends State<UserGoal> {
+class _UserGoalState extends State<UserGoal> with SingleTickerProviderStateMixin {
   //VARIABLE DECLARATION
   CloudFirestore cloudFirestore = new CloudFirestore();
   InterfaceStandards interfaceStandards = new InterfaceStandards();
   DataLists dataLists = new DataLists();
   Stopwatch stopwatch = new Stopwatch();
+  AnimationController animationController;
   String title;
   String date;
   String goal;
   DateTime _selectedDay;
   String startButtonText;
+  bool checked;
 
   //VARIABLE INITIALIZATION: USER GOAL SCREEN
   @override
@@ -38,23 +40,27 @@ class _UserGoalState extends State<UserGoal> {
     super.initState();
     getData();
     startButtonText = "Start";
+    checked = false;
+    animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+  }
+
+  void handleOnPressed() {
+    setState(() {
+      checked = !checked;
+      checked ? animationController.forward() : animationController.reverse();
+    });
   }
 
   //USER INTERFACE: SHOW FAVORITE BUTTON
   Widget showFavoriteButton() {
-    bool checked = false;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          checked ? false : true;
-        });
-      },
-      child: Icon(
-        checked ? Icons.star : Icons.star_border,
-        size: 50.0,
-        color: Colors.white,
+    return IconButton(
+      iconSize: 50,
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.view_list,
+        color: Theme.of(context).splashColor,
+        progress: animationController,
       ),
+      onPressed: () => handleOnPressed(),
     );
   }
 
@@ -157,7 +163,7 @@ class _UserGoalState extends State<UserGoal> {
               child: interfaceStandards.headerText(context, title),
             ), //Header text
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.085,
+              top: MediaQuery.of(context).size.height * 0.080,
               left: MediaQuery.of(context).size.width * 0.825,
               child: showFavoriteButton(),
             ),
