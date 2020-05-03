@@ -218,19 +218,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: FAVORITE CARD STREAM BUILDER
   Widget showFavoriteCardStreamBuilder() {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: MediaQuery.of(context).size.width * 0.1,
-        right: MediaQuery.of(context).size.width * 0.1,
-        top: MediaQuery.of(context).size.height * 0.01,
-        bottom: MediaQuery.of(context).size.height * 0.01
-      ),
-      child: buildFavoriteCard(),
-    );
+    List<DocumentSnapshot> favorites = dataLists.getFavoriteList();
+    for (int i = 0; i < favorites.length; i++) {
+      return Padding(
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.1,
+            right: MediaQuery.of(context).size.width * 0.1,
+            top: MediaQuery.of(context).size.height * 0.01,
+            bottom: MediaQuery.of(context).size.height * 0.01
+        ),
+        child: buildFavoriteCard(favorites[i]), //This method needs to return a list of DocumentSnapshots
+      ); //Or maybe I need to return the document ids and access the document inside of the next method
+    }
   }
 
   //USER INTERFACE: FAVORITE CARD
-  Widget buildFavoriteCard() {
+  Widget buildFavoriteCard(DocumentSnapshot doc) {
     return new GestureDetector(
       onTap: () {
       },

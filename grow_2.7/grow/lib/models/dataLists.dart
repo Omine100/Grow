@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grow/pages/home.dart';
+import 'package:grow/services/cloudFirestore.dart';
 
 class DataLists {
   //VARIABLE DECLARATION
@@ -34,7 +36,7 @@ class DataLists {
   }
 
   //MECHANICS: GET FAVORITE LIST
-  void getFavoriteList() {
+  List<DocumentSnapshot> getFavoriteList() {
     return _favoriteListData();
   }
 }
@@ -110,5 +112,5 @@ Map _calendarMapData(DocumentSnapshot doc) {
 }
 
 //MECHANICS: GET FAVORITE LIST DATA RETURN
-void _favoriteListData() {
+List<DocumentSnapshot> _favoriteListData() {
 }
