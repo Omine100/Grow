@@ -117,11 +117,11 @@ List<String> _favoriteListData(CloudFirestore cloudFirestore, String userId) {
   final db = Firestore.instance;
   String user = userId;
   List<String> documentIds;
-  if(db.collection(userId).document("Favorites") == null) {
+  if(db.collection(userId).document("Favorites").collection("Goals") == null) {
     cloudFirestore.createFavoriteData();
     return documentIds;
   } else { //For each documentId add to the list
-    db.collection(userId).document("Favorites").snapshots(); //Need to create a builder like with goalCard
+    db.collection(userId).document("Favorites").collection("Goals").snapshots(); //Need to create a builder like with goalCard
     for (int i = 0; i < )
   }
 }
