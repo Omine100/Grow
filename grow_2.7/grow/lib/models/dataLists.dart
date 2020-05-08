@@ -112,7 +112,7 @@ Map _calendarMapData(DocumentSnapshot doc) {
   return days;
 }
 
-//MECHANICS: GET FAVORITE LIST DATA RETURN
+//MECHANICS: GET FAVORITE LIST DATA RETURN //May not even need dataLists.dart in this area. Just create the builder like with this goalCard adn see if that works. If it does, then I don't think this will be needed at all.
 List<String> _favoriteListData(CloudFirestore cloudFirestore, String userId) {
   final db = Firestore.instance;
   String user = userId;
