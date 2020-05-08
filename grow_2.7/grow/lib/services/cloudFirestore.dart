@@ -34,20 +34,15 @@ class CloudFirestore {
 
   Future<String> createFavoriteData() async {
     FirebaseUser user = await _firebaseAuth.currentUser();
-    db.collection(user.uid.toString()).document("Favorites").setData({});
+    db.collection(user.uid.toString()).document("Favorites").collection("Goals");
     print("Favorite data created");
   }
 
   Future<String> updateFavoriteData(DocumentSnapshot doc) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
 
-    if (db.collection(user.uid.toString()).document("Favorites") == null) {
-      db.collection(user.uid.toString()).document("Favorites").setData({"documentId": doc.documentID});
-    } else {
-      db.collection(user.uid.toString()).document("Favorites").updateData(
-        {"documentId": doc.documentID},
-      );
-    }
+    db.collection(user.uid.toString()).document("Favorites").collection("Goals").add(
+        {"documentID": doc.documentID});
   }
 
   void updateTimeData(DocumentSnapshot doc, int currentTotal, DateTime currentDate) async {
