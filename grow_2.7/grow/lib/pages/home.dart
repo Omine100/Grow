@@ -250,6 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildFavoriteCard(DocumentSnapshot document) { //access it by going into the user and getting the document directly
     return new GestureDetector( //db.collection(widget.userId).document(documentId).changeCurrentTime
       onTap: () {
+        String goal = document["documentId"].toString();
       },
       child: Container(
         decoration: BoxDecoration(
@@ -258,10 +259,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         height: 55,
         width: 55,
-        child: Icon(
-          Icons.border_color,
-          size: 25.0,
-          color: Colors.white,
+        child: Text(
+          document["documentId"].toString(),
         ),
       ),
     );
