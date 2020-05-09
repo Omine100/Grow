@@ -9,6 +9,7 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
+import 'package:grow/services/methodStandards.dart';
 import 'package:grow/services/themes.dart';
 import 'package:grow/widgets/interfaceStandards.dart';
 import 'package:grow/models/dataLists.dart';
@@ -31,6 +32,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   //VARIABLE DECLARATION
   CloudFirestore cloudFirestore = new CloudFirestore();
+  MethodStandards methodStandards = new MethodStandards();
   InterfaceStandards interfaceStandards = new InterfaceStandards();
   Themes themes = new Themes();
   DataLists dataLists = new DataLists();
@@ -247,11 +249,18 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   //USER INTERFACE: FAVORITE CARD
-  Widget buildFavoriteCard(DocumentSnapshot document) { //access it by going into the user and getting the document directly
+  Widget buildFavoriteCard(DocumentSnapshot document) {
+    Stopwatch stopwatch = new Stopwatch();
+    
     return new GestureDetector( //db.collection(widget.userId).document(documentId).changeCurrentTime
       onTap: () {
-        String goal = document["documentID"];
-        print(goal);
+        // if (stopwatch.isRunning) {
+        //   stopwatch.stop();
+        //   methodStandards.timer(stopwatch, document);
+        //   stopwatch.reset();
+        // } else {
+        //   stopwatch.start();
+        // }
       },
       child: Container(
         decoration: BoxDecoration(

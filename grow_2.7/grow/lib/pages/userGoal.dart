@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
+import 'package:grow/services/methodStandards.dart';
 import 'package:grow/widgets/interfaceStandards.dart';
 import 'package:grow/models/dataLists.dart';
 
@@ -23,6 +24,7 @@ class UserGoal extends StatefulWidget {
 class _UserGoalState extends State<UserGoal> with SingleTickerProviderStateMixin {
   //VARIABLE DECLARATION
   CloudFirestore cloudFirestore = new CloudFirestore();
+  MethodStandards methodStandards = new MethodStandards();
   InterfaceStandards interfaceStandards = new InterfaceStandards();
   DataLists dataLists = new DataLists();
   Stopwatch stopwatch = new Stopwatch();
@@ -114,14 +116,7 @@ class _UserGoalState extends State<UserGoal> with SingleTickerProviderStateMixin
           onTap: () {
             if (stopwatch.isRunning) {
               stopwatch.stop();
-
-              int currentTotal = (stopwatch.elapsedMilliseconds / 1000).toInt();
-              print("Seconds: " + (currentTotal).toString());
-
-              DateTime now = new DateTime.now();
-              DateTime currentDate = new DateTime(now.year, now.month, now.day);
-              cloudFirestore.updateTimeData(widget.documentSnapshot, currentTotal, currentDate);
-
+              methodStandards.timer(stopwatch, widget.documentSnapshot);
               stopwatch.reset();
               setState(() {
                 startButtonText = "Start";
