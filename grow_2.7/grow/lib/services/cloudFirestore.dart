@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
 class CloudFirestore {
   final db = Firestore.instance;
@@ -42,8 +43,13 @@ class CloudFirestore {
   void updateFavoriteData(DocumentSnapshot doc) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
 
+    Stream favorites = db.collection(user.toString()).document("Favorties").collection("Goals").snapshots();
+    //Need to figure out how to check if it is already favorited
+    //Need to figure out the time thing on the favorites
+
     db.collection(user.uid.toString()).document("Favorites").collection("Goals").add(
         {"documentID": doc.documentID});
+    print("Favorite data updated");
   }
 
   void updateTimeData(DocumentSnapshot doc, int currentTotal, DateTime currentDate) async {

@@ -49,6 +49,8 @@ class _UserGoalState extends State<UserGoal> with SingleTickerProviderStateMixin
       checked = !checked;
       checked ? animationController.forward() : animationController.reverse();
     });
+
+    cloudFirestore.updateFavoriteData(widget.documentSnapshot);
   }
 
   //USER INTERFACE: SHOW FAVORITE BUTTON

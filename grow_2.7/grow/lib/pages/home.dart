@@ -221,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.2,
+        height: MediaQuery.of(context).size.height * 0.075,
         width: MediaQuery.of(context).size.width,
         child: StreamBuilder(
           stream: db.collection(widget.userId).document("Favorites").collection("Goals").snapshots(),
@@ -250,7 +250,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildFavoriteCard(DocumentSnapshot document) { //access it by going into the user and getting the document directly
     return new GestureDetector( //db.collection(widget.userId).document(documentId).changeCurrentTime
       onTap: () {
-        String goal = document["documentId"].toString();
+        String goal = document["documentID"];
+        print(goal);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -260,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 55,
         width: 55,
         child: Text(
-          document["documentId"].toString(),
+          document['documentID'],
         ),
       ),
     );
