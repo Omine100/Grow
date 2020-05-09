@@ -218,22 +218,36 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: FAVORITE CARD STREAM BUILDER
   Widget showFavoriteCardStreamBuilder() {
-    List<String> favorites = dataLists.getFavoriteList(widget.userId);
-    for (int i = 0; i < favorites.length; i++) {
-      return Padding(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.1,
-            right: MediaQuery.of(context).size.width * 0.1,
-            top: MediaQuery.of(context).size.height * 0.01,
-            bottom: MediaQuery.of(context).size.height * 0.01
+    return Padding(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.2,
+        width: MediaQuery.of(context).size.width,
+        child: StreamBuilder(
+          stream: db.collection(widget.userId).document("Favorites").collection("Goals").snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if(snapshot.data.documents.isEmpty) {
+              return Container();
+            } else {
+              return new ListView(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  right: MediaQuery.of(context).size.width * 0.1,
+                ),
+                scrollDirection: Axis.horizontal,
+                children: snapshot.data.documents.map((DocumentSnapshot document) {
+                  return buildFavoriteCard(document);
+                }).toList(),
+              );
+            }
+          },
         ),
-        child: buildFavoriteCard(favorites[i]), //This method needs to return a list of DocumentSnapshots
-      ); //Or maybe I need to return the document ids and access the document inside of the next method
-    }
+      ),
+    );
   }
 
   //USER INTERFACE: FAVORITE CARD
-  Widget buildFavoriteCard(String documentId) { //access it by going into the user and getting the document directly
+  Widget buildFavoriteCard(DocumentSnapshot document) { //access it by going into the user and getting the document directly
     return new GestureDetector( //db.collection(widget.userId).document(documentId).changeCurrentTime
       onTap: () {
       },
