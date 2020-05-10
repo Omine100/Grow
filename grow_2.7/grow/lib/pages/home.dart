@@ -257,19 +257,18 @@ class _HomeScreenState extends State<HomeScreen> {
       documentSnapshot = DocumentSnapshot;
     });
 
-    return new GestureDetector( //db.collection(widget.userId).document(documentId).changeCurrentTime
+    return new GestureDetector(
       onTap: () {
         if (stopwatch.isRunning) {
           stopwatch.stop();
-          print("Hehe");
-          methodStandards.timer(stopwatch, documentSnapshot); //Need to figure out how to send the correct document
+          methodStandards.timer(stopwatch, documentSnapshot);
           stopwatch.reset();
           setState(() {
-            print("Set state");
+            print("Favorite timer ended: " + doc['documentId']);
           });
         } else {
-          print("Hoho");
           stopwatch.start();
+          print("Favorite timer started: " + doc['documentId']);
         }
       },
       child: Container(

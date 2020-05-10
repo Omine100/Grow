@@ -119,11 +119,13 @@ class _UserGoalState extends State<UserGoal> with SingleTickerProviderStateMixin
               methodStandards.timer(stopwatch, widget.documentSnapshot);
               stopwatch.reset();
               setState(() {
+                print("Timer ended: " + widget.documentSnapshot.documentID);
                 startButtonText = "Start";
                 Navigator.pop(context);
               });
             } else {
               stopwatch.start();
+              print("Timer started: " + widget.documentSnapshot.documentID);
               setState(() {
                 startButtonText = "Stop";
               });
