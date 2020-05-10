@@ -48,7 +48,7 @@ class CloudFirestore {
     //Need to figure out the time thing on the favorites
 
     db.collection(user.uid.toString()).document("Favorites").collection("Goals").add(
-        {"documentID": doc.documentID});
+        {"documentId": doc.documentID});
     print("Favorite data updated");
   }
 

@@ -249,18 +249,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   //USER INTERFACE: FAVORITE CARD
-  Widget buildFavoriteCard(DocumentSnapshot document) {
+  Widget buildFavoriteCard(DocumentSnapshot doc) {
     Stopwatch stopwatch = new Stopwatch();
+    DocumentReference documentReference = db.collection(widget.userId).document(doc['documentId']);
+    print(documentReference.get().toString());
     
     return new GestureDetector( //db.collection(widget.userId).document(documentId).changeCurrentTime
       onTap: () {
-        // if (stopwatch.isRunning) {
-        //   stopwatch.stop();
-        //   methodStandards.timer(stopwatch, document);
-        //   stopwatch.reset();
-        // } else {
-        //   stopwatch.start();
-        // }
+        if (stopwatch.isRunning) {
+          stopwatch.stop();
+          methodStandards.timer(stopwatch, doc);
+          stopwatch.reset();
+        } else {
+          stopwatch.start();
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -270,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 55,
         width: 55,
         child: Text(
-          document['documentID'],
+          "Test"
         ),
       ),
     );
