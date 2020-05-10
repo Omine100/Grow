@@ -471,7 +471,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: (){
           Navigator.push(
             context,
-            MaterialPageRoute<void>(builder: (context) => AddGoalScreen(
+            MaterialPageRoute(builder: (context) => AddGoalScreen(
               auth: widget.auth,
               logoutCallback: widget.logoutCallback,
               userId: widget.userId,
