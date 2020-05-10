@@ -6,6 +6,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:animations/animations.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
