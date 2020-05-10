@@ -251,16 +251,22 @@ class _HomeScreenState extends State<HomeScreen> {
   //USER INTERFACE: FAVORITE CARD
   Widget buildFavoriteCard(DocumentSnapshot doc) {
     Stopwatch stopwatch = new Stopwatch();
-    db.collection(widget.userId).document(doc['documentId']).snapshots();
-    DocumentReference documentReference = db.collection(widget.userId).document(doc['documentId']);
-    
+    DocumentSnapshot documentSnapshot;
+    var documentReference = db.collection(widget.userId).document(doc['documentId']);
+    documentReference.get().then((DocumentSnapshot) {
+      documentSnapshot = DocumentSnapshot;
+    });
+
     return new GestureDetector( //db.collection(widget.userId).document(documentId).changeCurrentTime
       onTap: () {
         if (stopwatch.isRunning) {
           stopwatch.stop();
           print("Hehe");
-          methodStandards.timer(stopwatch, doc); //Need to figure out how to send the correct document
+          methodStandards.timer(stopwatch, documentSnapshot); //Need to figure out how to send the correct document
           stopwatch.reset();
+          setState(() {
+            print("Set state");
+          });
         } else {
           print("Hoho");
           stopwatch.start();
