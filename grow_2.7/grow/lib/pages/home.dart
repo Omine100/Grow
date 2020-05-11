@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Themes themes = new Themes();
   DataLists dataLists = new DataLists();
   final db = Firestore.instance;
+  ContainerTransitionType transitionType = ContainerTransitionType.fade;
   int currentIndex;
 
   //VARIABLE INITIALIZATION: BOTTOM NAVIGATION BAR
@@ -230,7 +231,19 @@ class _HomeScreenState extends State<HomeScreen> {
           stream: db.collection(widget.userId).document("Favorites").collection("Goals").snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if(snapshot.data.documents.isEmpty) {
-              return Container();
+              return interfaceStandards.parentCenter(context, 
+                Container(
+                  height: 55,
+                  width: 55,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Text(
+                    "No Favorites",
+                  ),
+                ),
+              );
             } else {
               return new ListView(
                 padding: EdgeInsets.only(
@@ -467,22 +480,34 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text("Folders")),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddGoalScreen(
-              auth: widget.auth,
-              logoutCallback: widget.logoutCallback,
-              userId: widget.userId,
-            ))
+      floatingActionButton: OpenContainer(
+        transitionType: transitionType,
+        openBuilder: (BuildContext context, VoidCallback _) {
+          return AddGoalScreen(
+            auth: widget.auth,
+            logoutCallback: widget.logoutCallback,
+            userId: widget.userId,
           );
         },
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).scaffoldBackgroundColor,
+        closedElevation: 0.0,
+        closedShape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(120),
+          ),
         ),
-        backgroundColor: Theme.of(context).accentColor,
+        closedColor: Theme.of(context).accentColor,
+        closedBuilder: (BuildContext context, VoidCallback openContainer) {
+          return SizedBox(
+            height: 56.0,
+            width: 56.0,
+            child: Center(
+              child: Icon(
+                Icons.add,
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
+            ),
+          );
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
