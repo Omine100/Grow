@@ -480,7 +480,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text("Folders")),
         ],
       ),
-      floatingActionButton: OpenContainer(
+      floatingActionButton: OpenContainer( //If we're going to do an animationStandards.dart, then for the first one we would need openBuilder, closedShape, closedBuilder I believe
         transitionType: transitionType,
         transitionDuration: Duration(milliseconds: 675),
         openBuilder: (BuildContext context, VoidCallback _) {
