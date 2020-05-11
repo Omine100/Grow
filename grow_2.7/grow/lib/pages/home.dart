@@ -482,6 +482,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: OpenContainer(
         transitionType: transitionType,
+        transitionDuration: Duration(milliseconds: 675),
         openBuilder: (BuildContext context, VoidCallback _) {
           return AddGoalScreen(
             auth: widget.auth,
@@ -492,7 +493,7 @@ class _HomeScreenState extends State<HomeScreen> {
         closedElevation: 0.0,
         closedShape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(120),
+            Radius.circular(45),
           ),
         ),
         closedColor: Theme.of(context).accentColor,
