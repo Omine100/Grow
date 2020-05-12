@@ -28,11 +28,20 @@ class AnimationStandards {
           Colors.transparent :
           Colors.transparent
         ),
-      closedShape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(45),
+      closedShape: animationCase == 1 ? 
+        const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(45),
+          ),
+        ) :
+        (animationCase == 2 ? 
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(0)
+            ),
+          ) :
+          null
         ),
-      ),
       closedBuilder: (BuildContext context, VoidCallback openContainer) {
         return animationCase == 1 ? 
           SizedBox(
@@ -59,8 +68,8 @@ class AnimationStandards {
                 ),
                 boxShadow: [new BoxShadow(
                   color: themes.checkDarkTheme(context) ? Colors.grey.shade900 : Colors.grey.shade400,
-                  blurRadius: 1,
-                  offset: new Offset(10, 10)
+                  blurRadius: 15,
+                  offset: new Offset(7.5, 7.5)
                 )]
               ),
               child: child,
