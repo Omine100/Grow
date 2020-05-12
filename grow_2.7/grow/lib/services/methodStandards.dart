@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:grow/services/cloudFirestore.dart';
 
 class MethodStandards {
+  //VARIABLE DECLARATION
   CloudFirestore cloudFirestore = new CloudFirestore();
 
   //MECHANICS: TIMER

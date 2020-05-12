@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter/services.dart';
+
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/themes.dart';
 import 'package:grow/pages/root.dart';
 
 //MECHANICS: RUN APP GROW
-void main() => runApp(new Grow());
+void main() {
+  runApp(new Grow());
+}
 
 class Grow extends StatelessWidget {
   Themes themes = new Themes();
