@@ -69,16 +69,25 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   }
 
   //USER INTERFACE: SHOW ADD TEXT
-  Widget showText(String text) {
-    return interfaceStandards.parentCenter(context,
-      Text(
-        text,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 40.0,
-          fontWeight: FontWeight.w500,
+  Widget showHeader(String text) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 40.0,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
-      ),
+        new Divider(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height * 1,
+        ),
+      ],
     );
   }
 
@@ -251,17 +260,17 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                 child: interfaceStandards.backButton(context),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.3,
-                child: showText("Add Goal"),
+                top: MediaQuery.of(context).size.height * 0.125,
+                child: showHeader("Add Goal"),
               ),
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.4,
-                child: showForm(),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.85,
-                child: showCreateButton(),
-              ),
+              // Positioned(
+              //   top: MediaQuery.of(context).size.height * 0.4,
+              //   child: showForm(),
+              // ),
+              // Positioned(
+              //   top: MediaQuery.of(context).size.height * 0.85,
+              //   child: showCreateButton(),
+              // ),
             ],
           ),
         ),
