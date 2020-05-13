@@ -28,76 +28,27 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   Themes themes = new Themes();
   DataLists dataLists = new DataLists();
   TextEditingController _titleTextEditingController = TextEditingController();
-  String iconPositionController, colorPositionController;
-  String title;
   int iconPosition, colorPosition;
-  Icon icon;
-  String textPosition = "Title";
-  int formPosition = 1;
-  bool buttonPosition = false;
   DateTime dateTime = DateTime.now();
 
-  Future<void> pageCounter() async {
-    setState(() {
-      formPosition++;
-      if (formPosition == 2) {
-        textPosition = "Icon";
-        buttonPosition = false;
-      } else if (formPosition == 3) {
-        textPosition = "Color";
-        buttonPosition = false;
-      } else if (formPosition == 4) {
-        textPosition = "Time";
-        buttonPosition = true;
-      }
-    });
-  }
-
-  //USER INTERFACE: SHOW ADD TEXT
-  Widget showText(String textPosition) {
-    return interfaceStandards.parentCenter(context,
-      Text(
-        textPosition.toString(),
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 40.0,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
-  }
-
-  //USER INTERFACE: SHOW FORM
-  Widget showForm(int formPosition) {
-    if (formPosition == 1) {
-      return interfaceStandards.parentCenter(context, showPickTitle(),);
-    } else if (formPosition == 2) {
-      return interfaceStandards.parentCenter(context, showPickIcon(),);
-    } else if (formPosition == 3){
-      return interfaceStandards.parentCenter(context, showPickColor(),);
-    } else if (formPosition == 4) {
-      return interfaceStandards.parentCenter(context, showPickTime(),);
-    }
-  }
-
-  //USER INTERFACE: SHOW BUTTON
-  Widget showButton(int formPosition, bool buttonPosition) {
+  //MECHANICS: CALCULATE GOAL TIME
+  int goalTimeCalculator() {
     int goalTotal = (dateTime.hour * 3600) + (dateTime.minute * 60) + dateTime.second;
+    return goalTotal;
+  }
 
+  //USER INTERFACE: SHOW CREATE BUTTON
+  Widget showCreateButton() {
     return new InterfaceStandards().parentCenter(context,
         GestureDetector(
           onTap: () {
-            if(formPosition != 4) {
-              pageCounter();
-            } else {
-              cloudFirestore.createData(
-                _titleTextEditingController.text.toString(),
-                iconPosition,
-                colorPosition,
-                goalTotal,
-              );
-              Navigator.pop(context);
-            }
+            cloudFirestore.createData(
+              _titleTextEditingController.text.toString(),
+              iconPosition,
+              colorPosition,
+              goalTimeCalculator(),
+            );
+            Navigator.pop(context);
           },
           child: NeumorphicContainer(
             radius: 360,
@@ -108,12 +59,26 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
             color: Theme.of(context).highlightColor,
 
             child: Icon(
-              buttonPosition ? Icons.check : Icons.navigate_next,
+              Icons.check,
               color: Theme.of(context).splashColor,
               size: 35.0,
             ),
           ),
         ),
+    );
+  }
+
+  //USER INTERFACE: SHOW ADD TEXT
+  Widget showText(String text) {
+    return interfaceStandards.parentCenter(context,
+      Text(
+        text,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 40.0,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
     );
   }
 
@@ -241,6 +206,18 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     );
   }
 
+  //USER INTERFACE: SHOW FORM
+  Widget showForm() {
+    return Column(
+      children: <Widget>[
+        showPickTitle(),
+        showPickIcon(),
+        showPickColor(),
+        showPickTime(),
+      ],
+    );
+  }
+
   //USER INTERFACE: ADD GOAL SCREEN
   @override
   Widget build(BuildContext context) {
@@ -261,15 +238,15 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               ),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.3,
-                child: showText(textPosition),
+                child: showText("Add Goal"),
               ),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.4,
-                child: showForm(formPosition),
+                child: showForm(),
               ),
               Positioned(
-                top: formPosition == 2 ? MediaQuery.of(context).size.height * 0.7 : MediaQuery.of(context).size.height * 0.65,
-                child: showButton(formPosition, buttonPosition),
+                top: MediaQuery.of(context).size.height * 0.85,
+                child: showCreateButton(),
               ),
             ],
           ),
