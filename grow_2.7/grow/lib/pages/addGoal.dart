@@ -125,27 +125,34 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     return new Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-        itemCount: dataLists.getIconList().length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 150.0, right: 150.0),
-            child: GestureDetector(
-              onTap: () {
-                iconPosition = index;
-              },
-              child: NeumorphicContainer(
-                color: Theme.of(context).dialogBackgroundColor,
-                radius: 25.0,
-                padding: 0.0,
-                height: 75.0,
-                width: 75.0,
-                clickable: true,
-                child: dataLists.getIconData(index),
-              ),
-            ),
-          );
-        },
+      child: Row(
+        children: <Widget>[
+          Icon(
+            Icons.insert_emoticon,
+          ),
+          ListView.builder(
+            itemCount: dataLists.getIconList().length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 150.0, right: 150.0),
+                child: GestureDetector(
+                  onTap: () {
+                    iconPosition = index;
+                  },
+                  child: NeumorphicContainer(
+                    color: Theme.of(context).dialogBackgroundColor,
+                    radius: 25.0,
+                    padding: 0.0,
+                    height: 75.0,
+                    width: 75.0,
+                    clickable: true,
+                    child: dataLists.getIconData(index),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -154,27 +161,34 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   Widget showPickColor() {
     return new Container(
       height: MediaQuery.of(context).size.height,
-      child: ListView.builder(
-        itemCount: dataLists.getColorList(themes.checkDarkTheme(context), true).length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 15.0, right: 15.0),
-            child: GestureDetector(
-              onTap: () {
-                colorPosition = index;
-              },
-              child: Container(
-                height: 50.0,
-                width: 50.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: dataLists.getColorData(index, themes.checkDarkTheme(context), true),
+      child: Row(
+        children: <Widget>[
+          Icon(
+            Icons.format_paint
+          ),
+          ListView.builder(
+            itemCount: dataLists.getColorList(themes.checkDarkTheme(context), true).length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 15.0, right: 15.0),
+                child: GestureDetector(
+                  onTap: () {
+                    colorPosition = index;
+                  },
+                  child: Container(
+                    height: 50.0,
+                    width: 50.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: dataLists.getColorData(index, themes.checkDarkTheme(context), true),
+                    ),
+                    child: null,
+                  ),
                 ),
-                child: null,
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ],
       ),
     );
   }
