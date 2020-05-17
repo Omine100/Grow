@@ -22,6 +22,7 @@ dependencies:
   flutter_clean_calendar: ^1.0.1
   flutter_time_picker_spinner: ^1.0.6
   animations: ^1.0.0+5
+  flutter_neumorphic: ^2.0.1
 
 dev_dependencies:
   flutter_test:

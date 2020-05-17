@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/services/themes.dart';
 import 'package:grow/models/dataLists.dart';
 import 'package:grow/widgets/interfaceStandards.dart';
-import 'package:grow/widgets/neumorphicContainer.dart';
 import 'package:grow/pages/home.dart';
 
 class AddGoalScreen extends StatefulWidget {
@@ -50,14 +50,14 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
             );
             Navigator.pop(context);
           },
-          child: NeumorphicContainer(
-            radius: 360,
-            clickable: true,
-            height: 55,
-            width: 55,
-            padding: 1.0,
-            color: Theme.of(context).highlightColor,
-
+          child: NeumorphicButton(
+            boxShape: NeumorphicBoxShape.circle(),
+            style: NeumorphicStyle(
+              shape: NeumorphicShape.flat,
+              depth: 8.0,
+              lightSource: LightSource.topLeft,
+              color: Theme.of(context).highlightColor,
+            ),
             child: Icon(
               Icons.check,
               color: Theme.of(context).splashColor,
@@ -148,13 +148,14 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                   onTap: () {
                     iconPosition = index;
                   },
-                  child: NeumorphicContainer(
-                    color: Theme.of(context).dialogBackgroundColor,
-                    radius: 25.0,
-                    padding: 0.0,
-                    height: 75.0,
-                    width: 75.0,
-                    clickable: true,
+                  child: NeumorphicButton(
+                    boxShape: NeumorphicBoxShape.circle(),
+                    style: NeumorphicStyle(
+                      shape: NeumorphicShape.flat,
+                      depth: 8.0,
+                      lightSource: LightSource.topLeft,
+                      color: Theme.of(context).accentColor,
+                    ),
                     child: dataLists.getIconData(index),
                   ),
                 ),

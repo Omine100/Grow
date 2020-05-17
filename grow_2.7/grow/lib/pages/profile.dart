@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/widgets/interfaceStandards.dart';
-import 'package:grow/widgets/neumorphicContainer.dart';
 import 'package:grow/models/dataLists.dart';
 import 'package:grow/pages/root.dart';
 import 'package:grow/pages/login.dart';
@@ -34,35 +34,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
   //USER INTERFACE: SHOW LOGOUT BUTTON
   Widget showLogoutButton() {
     return interfaceStandards.parentCenter(context,
-      NeumorphicContainer(
-        height: MediaQuery.of(context).size.height * 0.06,
-        width: MediaQuery.of(context).size.width * 0.30,
-        radius: 40.0,
-        clickable: true,
-        padding: 0.0,
-        color: Theme.of(context).dialogBackgroundColor,
-        child: GestureDetector(
-          onTap: (){
-            widget.auth.signOut();
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil('/RootScreen', (Route<dynamic> route) => false);
-          },
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            child: Center(
-              child: Text(
-                "Logout",
-                style: TextStyle(
-                  foreground: Paint()
-                    ..shader = interfaceStandards.textLinearGradient(context),
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20.0,
+      Container(
+        width: MediaQuery.of(context).size.width * 0.3,
+        child: NeumorphicButton(
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40.0)),
+          style: NeumorphicStyle(
+            shape: NeumorphicShape.flat,
+            depth: 8.0,
+            lightSource: LightSource.topLeft,
+            color: Theme.of(context).dialogBackgroundColor,
+          ),
+          child: GestureDetector(
+            onTap: (){
+              widget.auth.signOut();
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/RootScreen', (Route<dynamic> route) => false);
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: Text(
+                  "Logout",
+                  style: TextStyle(
+                    foreground: Paint()
+                      ..shader = interfaceStandards.textLinearGradient(context),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20.0,
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),);
+      ),
+      );
   }
 
   //USER INTERFACE: SHOW DELETE ACCOUNT BUTTON
