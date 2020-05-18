@@ -341,7 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
           cloudFirestore.deleteData(document);
         },
         child: animationStandards.showContainerTransitionAnimation(
-          context, 
+          context,
           2, 
           widget.auth, 
           widget.logoutCallback, 
