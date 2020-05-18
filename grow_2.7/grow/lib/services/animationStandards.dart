@@ -26,7 +26,7 @@ class AnimationStandards {
         Theme.of(context).accentColor : 
         (animationCase == 2 ? 
           Colors.transparent :
-          Colors.transparent
+          Colors.transparent //Add code here for case 3
         ),
       closedShape: animationCase == 1 ? 
         const RoundedRectangleBorder(
@@ -40,7 +40,11 @@ class AnimationStandards {
               Radius.circular(0)
             ),
           ) :
-          null
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(45.0),
+            ),
+          ) //Add code here for case 3
         ),
       closedBuilder: (BuildContext context, VoidCallback openContainer) {
         return animationCase == 1 ? 
@@ -74,7 +78,11 @@ class AnimationStandards {
               ),
               child: child,
             ) :
-            Container()
+            Icon(
+              Icons.person,
+              size: 50.0,
+              color: Theme.of(context).splashColor
+            )//Add code here for case 3
           );
       },
       openBuilder: (BuildContext context, VoidCallback _) {

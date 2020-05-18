@@ -37,64 +37,22 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     return goalTotal;
   }
 
-  //USER INTERFACE: SHOW CREATE BUTTON
-  Widget showCreateButton() {
-    return new InterfaceStandards().parentCenter(context,
-        GestureDetector(
-          onTap: () {
-            cloudFirestore.createData(
-              _titleTextEditingController.text.toString(),
-              iconPosition,
-              colorPosition,
-              goalTimeCalculator(),
-            );
-            Navigator.pop(context);
-          },
-          child: NeumorphicButton(
-            boxShape: NeumorphicBoxShape.circle(),
-            style: NeumorphicStyle(
-              shape: NeumorphicShape.flat,
-              depth: 8.0,
-              lightSource: LightSource.topLeft,
-              color: Theme.of(context).highlightColor,
-            ),
-            child: Icon(
-              Icons.check,
-              color: Theme.of(context).splashColor,
-              size: 35.0,
-            ),
-          ),
-        ),
-    );
-  }
-
   //USER INTERFACE: SHOW ADD TEXT
   Widget showHeader(String text) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1),
-          child: Text(
-            text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 40.0,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        new Divider(
-          color: Colors.white,
-          height: MediaQuery.of(context).size.height * 1,
-        ),
-      ],
+    return Text(
+      text,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 40.0,
+        fontWeight: FontWeight.w500,
+      ),
     );
   }
 
   //USER INTERFACE: SHOW TEXT FIELD FOR TITLE
   Widget showPickTitle() {
     return new Container(
-      width: MediaQuery.of(context).size.width * 0.75,
+      width: MediaQuery.of(context).size.width * 0.8,
       child: TextFormField(
         controller: _titleTextEditingController,
         keyboardType: TextInputType.text,
@@ -129,74 +87,85 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     );
   }
 
-  //USER INTERFACE: SHOW ICONS FOR ICON
-  Widget showPickIcon() {
+  //USER INTERFACE: SHOW COLORS FOR COLOR
+  Widget showPickColor() {
     return new Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.1,
       child: Row(
         children: <Widget>[
           Icon(
-            Icons.insert_emoticon,
+            Icons.format_paint,
+            color: Theme.of(context).splashColor,
+            size: 30.0,
           ),
-          ListView.builder(
-            itemCount: dataLists.getIconList().length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 150.0, right: 150.0),
-                child: GestureDetector(
-                  onTap: () {
-                    iconPosition = index;
-                  },
-                  child: NeumorphicButton(
-                    boxShape: NeumorphicBoxShape.circle(),
-                    style: NeumorphicStyle(
-                      shape: NeumorphicShape.flat,
-                      depth: 8.0,
-                      lightSource: LightSource.topLeft,
-                      color: Theme.of(context).accentColor,
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: dataLists.getColorList(themes.checkDarkTheme(context), true).length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(left: 25.0, right: 25.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      colorPosition = index;
+                    },
+                    child: Container(
+                      height: 50.0,
+                      width: 50.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: dataLists.getColorData(index, themes.checkDarkTheme(context), true),
+                      ),
+                      child: null,
                     ),
-                    child: dataLists.getIconData(index),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ],
       ),
     );
   }
 
-  //USER INTERFACE: SHOW COLORS FOR COLOR
-  Widget showPickColor() {
+  //USER INTERFACE: SHOW ICONS FOR ICON
+  Widget showPickIcon() {
     return new Container(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height * 0.1,
       child: Row(
         children: <Widget>[
           Icon(
-            Icons.format_paint
+            Icons.insert_emoticon,
+            color: Theme.of(context).splashColor,
+            size: 30.0,
           ),
-          ListView.builder(
-            itemCount: dataLists.getColorList(themes.checkDarkTheme(context), true).length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 15.0, right: 15.0),
-                child: GestureDetector(
-                  onTap: () {
-                    colorPosition = index;
-                  },
-                  child: Container(
-                    height: 50.0,
-                    width: 50.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: dataLists.getColorData(index, themes.checkDarkTheme(context), true),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: dataLists.getIconList().length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(left: 25.0, right: 25.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      iconPosition = index;
+                    },
+                    child: NeumorphicButton(
+                      boxShape: NeumorphicBoxShape.circle(),
+                      style: NeumorphicStyle(
+                        shape: NeumorphicShape.flat,
+                        depth: 8.0,
+                        lightSource: LightSource.topLeft,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      child: dataLists.getIconData(index),
                     ),
-                    child: null,
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -212,6 +181,8 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
           color: Colors.white,
           fontSize: 25.0
         ),
+        itemHeight: 35.0,
+        itemWidth: 50.0,
         highlightedTextStyle: TextStyle(
           color: Colors.white,
           fontSize: 35.0
@@ -219,6 +190,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
         is24HourMode: true,
         isForce2Digits: false,
         isShowSeconds: true,
+        spacing: 15.0,
         time: DateTime.utc(1,1,1,0,0,0,1),
         secondsInterval: 1,
         onTimeChange: (time) {
@@ -235,10 +207,41 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     return Column(
       children: <Widget>[
         showPickTitle(),
-        showPickIcon(),
         showPickColor(),
+        showPickIcon(),
         showPickTime(),
       ],
+    );
+  }
+
+  //USER INTERFACE: SHOW CREATE BUTTON
+  Widget showCreateButton() {
+    return new InterfaceStandards().parentCenter(context,
+        GestureDetector(
+          onTap: () {
+            cloudFirestore.createData(
+              _titleTextEditingController.text.toString(),
+              iconPosition,
+              colorPosition,
+              goalTimeCalculator(),
+            );
+            Navigator.pop(context);
+          },
+          child: NeumorphicButton(
+            boxShape: NeumorphicBoxShape.circle(),
+            style: NeumorphicStyle(
+              shape: NeumorphicShape.flat,
+              depth: 8.0,
+              lightSource: LightSource.topLeft,
+              color: Theme.of(context).highlightColor,
+            ),
+            child: Icon(
+              Icons.check,
+              color: Theme.of(context).splashColor,
+              size: 35.0,
+            ),
+          ),
+        ),
     );
   }
 
@@ -262,16 +265,18 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               ),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.125,
+                left: MediaQuery.of(context).size.width * 0.1,
                 child: showHeader("Add Goal"),
               ),
-              // Positioned(
-              //   top: MediaQuery.of(context).size.height * 0.4,
-              //   child: showForm(),
-              // ),
-              // Positioned(
-              //   top: MediaQuery.of(context).size.height * 0.85,
-              //   child: showCreateButton(),
-              // ),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.25,
+                left: MediaQuery.of(context).size.width * 0.05,
+                child: showForm()
+              ),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.8,
+                child: showCreateButton(),
+              ),
             ],
           ),
         ),

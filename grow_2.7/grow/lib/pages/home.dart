@@ -82,16 +82,17 @@ class _HomeScreenState extends State<HomeScreen> {
               top: MediaQuery.of(context).size.height * 0.013,
               left: MediaQuery.of(context).size.width * 0.3,
             ),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(
-                  auth: widget.auth, logoutCallback: widget.logoutCallback, userId: widget.userId,
-                )));
-              },
-              child: Icon(
-                Icons.person,
-                size: 50.0,
-                color: Colors.white,
+            child: Container(
+              width: 50.0,
+              height: 50.0,
+              child: animationStandards.showContainerTransitionAnimation(
+                context, 
+                3, 
+                widget.auth, 
+                widget.logoutCallback, 
+                widget.userId, 
+                null, 
+                null
               ),
             ),
           ),
