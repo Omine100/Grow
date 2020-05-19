@@ -42,6 +42,8 @@ List<Icon> _iconListData(List<Icon> _iconList) {
   _iconList = new List<Icon>();
   _iconList.add(Icon(Icons.add, size: 25.0, color: Colors.white,));
   _iconList.add(Icon(Icons.delete, size: 25.0, color: Colors.white,));
+  _iconList.add(Icon(Icons.voice_chat, size: 25.0, color: Colors.white,));
+  _iconList.add(Icon(Icons.voicemail, size: 25.0, color: Colors.white,));
   return _iconList;
 }
 
@@ -56,6 +58,8 @@ List<Color> _colorListData(List<Color> _colorList, bool darkTheme, bool first) {
   _colorList = new List<Color>();
   _colorList.add(first ? !darkTheme ? Colors.lightBlueAccent.shade400 : Colors.blue.shade700 : Colors.blue.shade900);
   _colorList.add(first ? !darkTheme ? Colors.grey.shade500 : Colors.black : Colors.grey.shade800);
+  _colorList.add(first ? !darkTheme ? Colors.red.shade200 : Colors.red.shade400 : Colors.red.shade700);
+  _colorList.add(first ? !darkTheme ? Colors.yellow.shade400 : Colors.yellow.shade200 : Colors.yellow.shade700);
   return _colorList;
 }
 

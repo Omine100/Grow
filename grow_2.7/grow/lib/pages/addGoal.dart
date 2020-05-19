@@ -91,7 +91,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   //USER INTERFACE: SHOW COLORS FOR COLOR
   Widget showPickColor() {
     return new Container(
-      height: MediaQuery.of(context).size.height * 0.1,
+      height: MediaQuery.of(context).size.height * 0.13,
       child: Row(
         children: <Widget>[
           Icon(
@@ -99,8 +99,11 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
             color: Theme.of(context).splashColor,
             size: 30.0,
           ),
+          SizedBox(
+            width: 10.0,
+          ),
           Container(
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width * 0.8,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: dataLists.getColorList(themes.checkDarkTheme(context), true).length,
@@ -134,7 +137,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   //USER INTERFACE: SHOW ICONS FOR ICON
   Widget showPickIcon() {
     return new Container(
-      height: MediaQuery.of(context).size.height * 0.1,
+      height: MediaQuery.of(context).size.height * 0.13,
       child: Row(
         children: <Widget>[
           Icon(
@@ -142,8 +145,11 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
             color: Theme.of(context).splashColor,
             size: 30.0,
           ),
+          SizedBox(
+            width: 10.0,
+          ),
           Container(
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width * 0.8,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: dataLists.getIconList().length,
