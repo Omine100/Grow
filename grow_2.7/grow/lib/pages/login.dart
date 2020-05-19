@@ -141,6 +141,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  //USER INTERFACE: SHOW VISIBLE BUTTON
+  Widget showVisibleButton(bool isVisible) {
+    return Icon(
+      isVisible ? Icons.visibility : Icons.visibility_off,
+    );
+  }
+
   //USER INTERFACE: LOGIN SCREEN
   @override
   Widget build(BuildContext context) {

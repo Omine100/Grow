@@ -213,12 +213,18 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                 fontSize: 25.0
               ),
             ),
+            SizedBox(
+              width: 25,
+            ),
             Text(
               "Min",
               style: TextStyle(
                 color: Theme.of(context).splashColor,
                 fontSize: 25.0
               ),
+            ),
+            SizedBox(
+              width: 25,
             ),
             Text(
               "Sec",
