@@ -181,44 +181,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: SHOW SECTION TEXT
   Widget showSectionText(bool isFavorite) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: isFavorite ? MediaQuery.of(context).size.height * 0.03 : 0,
-        left: MediaQuery.of(context).size.width * 0.05,
-        right: MediaQuery.of(context).size.width * 0.05,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Text(
-            isFavorite ? "Favorites" : "Goals",
-            style: TextStyle(
-                color: Theme.of(context).textSelectionColor,
-                fontSize: 22.5,
-                fontWeight: FontWeight.w500
-            ),
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.025,
+          left: MediaQuery.of(context).size.width * 0.05,
+        ),
+        child: Text(
+          isFavorite ? "Favorites" : "Goals",
+          style: TextStyle(
+            color: Theme.of(context).textSelectionColor,
+            fontSize: 22.5,
+            fontWeight: FontWeight.w500
           ),
-          SizedBox(
-            width: isFavorite ? MediaQuery.of(context).size.width * 0.45 : MediaQuery.of(context).size.width * 0.53,
-          ),
-          Text(
-            "Details",
-            style: TextStyle(
-                color: Theme.of(context).textSelectionHandleColor,
-                fontSize: 17.5,
-                fontWeight: FontWeight.w400
-            ),
-          ),
-          SizedBox(
-            width: 5.0,
-          ),
-          Icon(
-            Icons.arrow_forward,
-            size: 22.5,
-            color: Colors.grey.shade600,
-          ),
-        ],
+        ),
       ),
     );
   }
