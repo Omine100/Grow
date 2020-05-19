@@ -78,7 +78,7 @@ bool checkDayDone(DocumentSnapshot doc, String currentDate) {
 Map _calendarMapData(DocumentSnapshot doc) {
   Map datesCompleted = doc.data["datesCompleted"];
   List keys = datesCompleted.keys.toList();
-  Map days;
+  Map<DateTime, List<dynamic>> days;
 
   if (keys.isEmpty) {
     return days = {};
