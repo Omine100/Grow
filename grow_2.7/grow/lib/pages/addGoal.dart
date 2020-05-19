@@ -175,32 +175,61 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
 
   //USER INTERFACE: SHOW TIME PICKER FOR TIME
   Widget showPickTime() {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.925,
-      child: new InterfaceStandards().parentCenter(context, 
-        TimePickerSpinner(
-          normalTextStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 25.0
+    return Column(
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width * 0.925,
+          child: new InterfaceStandards().parentCenter(context, 
+            TimePickerSpinner(
+              normalTextStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 25.0
+              ),
+              itemHeight: 35.0,
+              highlightedTextStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 35.0
+              ),
+              is24HourMode: true,
+              isForce2Digits: false,
+              isShowSeconds: true,
+              spacing: 25.0,
+              time: DateTime.utc(1,1,1,0,0,0,1),
+              secondsInterval: 1,
+              onTimeChange: (time) {
+                setState(() {
+                  dateTime = time;
+                });
+              },
+            ),
           ),
-          itemHeight: 35.0,
-          highlightedTextStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 35.0
-          ),
-          is24HourMode: true,
-          isForce2Digits: false,
-          isShowSeconds: true,
-          spacing: 25.0,
-          time: DateTime.utc(1,1,1,0,0,0,1),
-          secondsInterval: 1,
-          onTimeChange: (time) {
-            setState(() {
-              dateTime = time;
-            });
-          },
         ),
-      ),
+        Row(
+          children: <Widget>[
+            Text(
+              "Hour",
+              style: TextStyle(
+                color: Theme.of(context).splashColor,
+                fontSize: 25.0
+              ),
+            ),
+            Text(
+              "Min",
+              style: TextStyle(
+                color: Theme.of(context).splashColor,
+                fontSize: 25.0
+              ),
+            ),
+            Text(
+              "Sec",
+              style: TextStyle(
+                color: Theme.of(context).splashColor,
+                fontSize: 25.0
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 
@@ -276,7 +305,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                 child: showPickTime()
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.8,
+                top: MediaQuery.of(context).size.height * 0.85,
                 child: showCreateButton(),
               ),
             ],
