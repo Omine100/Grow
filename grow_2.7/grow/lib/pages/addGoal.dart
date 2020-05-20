@@ -110,19 +110,24 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(left: 25.0, right: 25.0),
-                  child: GestureDetector(
-                    onTap: () {
+                  child: NeumorphicButton(
+                    onClick: () {
                       colorPosition = index;
+                      setState(() {
+                      });
                       print("colorPosition: " + colorPosition.toString());
                     },
+                    boxShape: NeumorphicBoxShape.circle(),
+                    style: NeumorphicStyle(
+                      shape: colorPosition == index ? NeumorphicShape.concave : NeumorphicShape.flat,
+                      depth: colorPosition == index ? -15.0 : 8.0,
+                      lightSource: LightSource.topLeft,
+                      color: dataLists.getColorData(index, themes.checkDarkTheme(context), true),
+                      intensity: colorPosition == index ? 1.0 : null,
+                    ),
                     child: Container(
-                      height: 50.0,
-                      width: 50.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: dataLists.getColorData(index, themes.checkDarkTheme(context), true),
-                      ),
-                      child: null,
+                      height: 25,
+                      width: 25,
                     ),
                   ),
                 );
@@ -159,14 +164,17 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                   child: NeumorphicButton(
                     onClick: () {
                       iconPosition = index;
+                      setState(() {
+                      });
                       print("iconPosition: " + iconPosition.toString());
                     },
                     boxShape: NeumorphicBoxShape.circle(),
                     style: NeumorphicStyle(
-                      shape: NeumorphicShape.flat,
-                      depth: 8.0,
+                      shape: iconPosition == index ? NeumorphicShape.concave : NeumorphicShape.flat,
+                      depth: iconPosition == index ? -15.0 : 8.0,
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).accentColor,
+                      intensity: iconPosition == index ? 1.0 : null,
                     ),
                     child: dataLists.getIconData(index),
                   ),
