@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final db = Firestore.instance;
   ContainerTransitionType transitionType = ContainerTransitionType.fade;
   int currentIndex;
+  String name = "Null";
 
   //VARIABLE INITIALIZATION: BOTTOM NAVIGATION BAR
   @override
@@ -58,45 +59,40 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: SHOW TITLE
   Container showTitle() {
+    var docRef = db.collection(widget.userId).document("User").collection("Name").snapshots();
+      docRef.forEach((element) {
+        element.documents.forEach((document) {
+          name = document["Name"].toString();
+        });
+      });//Need to figure out how to set the state first thing
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.075,
       color: Colors.transparent,
-      child: Row(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.05,
-                top: MediaQuery.of(context).size.height * 0.025
-            ),
-            child: Text(
-              "Hi, Matthew",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 35.0,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.013,
-              left: MediaQuery.of(context).size.width * 0.3,
-            ),
-            child: Container(
-              width: 50.0,
-              height: 50.0,
-              child: animationStandards.showContainerTransitionAnimation(
-                context, 
-                3, 
-                widget.auth, 
-                widget.logoutCallback, 
-                widget.userId, 
-                null, 
-                null
-              ),
-            ),
-          ),
-        ],
+      child: Text(
+        "Hi, " + name,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 35.0,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+
+  //USER INTERFACE: SHOW USER BUTTON
+  Container showUserButton() {
+    return Container(
+      width: 50.0,
+      height: 50.0,
+      child: animationStandards.showContainerTransitionAnimation(
+        context, 
+        3, 
+        widget.auth, 
+        widget.logoutCallback, 
+        widget.userId, 
+        null, 
+        null
       ),
     );
   }
@@ -369,7 +365,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           child: Stack(
             children: <Widget>[
-              showTitle(),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.025,
+                left: MediaQuery.of(context).size.width * 0.05,
+                child: showTitle(),
+              ),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.019,
+                left: MediaQuery.of(context).size.width * 0.825,
+                child: showUserButton(),
+              ),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.075,
                 child: lineChart(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:grow/services/authentication.dart';
+import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/widgets/interfaceStandards.dart';
 import 'package:grow/pages/forgotPassword.dart';
 
@@ -17,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   //VARIABLE DECLARATION: AUTHENTICATION AND LOADING
+  CloudFirestore cloudFirestore = new CloudFirestore();
   InterfaceStandards interfaceStandards = new InterfaceStandards();
   final formKey = GlobalKey<FormState>();
   String _name, _email, _password, errorMessage;
@@ -63,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
           print("Signed in: $userId");
         } else {
           userId = await widget.auth.signUp(_email, _password, "Matthew");
+          cloudFirestore.createNameData(_name);//I think that this may do the trick?
           print("Signed up: $userId");
           setState(() {
             isLoading = false;

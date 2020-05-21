@@ -17,6 +17,14 @@ class CloudFirestore {
     print("Read: " + snapshot.data["name"]);
   }
 
+  Future<String> createNameData(String name) async {//I think that this is going to work
+    FirebaseUser user = await _firebaseAuth.currentUser();
+
+    DocumentReference ref = await db.collection(user.uid.toString()).document("User").collection("Name").add({"Name": name});
+    print("Name created: " + name);
+    print("Name document: " + ref.documentID);
+  }
+
   Future<String> createData(String title, int iconPosition, int colorPosition, int goalTotal) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
 
