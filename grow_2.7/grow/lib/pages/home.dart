@@ -49,7 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     currentIndex = 0;
-    getName();
+    setState(() {
+      getName();
+    });
   }
 
   //MECHANICS: BOTTOM NAVIGATION BAR CHANGE PAGE
