@@ -42,13 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
   final db = Firestore.instance;
   ContainerTransitionType transitionType = ContainerTransitionType.fade;
   int currentIndex;
-  String name = "Null";
+  String name = "null";
 
   //VARIABLE INITIALIZATION: BOTTOM NAVIGATION BAR
   @override
   void initState() {
     super.initState();
     currentIndex = 0;
+    getName();
   }
 
   //MECHANICS: BOTTOM NAVIGATION BAR CHANGE PAGE
@@ -57,20 +58,24 @@ class _HomeScreenState extends State<HomeScreen> {
       currentIndex = index;});
   }
 
+  //MECHANICS: GET NAME
+  String getName() {//Need to figure out how to get it to go first
+    var docRef = db.collection(widget.userId).document("User").collection("Name").snapshots();
+    docRef.forEach((element) {
+      element.documents.forEach((document) {
+        name = document["Name"].toString();
+      });
+    });
+    return name;
+  }
+
   //USER INTERFACE: SHOW TITLE
   Container showTitle() {
-    var docRef = db.collection(widget.userId).document("User").collection("Name").snapshots();
-      docRef.forEach((element) {
-        element.documents.forEach((document) {
-          name = document["Name"].toString();
-        });
-      });//Need to figure out how to set the state first thing
-
     return Container(
       height: MediaQuery.of(context).size.height * 0.075,
       color: Colors.transparent,
       child: Text(
-        "Hi, " + name,
+        "Hi, " + getName(),
         style: TextStyle(
           color: Colors.white,
           fontSize: 35.0,
