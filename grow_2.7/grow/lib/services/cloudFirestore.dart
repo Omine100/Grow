@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -21,8 +22,23 @@ class CloudFirestore {
     FirebaseUser user = await _firebaseAuth.currentUser();
 
     DocumentReference ref = await db.collection(user.uid.toString()).document("User").collection("Name").add({"Name": name});
-    print("Name created: " + name);
+    print("Name creatded: " + name);
     print("Name document: " + ref.documentID);
+  }
+
+  String readNameData(String userId) {
+    String name = "1";
+    var docRef = db.collection(userId).document("User").collection("Name").snapshots();
+    docRef.forEach((element) {
+      element.documents.forEach((document) {
+        if (document["Name"].toString().isNotEmpty) {
+          name = document["Name"].toString();
+          print("readName: " + name);
+        }
+      });
+    });
+    print("name: " + name);
+    return name;
   }
 
   Future<String> createData(String title, int iconPosition, int colorPosition, int goalTotal) async {

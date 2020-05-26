@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -42,42 +43,40 @@ class _HomeScreenState extends State<HomeScreen> {
   final db = Firestore.instance;
   ContainerTransitionType transitionType = ContainerTransitionType.fade;
   int currentIndex;
-  String name = "null";
+  String name = "";
 
   //VARIABLE INITIALIZATION: BOTTOM NAVIGATION BAR
   @override
   void initState() {
     super.initState();
     currentIndex = 0;
-    setState(() {
-      getName();
-    });
+    getNameData();
   }
 
   //MECHANICS: BOTTOM NAVIGATION BAR CHANGE PAGE
   void changePage(int index) {
     setState(() {
-      currentIndex = index;});
+      currentIndex = index;
+    });
   }
 
-  //MECHANICS: GET NAME
-  String getName() {//Need to figure out how to get it to go first
-    var docRef = db.collection(widget.userId).document("User").collection("Name").snapshots();
-    docRef.forEach((element) {
-      element.documents.forEach((document) {
-        name = document["Name"].toString();
-      });
+  void getNameData() async {
+    name = await cloudFirestore.readNameData(widget.userId);
+    Future.delayed(const Duration(milliseconds: 500), () {
+      print("homeName: " + name);
     });
-    return name;
   }
 
   //USER INTERFACE: SHOW TITLE
   Container showTitle() {
+    setState(() {
+      getNameData();
+    });
     return Container(
       height: MediaQuery.of(context).size.height * 0.075,
       color: Colors.transparent,
       child: Text(
-        "Hi, " + getName(),
+        "Hi, " + name,
         style: TextStyle(
           color: Colors.white,
           fontSize: 35.0,

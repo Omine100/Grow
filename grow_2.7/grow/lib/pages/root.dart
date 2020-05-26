@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 import 'package:grow/services/authentication.dart';
+import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/pages/intro.dart';
 import 'package:grow/pages/login.dart';
 import 'package:grow/pages/home.dart';
@@ -27,6 +28,7 @@ class RootScreen extends StatefulWidget {
 
 class _RootScreenState extends State<RootScreen> {
   //VARIABLE INITIALIZATION: AUTHENTICATION VALUES
+  CloudFirestore cloudFirestore = new CloudFirestore();
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   String _userId = "";
 

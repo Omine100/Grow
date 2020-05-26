@@ -6,7 +6,7 @@ import 'package:grow/services/cloudFirestore.dart';
 //METHOD DECLARATION: AUTHENTICATION PROCESSES
 abstract class BaseAuth {
   Future<String> signIn(String email, String password);
-  Future<String> signUp(String email, String password, String name);
+  Future<String> signUp(String email, String password);
   Future<FirebaseUser> getCurrentUser();
   Future<String> getCurrentUserId();
   Future<void> sendEmailVerification();
@@ -30,11 +30,10 @@ class Auth implements BaseAuth {
   }
 
   //MECHANICS: SIGNS UP USER WITH GIVEN EMAIL AND PASSWORD
-  Future<String> signUp(String email, String password, String name) async {
+  Future<String> signUp(String email, String password) async {
     AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     FirebaseUser user = result.user;
-//    cloudFirestore.createUserData(user.uid, name);
     return user.uid;
   }
 
