@@ -18,6 +18,8 @@ class Themes {
       backgroundColor: Colors.deepPurpleAccent.shade700,
       dividerColor: Colors.blue.shade700,
       highlightColor: Colors.lightBlueAccent.shade400,
+      hoverColor: Colors.blueGrey.shade50,
+      canvasColor: Colors.blueGrey.shade100,
     );
   }
 

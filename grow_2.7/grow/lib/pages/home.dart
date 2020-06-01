@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:animations/animations.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
@@ -40,17 +42,18 @@ class _HomeScreenState extends State<HomeScreen> {
   InterfaceStandards interfaceStandards = new InterfaceStandards();
   Themes themes = new Themes();
   DataLists dataLists = new DataLists();
+  Stopwatch stopwatch = new Stopwatch();
   final db = Firestore.instance;
   ContainerTransitionType transitionType = ContainerTransitionType.fade;
   int currentIndex;
-  String name = "";
+  bool favoritePosition = false;
 
   //VARIABLE INITIALIZATION: BOTTOM NAVIGATION BAR
   @override
   void initState() {
     super.initState();
     currentIndex = 0;
-    getNameData();
+    getGreeting();
   }
 
   //MECHANICS: BOTTOM NAVIGATION BAR CHANGE PAGE
@@ -60,26 +63,41 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void getNameData() async {
-    name = await cloudFirestore.readNameData(widget.userId);
-    Future.delayed(const Duration(milliseconds: 500), () {
-      print("homeName: " + name);
-    });
+  //MECHANICS: GET GREETING
+  String getGreeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return "Good Morning";
+    } else if (hour < 17) {
+      return "Good Afternoon";
+    }
+    return "Good Evening";
+  }
+
+    //USER INTERFACE: SHOW TOAST
+  void showToast(bool favoritePosition) {
+    String timerState = favoritePosition ? "started" : "ended";
+
+    Fluttertoast.showToast(
+      msg: "Test timer " + timerState,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+    );
   }
 
   //USER INTERFACE: SHOW TITLE
   Container showTitle() {
     setState(() {
-      getNameData();
+      getGreeting();
     });
     return Container(
       height: MediaQuery.of(context).size.height * 0.075,
       color: Colors.transparent,
       child: Text(
-        "Hi, " + name,
+        getGreeting(),
         style: TextStyle(
           color: Colors.white,
-          fontSize: 35.0,
+          fontSize: 42.5,
           fontWeight: FontWeight.w700,
         ),
       ),
@@ -187,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
       alignment: Alignment.centerLeft,
       child: Padding(
         padding: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height * 0.025,
+          top: isFavorite ? MediaQuery.of(context).size.height * 0.025 : MediaQuery.of(context).size.height * 0.01,
           left: MediaQuery.of(context).size.width * 0.05,
         ),
         child: Text(
@@ -205,25 +223,44 @@ class _HomeScreenState extends State<HomeScreen> {
   //USER INTERFACE: FAVORITE CARD STREAM BUILDER
   Widget showFavoriteCardStreamBuilder() {
     return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.075,
+        height: MediaQuery.of(context).size.height * 0.1,
         width: MediaQuery.of(context).size.width,
         child: StreamBuilder(
           stream: db.collection(widget.userId).document("Favorites").collection("Goals").snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if(snapshot.data.documents.isEmpty) {
               return interfaceStandards.parentCenter(context, 
-                Container(
-                  height: 55,
-                  width: 55,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Text(
-                    "No Favorites",
-                  ),
+                Column(
+                  children: <Widget>[
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.09,
+                      width: MediaQuery.of(context).size.height * 0.09,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).hoverColor,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: interfaceStandards.parentCenter(context, 
+                        Icon(
+                          Icons.favorite_border,
+                          size: MediaQuery.of(context).size.height * 0.05,
+                          color: Theme.of(context).canvasColor,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 9.0,
+                    ),
+                    Text(
+                      "No Favorites",
+                      style: TextStyle(
+                        color: Theme.of(context).textSelectionColor,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
                 ),
               );
             } else {
@@ -246,53 +283,106 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //USER INTERFACE: FAVORITE CARD
   Widget buildFavoriteCard(DocumentSnapshot doc) {
-    Stopwatch stopwatch = new Stopwatch();
     DocumentSnapshot documentSnapshot;
     var documentReference = db.collection(widget.userId).document(doc['documentId']);
     documentReference.get().then((DocumentSnapshot) {
       documentSnapshot = DocumentSnapshot;
     });
 
-    return new GestureDetector(
-      onTap: () {
-        if (stopwatch.isRunning) {
-          stopwatch.stop();
-          methodStandards.timer(stopwatch, documentSnapshot);
-          stopwatch.reset();
-          setState(() {
-            print("Favorite timer ended: " + doc['documentId']);
-          });
-        } else {
-          stopwatch.start();
-          print("Favorite timer started: " + doc['documentId']);
-        }
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.blue.shade800,
-          borderRadius: BorderRadius.circular(25),
+    return new NeumorphicButton(
+        onClick: () {
+          if (stopwatch.isRunning) {
+            stopwatch.stop();
+            methodStandards.timer(stopwatch, documentSnapshot);
+            stopwatch.reset();
+            setState(() {
+              favoritePosition = false;
+              print("Favorite timer ended: " + doc['documentId']);
+            });
+          } else {
+            setState(() {
+              favoritePosition = true;
+              stopwatch.start();
+            });
+            print("Favorite timer started: " + doc['documentId']);
+          }
+          showToast(favoritePosition);
+        },
+        boxShape: NeumorphicBoxShape.circle(),
+        style: NeumorphicStyle(
+          shape: favoritePosition ? NeumorphicShape.concave : NeumorphicShape.flat,
+          depth: favoritePosition ? -15.0 : 8.0,
+          lightSource: LightSource.topLeft,
+            color: dataLists.getColorData(1, themes.checkDarkTheme(context), true),
+            intensity: favoritePosition ? 1.0 : null,
         ),
-        height: 55,
-        width: 55,
-        child: Text(
-          "Test"
+        child: Container(
+          height: 25,
+          width: 25,
+          child: Text(
+            "Test",
+            style: TextStyle(
+              color: Theme.of(context).splashColor,
+            ),
+          ),
         ),
-      ),
     );
   }
 
   //USER INTERFACE: GOAL CARD STREAM BUILDER
   Widget showGoalCardStreamBuilder() {
     return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.30,
+        height: MediaQuery.of(context).size.height * 0.3,
         width: MediaQuery.of(context).size.width,
         child: StreamBuilder(
           stream: db.collection(widget.userId).snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.data.documents.isEmpty) {
-              return Container();
+              return interfaceStandards.parentCenter(context, 
+                Column(
+                  children: <Widget>[
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.175,
+                      width: MediaQuery.of(context).size.height * 0.175,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).hoverColor,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: interfaceStandards.parentCenter(context, 
+                        Icon(
+                          Icons.equalizer,
+                          size: MediaQuery.of(context).size.height * 0.125,
+                          color: Theme.of(context).canvasColor,
+                        ),
+                      )
+                    ),
+                    SizedBox(
+                      height: 9.0,
+                    ),
+                    Text(
+                      "No Goals Yet",
+                      style: TextStyle(
+                        color: Theme.of(context).textSelectionColor,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Text(
+                      "Start goals to knock 'em out!",
+                      style: TextStyle(
+                        color: Theme.of(context).textSelectionHandleColor,
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
+                ),
+              );
             } else {
               return new ListView(
                 padding: EdgeInsets.only(
@@ -316,18 +406,39 @@ class _HomeScreenState extends State<HomeScreen> {
     return new Padding(
       padding: EdgeInsets.only(left: 10, right: 10, bottom: 50.0),
       child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context, 
+            MaterialPageRoute(builder: (context) => UserGoal(
+              auth: widget.auth, 
+              logoutCallback: widget.logoutCallback, 
+              userId: widget.userId, 
+              documentSnapshot: document,
+            )
+          ));
+        },
         onLongPress: () {
           cloudFirestore.deleteData(document);
         },
-        child: animationStandards.showContainerTransitionAnimation(
-          context,
-          2, 
-          widget.auth, 
-          widget.logoutCallback, 
-          widget.userId, 
-          document, 
-          buildGoalCardStack(document)
-        ),
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.01,
+          width: MediaQuery.of(context).size.width * 0.32,
+          decoration: BoxDecoration(
+            gradient: interfaceStandards.cardLinearGradient(context, document),
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(62.0),
+              topLeft: Radius.circular(15.0),
+              bottomRight: Radius.circular(15.0),
+              bottomLeft: Radius.circular(15.0), 
+            ),
+            boxShadow: [new BoxShadow(
+              color: themes.checkDarkTheme(context) ? Colors.grey.shade900 : Colors.grey.shade400,
+              blurRadius: 15,
+              offset: new Offset(7.5, 7.5)
+            )]
+          ),
+          child: buildGoalCardStack(document),
+        )
       ),
     );
   }

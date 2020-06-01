@@ -59,25 +59,7 @@ class AnimationStandards {
             ),
           ) : 
           (animationCase == 2 ? 
-            Container(
-              height: MediaQuery.of(context).size.height * 0.01,
-              width: MediaQuery.of(context).size.width * 0.32,
-              decoration: BoxDecoration(
-                gradient: interfaceStandards.cardLinearGradient(context, document),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(62.0),
-                  topLeft: Radius.circular(15.0),
-                  bottomRight: Radius.circular(15.0),
-                  bottomLeft: Radius.circular(15.0),
-                ),
-                boxShadow: [new BoxShadow(
-                  color: themes.checkDarkTheme(context) ? Colors.grey.shade900 : Colors.grey.shade400,
-                  blurRadius: 15,
-                  offset: new Offset(7.5, 7.5)
-                )]
-              ),
-              child: child,
-            ) :
+            child :
             Icon(
               Icons.person,
               size: 50.0,

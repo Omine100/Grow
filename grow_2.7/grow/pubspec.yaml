@@ -11,7 +11,7 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   firebase_auth: ^0.14.0+5
-
+  fluttertoast: ^4.0.0
   shared_preferences: ^0.5.4+8
   cloud_firestore: ^0.12.7
   intro_slider: ^2.2.8

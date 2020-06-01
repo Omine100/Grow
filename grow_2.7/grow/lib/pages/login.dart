@@ -65,7 +65,6 @@ class _LoginScreenState extends State<LoginScreen> {
           print("Signed in: $userId");
         } else {
           userId = await widget.auth.signUp(_email, _password);
-          cloudFirestore.createNameData(_name);
           print("Signed up: $userId");
           setState(() {
             isLoading = false;
