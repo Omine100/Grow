@@ -9,7 +9,6 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
@@ -72,17 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
       return "Good Afternoon";
     }
     return "Good Evening";
-  }
-
-    //USER INTERFACE: SHOW TOAST
-  void showToast(bool favoritePosition) {
-    String timerState = favoritePosition ? "started" : "ended";
-
-    Fluttertoast.showToast(
-      msg: "Test timer " + timerState,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-    );
   }
 
   //USER INTERFACE: SHOW TITLE
@@ -306,7 +294,6 @@ class _HomeScreenState extends State<HomeScreen> {
             });
             print("Favorite timer started: " + doc['documentId']);
           }
-          showToast(favoritePosition);
         },
         boxShape: NeumorphicBoxShape.circle(),
         style: NeumorphicStyle(
