@@ -22,12 +22,13 @@ import 'package:grow/pages/userGoal.dart';
 import 'package:grow/pages/addGoal.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.auth, this.logoutCallback, this.userId});
+  HomeScreen({Key key, this.auth, this.logoutCallback, this.userId, this.streamSnapshot});
 
   //VARIABLE REFERENCE: NEEDED TO LOAD HOME SCREEN
   final BaseAuth auth;
   final VoidCallback logoutCallback;
   final String userId;
+  final Stream<QuerySnapshot> streamSnapshot;
 
   @override
   State<StatefulWidget> createState() => new _HomeScreenState();
@@ -72,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return "Good Evening";
   }
+
 
   //USER INTERFACE: SHOW TITLE
   Container showTitle() {
@@ -193,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
       alignment: Alignment.centerLeft,
       child: Padding(
         padding: EdgeInsets.only(
-          top: isFavorite ? MediaQuery.of(context).size.height * 0.025 : MediaQuery.of(context).size.height * 0.01,
+          top: isFavorite ? MediaQuery.of(context).size.height * 0.025 : MediaQuery.of(context).size.height * 0.009,
           left: MediaQuery.of(context).size.width * 0.05,
         ),
         child: Text(
@@ -213,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.1,
+        height: MediaQuery.of(context).size.height * 0.13,
         width: MediaQuery.of(context).size.width,
         child: StreamBuilder(
           stream: db.collection(widget.userId).document("Favorites").collection("Goals").snapshots(),
@@ -321,10 +323,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.3,
+        height: MediaQuery.of(context).size.height * 0.28,
         width: MediaQuery.of(context).size.width,
         child: StreamBuilder(
-          stream: db.collection(widget.userId).snapshots(),
+          stream: widget.streamSnapshot,
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.data.documents.isEmpty) {
               return interfaceStandards.parentCenter(context, 

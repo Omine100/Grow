@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
 import 'package:grow/services/authentication.dart';
 import 'package:grow/services/cloudFirestore.dart';
 import 'package:grow/pages/intro.dart';
@@ -31,6 +34,7 @@ class _RootScreenState extends State<RootScreen> {
   CloudFirestore cloudFirestore = new CloudFirestore();
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   String _userId = "";
+  final db = Firestore.instance;
 
   //MECHANICS: CHECKS FOR FILE ON VIEWING INTRO
   Future checkFirstSeen() async {
@@ -116,6 +120,7 @@ class _RootScreenState extends State<RootScreen> {
             auth: widget.auth,
             logoutCallback: logoutCallback,
             userId: _userId,
+            streamSnapshot: db.collection(_userId.toString()).snapshots(),
           );
         } else
           return buildWaitingScreen();
