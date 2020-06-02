@@ -46,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final db = Firestore.instance;
   ContainerTransitionType transitionType = ContainerTransitionType.fade;
   int currentIndex;
-  bool favoritePosition = false;
 
   //VARIABLE INITIALIZATION: BOTTOM NAVIGATION BAR
   @override
@@ -278,43 +277,50 @@ class _HomeScreenState extends State<HomeScreen> {
     documentReference.get().then((DocumentSnapshot) {
       documentSnapshot = DocumentSnapshot;
     });
+    bool individualFavoritePosition = stopwatch.isRunning ? true : false;
 
-    return new NeumorphicButton(
-        onClick: () {
-          if (stopwatch.isRunning) {
-            stopwatch.stop();
-            methodStandards.timer(stopwatch, documentSnapshot);
-            stopwatch.reset();
-            setState(() {
-              favoritePosition = false;
-              print("Favorite timer ended: " + doc['documentId']);
-            });
-          } else {
-            setState(() {
-              favoritePosition = true;
-              stopwatch.start();
-            });
-            print("Favorite timer started: " + doc['documentId']);
-          }
-        },
-        boxShape: NeumorphicBoxShape.circle(),
-        style: NeumorphicStyle(
-          shape: favoritePosition ? NeumorphicShape.concave : NeumorphicShape.flat,
-          depth: favoritePosition ? -15.0 : 8.0,
-          lightSource: LightSource.topLeft,
-            color: dataLists.getColorData(1, themes.checkDarkTheme(context), true),
-            intensity: favoritePosition ? 1.0 : null,
-        ),
-        child: Container(
-          height: 25,
-          width: 25,
-          child: Text(
-            "Test",
+    return Padding(
+      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+      child: Column(
+        children: <Widget>[
+          new NeumorphicButton(
+            onClick: () {
+              if (stopwatch.isRunning) {
+                stopwatch.stop();
+                methodStandards.timer(stopwatch, documentSnapshot);
+                stopwatch.reset();
+                setState(() {
+                  individualFavoritePosition = false;
+                  print("Favorite timer ended: " + doc['documentId']);
+                });
+              } else {
+                setState(() {
+                  individualFavoritePosition = true;
+                  stopwatch.start();
+                });
+                print("Favorite timer started: " + doc['documentId']);
+              }
+            },
+            boxShape: NeumorphicBoxShape.circle(),
+            style: NeumorphicStyle(
+              shape: individualFavoritePosition ? NeumorphicShape.concave : NeumorphicShape.flat,
+              depth: individualFavoritePosition ? -15.0 : 8.0,
+              lightSource: LightSource.topLeft,
+              color: dataLists.getColorData(1, themes.checkDarkTheme(context), true),
+              intensity: individualFavoritePosition ? 1.0 : null,
+            ),
+            child: interfaceStandards.parentCenter(context, 
+              dataLists.getIconData(documentSnapshot['icon']),
+            ),
+          ),
+          Text(
+            documentSnapshot["title"],
             style: TextStyle(
               color: Theme.of(context).splashColor,
             ),
           ),
-        ),
+        ],
+      ),
     );
   }
 
