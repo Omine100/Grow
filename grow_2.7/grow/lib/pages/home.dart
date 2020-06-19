@@ -310,11 +310,13 @@ class _HomeScreenState extends State<HomeScreen> {
               intensity: individualFavoritePosition ? 1.0 : null,
             ),
             child: interfaceStandards.parentCenter(context, 
-              dataLists.getIconData(documentSnapshot['icon']),
+              Icon(
+                Icons.add,
+              ),
             ),
           ),
           Text(
-            documentSnapshot["title"],
+            "Test",
             style: TextStyle(
               color: Theme.of(context).splashColor,
             ),
