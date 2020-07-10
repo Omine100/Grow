@@ -29,6 +29,92 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   //USER INTERFACE: SHOW SETTINGS
   Widget showSettings(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.08, top: MediaQuery.of(context).size.width * 0.08),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "Profile Settings",
+            style: TextStyle(
+              color: Theme.of(context).textSelectionColor,
+              fontSize: 27.0,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Divider(
+            color: Colors.grey.shade400,
+            height: 20.0,
+            endIndent: MediaQuery.of(context).size.width * 0.08,
+            thickness: 2,
+          ),
+          Row(
+            children: <Widget>[
+              Text(
+                "Theme",
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontSize: 26.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.57,
+              ),
+              Icon(
+                Icons.arrow_forward,
+                size: 40.0,
+                color: Colors.grey.shade400,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          Text(
+            "Account",
+            style: TextStyle(
+              color: Theme.of(context).textSelectionColor,
+              fontSize: 27.0,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Divider(
+            color: Colors.grey.shade400,
+            height: 20.0,
+            endIndent: MediaQuery.of(context).size.width * 0.08,
+            thickness: 2,
+          ),
+          GestureDetector(
+            onTap: () {
+            },
+            child: Row(
+              children: <Widget>[
+                Text(
+                  "Reset password",
+                  style: TextStyle(
+                    color: Colors.grey.shade500,
+                    fontSize: 26.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.31,
+                ),
+                Icon(
+                  Icons.arrow_forward,
+                  size: 40.0,
+                  color: Colors.grey.shade400,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   //USER INTERFACE: SHOW LOGOUT BUTTON
@@ -102,16 +188,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Stack(
           children: <Widget>[
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.085,
+              top: MediaQuery.of(context).size.height * 0.11,
               child: interfaceStandards.headerText(context, "Settings"),
             ), //Profile text
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.1,
+              top: MediaQuery.of(context).size.height * 0.06,
               left: MediaQuery.of(context).size.width * 0.06,
               child: interfaceStandards.backButton(context),
             ), //Back button
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.175,
+              top: MediaQuery.of(context).size.height * 0.25,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50.0),
