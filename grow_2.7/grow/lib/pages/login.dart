@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  //MECHANICS: VALIDATE AND SAVE USER INFROMATION
+  //MECHANICS: VALIDATE AND SAVE USER INFORMATION
   bool validateAndSave() {
     final form = formKey.currentState;
 
